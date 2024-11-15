@@ -12,7 +12,7 @@ export function SearchInput() {
         p: '0px 3px',
         display: 'flex',
         alignItems: 'center',
-        width: 300,
+        width: 330,
         boxShadow: '0px 1px 3px 0px #0000001F',
       }}
     >

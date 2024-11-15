@@ -8,7 +8,8 @@ const inter = Inter({
   display: 'swap'
 })
 
-export const PRIMARY = '#3EB281'
+//export const PRIMARY = '#3EB281'
+export const PRIMARY = '#36976E'
 
 const theme = createTheme({
   cssVariables: true,
@@ -19,7 +20,7 @@ const theme = createTheme({
       main: PRIMARY,
       dark: '#36976E',
       contrastText: '#fff'
-    }
+    },
   },
   typography: {
     fontFamily: inter.style.fontFamily

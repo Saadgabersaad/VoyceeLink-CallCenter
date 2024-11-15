@@ -25,4 +25,9 @@ img {
 a {
   display: flex;
   text-decoration: none;
+  color: currentColor;
+}
+
+button {
+  box-shadow: none !important;
 }

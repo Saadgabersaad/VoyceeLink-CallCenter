@@ -1,6 +1,6 @@
-
 import { Avatar, Typography } from '@mui/material'
 import { Flex } from 'modules/core/components/flex'
+import { AccountMenu } from './AccountMenu'
 
 export const User = () => {
   return (
@@ -10,14 +10,17 @@ export const User = () => {
         src='https://randomuser.me/api/portraits/men/22.jpg'
       />
       <div>
-        <Typography
-          color='primary'
-          fontSize={14}
-          fontWeight={500}
-          sx={{ paddingBottom: 0, marginBottom: -.1 }}
-        >
-          John Doe
-        </Typography>
+        <Flex alignItems='center' justifyContent='space-between'>
+          <Typography
+            color='primary'
+            fontSize={14}
+            fontWeight={500}
+            sx={{ paddingBottom: 0, marginBottom: -.2 }}
+          >
+            John Doe
+          </Typography>
+          <AccountMenu />
+        </Flex>
         <Typography
           component='span'
           color='grey.600'

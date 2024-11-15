@@ -5,6 +5,7 @@ import {
   People,
   Phone,
   CalendarMonth,
+  DashboardOutlined,
 } from '@mui/icons-material'
 import { NavigationItem } from './types'
 
@@ -22,7 +23,7 @@ export const modules: NavigationItem[] = [
       {
         label: 'Dashboard',
         href: '/dashboard',
-        icon: <Dashboard />,
+        icon: <DashboardOutlined />,
         subItems: [
           {
             label: 'Overview',

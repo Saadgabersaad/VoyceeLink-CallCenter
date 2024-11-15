@@ -1,9 +1,12 @@
 'use client'
 
-import { List, ListSubheader, styled } from '@mui/material'
+import { List, ListSubheader, styled, Typography } from '@mui/material'
 import { SubNavItem } from './SubNavItem'
 import { modules } from './consts'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { PRIMARY } from 'modules/core/consts/theme'
+import { Flex } from 'modules/core/components/flex'
 
 const Navbar = styled(List)<{ component?: React.ElementType }>({
   '& .MuiListItemButton-root': {
@@ -21,13 +24,15 @@ const Navbar = styled(List)<{ component?: React.ElementType }>({
 
 // SECOND SIDEBAR
 export function NavigationSubItems() {
-  const subItems = modules.find(mod => mod.href === '/crm')?.subItems
+  const pathname = usePathname()
+  const module = modules.find(mod => mod.href === pathname)
+  const subItems = module?.subItems
 
   return (
     <Navbar
       sx={{
         width: '100%',
-        maxWidth: 225,
+        maxWidth: 235,
         bgcolor: 'background.paper',
         borderWidth: '1px',
         borderColor: 'grey.200',
@@ -36,8 +41,10 @@ export function NavigationSubItems() {
       component='nav'
       aria-labelledby='nested-list-subheader'
       subheader={
-        <ListSubheader component='div' id="nested-list-subheader">
-          CRM
+        <ListSubheader component='div' id="nested-list-subheader" sx={{ color: PRIMARY }}>
+          <Flex alignItems='center' gap={1.2} fontSize={16} my={2}>
+            {module?.icon} <Typography component='span' sx={{ color: 'grey.700' }}>{module?.label}</Typography>
+          </Flex>
         </ListSubheader>
       }
     >

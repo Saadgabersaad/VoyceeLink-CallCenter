@@ -1,12 +1,13 @@
 import { AppHeader } from './Appbar'
-import { Sidebar } from './Sidebar'
+import { Main } from './Main'
 
 export const AppLayout = ({ children }: Readonly<{
   children: React.ReactNode
 }>) => {
   return <>
     <AppHeader />
-    <Sidebar />
-    {children}
+    <Main>
+      {children}
+    </Main>
   </>
 }
