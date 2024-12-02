@@ -27,7 +27,3 @@ a {
   text-decoration: none;
   color: currentColor;
 }
-
-button {
-  box-shadow: none !important;
-}
