@@ -38,6 +38,7 @@ const SubNavItemContent = ({
   const [open, setOpen] = useState(false)
 
   const handleClick = () => {
+    // IF NOT NESTED ITEMS IS A SUB ITEM
     if (!nestedItems) return
     setOpen(b => !b)
   }
@@ -51,7 +52,12 @@ const SubNavItemContent = ({
         primary={item?.label}
         primaryTypographyProps={{
           fontSize: 15,
-          color: '#414651'
+          color: '#414651',
+          ...!nestedItems && {
+            sx: {
+              paddingLeft: '1.3rem'
+            }
+          }
         }}
       />
       {nestedItems && (

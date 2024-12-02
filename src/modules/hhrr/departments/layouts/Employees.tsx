@@ -1,5 +1,6 @@
-//LAYOUT OF EMPLOYEES
-export default function Employees() {
+import React from 'react'
+
+export const Employees = () => {
   return (
     <div>Employees</div>
   )
