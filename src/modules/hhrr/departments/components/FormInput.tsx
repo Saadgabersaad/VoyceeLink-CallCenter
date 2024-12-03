@@ -6,15 +6,9 @@ export const FormInput = (props: TextFieldProps) => {
     <>
       <TextField
         required
-        margin='dense'
-        id="name"
+        id='name'
         size='small'
-        sx={{
-          "::placeholder": {
-            fontSize: 10,
-            color: 'red'
-          }
-        }}
+        margin='dense'
         fullWidth
         {...props}
       />

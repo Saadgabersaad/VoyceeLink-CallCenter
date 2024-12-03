@@ -8,6 +8,9 @@ import Divider from '@mui/material/Divider'
 import { useBoolean } from 'modules/core/hooks/use-boolean'
 import { Button } from 'modules/core/components/button'
 import { FormInput } from '../components/FormInput'
+import { SelectRoles } from '../components/SelectRoles'
+import { Select } from 'modules/core/components/select'
+import { Dropzone } from '../components/Dropzone'
 
 //TODO: MAKE A DIALOG CORE COMPONENT
 export default function FormDialog() {
@@ -23,7 +26,7 @@ export default function FormDialog() {
 
   return (
     <React.Fragment>
-      <Button variant='outlined' onClick={handleClickOpen}>
+      <Button variant='outlined' onClick={handleClickOpen} sx={{ fontSize: 10 }}>
         Add Employee
       </Button>
       <Dialog
@@ -39,10 +42,10 @@ export default function FormDialog() {
           },
         }}
       >
-        <DialogTitle sx={{ fontWeight: '700', pb: 0 }}>Add Employee</DialogTitle>
+        <DialogTitle sx={{ fontWeight: '700', pb: 0, fontSize: 19 }}>Add Employee</DialogTitle>
         <DialogContent>
-          <Divider sx={{ mt: 2 }} />
-          <Grid container columnSpacing={2} rowSpacing={1} sx={{ mt: 2 }}>
+          <Divider sx={{ mt: 1.5 }} />
+          <Grid container columnSpacing={2} rowSpacing={.5} sx={{ mt: 1.5 }}>
             <Grid size={6}>
               <FormInput id="name" name="firstname" label='First Name' />
             </Grid>
@@ -55,7 +58,25 @@ export default function FormDialog() {
             <Grid size={6}>
               <FormInput id="phone" name="phone" label='Phone' />
             </Grid>
+            <Grid size={6} mt={1}>
+              <Select
+                name='department'
+                label='Department'
+                labelId='department'
+                options={[{ label: 'Department 1', value: 1 }]}
+              />
+            </Grid>
+            <Grid size={6} mt={1}>
+              <Select
+                name='position'
+                label='Position'
+                labelId='position'
+                options={[{ label: 'Position 1', value: 1 }]}
+              />
+            </Grid>
           </Grid>
+          <SelectRoles />
+          <Dropzone />
         </DialogContent>
         <DialogActions sx={{ paddingBottom: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
           <Button onClick={handleClose} sx={{ boxShadow: 1, px: 2 }}>
