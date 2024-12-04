@@ -52,8 +52,9 @@ export default function DottedMenu() {
                 slotProps={{
                     paper: {
                         style: {
-                            maxHeight: ITEM_HEIGHT * 4.5,
-                            width: '25ch',
+                            maxHeight: ITEM_HEIGHT * 5.5,
+                            width: '23ch',
+                            border: 'solid 1px green',
                         },
                     },
                 }}
@@ -62,6 +63,7 @@ export default function DottedMenu() {
                     <MenuItem
                         key={option.label}
                         onClick={handleClose}
+                        sx={{paddingX:'16px',paddingY:'12px'}}
                     >
                         {option.icon}
                         <span style={{ marginLeft: '10px' }}>{option.label}</span>

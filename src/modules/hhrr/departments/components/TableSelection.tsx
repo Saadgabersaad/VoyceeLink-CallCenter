@@ -8,6 +8,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import {Button} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SettingsIcon from "@mui/icons-material/Settings";
+import FilterBtn from "modules/hhrr/departments/components/FilterBtn";
 
 
 interface EnhancedTableToolbarProps {
@@ -28,18 +29,16 @@ interface EnhancedTableToolbarProps {
                         }
                     ]}
                 >
-                    <Flex>
+                    <Flex gap={2}>
                         <SearchInput/>
                         <Tooltip title="Filter list">
-                            <IconButton>
-                                <FilterListIcon />Filter  TODO
-                            </IconButton>
+                                <FilterBtn />
                         </Tooltip>
                     </Flex>
 
 
                     {numSelected > 0 ? (
-                        <Tooltip  title="Edit">
+                        <Flex>
                             <Button variant="contained">DEACTIVATE</Button>
                             <IconButton>
                                 <DeleteIcon sx={{ color: 'red' }} />
@@ -48,7 +47,7 @@ interface EnhancedTableToolbarProps {
                                 <SettingsIcon sx={{ color: 'gray' }} />
                             </IconButton>
 
-                        </Tooltip>
+                        </Flex>
                     ) : null}
                 </Toolbar>
             );

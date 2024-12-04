@@ -19,23 +19,27 @@ import DottedMenu from "modules/hhrr/departments/components/DottedMenu";
 
 interface Data {
     id: number;
-    position: number;
+    name: string;
+    position: string;
     phoneNumber: number;
-    email: number;
-    department: number;
-    status: number;
+    email: string;
+    department: string;
+    status: string;
+
 }
 
 function createData(
     id: number,
-    position: number,
+    name: string,
+    position: string,
     phoneNumber: number,
-    email: number,
-    department: number,
-    status: number,
+    email: string,
+    department: string,
+    status: string,
 ): Data {
     return {
         id,
+        name,
         position,
         phoneNumber,
         email,
@@ -45,19 +49,19 @@ function createData(
 }
 
 const rows = [
-    createData(1, 'Cupcake', 305, 3.7, 67, 4.3),
-    createData(2, 'Donut', 452, 25.0, 51, 4.9),
-    createData(3, 'Eclair', 262, 16.0, 24, 6.0),
-    createData(4, 'Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData(5, 'Gingerbread', 356, 16.0, 49, 3.9),
-    createData(6, 'Honeycomb', 408, 3.2, 87, 6.5),
-    createData(7, 'Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData(8, 'Jelly Bean', 375, 0.0, 94, 0.0),
-    createData(9, 'KitKat', 518, 26.0, 65, 7.0),
-    createData(10, 'Lollipop', 392, 0.2, 98, 0.0),
-    createData(11, 'Marshmallow', 318, 0, 81, 2.0),
-    createData(12, 'Nougat', 360, 19.0, 9, 37.0),
-    createData(13, 'Oreo', 437, 18.0, 63, 4.0),
+    createData(1, 'Cupcake', "305", 1243222437, "aliaa@gmail.com", 'dept-1',"Active"),
+    createData(2, 'Donut', "452", 1243222437.0, "aliaa@gmail.com", 'dept-2',"Active"),
+    createData(3, 'Eclair', "262", 1243222437.0, "aliaa@gmail.com", 'dept-1',"Inactive"),
+    createData(4, 'Frozen yoghurt', "159", 1243222437.0, "aliaa@gmail.com",'dept-3',"Inactive"),
+    createData(5, 'Gingerbread', "356", 1243222437.0, "aliaa@gmail.com", 'dept-1',"Active"),
+    createData(6, 'Honeycomb', "408", 1243222437.2, "aliaa@gmail.com", 'dept-4',"Active"),
+    createData(7, 'Ice cream sandwich', "237", 1243222437, "aliaa@gmail.com",'dept-1',"Inactive"),
+    createData(8, 'Jelly Bean', "375", 1243222437.0, "aliaa@gmail.com", 'dept-1',"Active"),
+    createData(9, 'KitKat', "518", 1243222437.0, "aliaa@gmail.com", 'dept-4',"Inactive"),
+    createData(10, 'Lollipop', "392", 1243222437.2, "aliaa@gmail.com", 'dept-2',"Active"),
+    createData(11, 'Marshmallow', "318", 1243222437, "aliaa@gmail.com", 'dept-1',"Inactive"),
+    createData(12, 'Nougat', "360", 1243222437.0, "aliaa@gmail.com",'dept-2',"Active"),
+    createData(13, 'Oreo', "437", 1243222437.0, "aliaa@gmail.com", 'dept-3',"Inactive"),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -96,7 +100,7 @@ const headCells: readonly HeadCell[] = [
         id: 'name',
         numeric: false,
         disablePadding: true,
-        label: 'ID',
+        label: 'Name',
     },
     {
         id: 'position',
@@ -106,29 +110,29 @@ const headCells: readonly HeadCell[] = [
     },
     {
         id: 'phoneNumber',
-        numeric: true,
+        numeric: false,
         disablePadding: false,
         label: 'Phone Number',
     },
     {
         id: 'email',
-        numeric: true,
+        numeric: false,
         disablePadding: false,
         label: 'Email',
     },
     {
         id: 'department',
-        numeric: true,
+        numeric: false,
         disablePadding: false,
         label: 'Department',
     }, {
         id: 'status',
-        numeric: true,
+        numeric: false,
         disablePadding: false,
         label: 'Status',
     }, {
         id: 'menu',
-        numeric: true,
+        numeric: false,
         disablePadding: false,
         label: '',
     },
@@ -198,7 +202,6 @@ export default function Employees() {
     const [orderBy, setOrderBy] = React.useState<keyof Data>('position');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
-    const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleRequestSort = (
@@ -247,9 +250,7 @@ export default function Employees() {
         setPage(0);
     };
 
-    const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDense(event.target.checked);
-    };
+
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
@@ -271,7 +272,7 @@ export default function Employees() {
                     <Table
                         sx={{ minWidth: 750 }}
                         aria-labelledby="tableTitle"
-                        size={dense ? 'small' : 'medium'}
+                        size={ 'medium'}
                     >
                         <EnhancedTableHead
                             numSelected={selected.length}
@@ -312,18 +313,18 @@ export default function Employees() {
                                             scope="row"
                                             padding="none"
                                         >
-                                            {row.id}
+                                            {row.name}
                                         </TableCell>
-                                        <TableCell align="right">
+                                        <TableCell align="left">
                                             {/*{row.position}*/}
                                             {/*TODO position menu*/}
                                             <PositionMenu clientType={row.position} />
                                         </TableCell>
-                                        <TableCell align="right">{row.phoneNumber}</TableCell>
-                                        <TableCell align="right">{row.email}</TableCell>
-                                        <TableCell align="right">{row.department}</TableCell>
-                                        <TableCell align="right">{row.status}</TableCell>
-                                        <TableCell align="right">
+                                        <TableCell align="left">{row.phoneNumber}</TableCell>
+                                        <TableCell align="left">{row.email}</TableCell>
+                                        <TableCell align="left">{row.department}</TableCell>
+                                        <TableCell align="left">{row.status}</TableCell>
+                                        <TableCell align="left">
                                             <DottedMenu/>
                                         </TableCell>
                                     </TableRow>
@@ -332,7 +333,7 @@ export default function Employees() {
                             {emptyRows > 0 && (
                                 <TableRow
                                     style={{
-                                        height: (dense ? 33 : 53) * emptyRows,
+                                        height: (53) * emptyRows,
                                     }}
                                 >
                                     <TableCell colSpan={6} />
@@ -351,10 +352,7 @@ export default function Employees() {
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
             </Paper>
-            <FormControlLabel
-                control={<Switch checked={dense} onChange={handleChangeDense} />}
-                label="Dense padding"
-            />
+
         </Box>
     );
 }
