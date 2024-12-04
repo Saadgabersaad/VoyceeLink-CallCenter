@@ -9,7 +9,7 @@ export const Main = ({
   return (
     <Flex flexGrow={1}>
       <Navigation />
-      <Flex flexDirection='column' p={1.5} flexGrow={1}>
+      <Flex flexDirection='column' flexGrow={1}>
         {children}
       </Flex>
     </Flex>
