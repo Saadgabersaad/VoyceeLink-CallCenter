@@ -15,31 +15,33 @@ import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
 import PositionMenu from "modules/hhrr/departments/components/PositionMenu";
 import EnhancedTableToolbar from '../components/TableSelection'
+import DotMenu from "modules/hhrr/departments/components/DotMenu";
+import LongMenu from "modules/hhrr/departments/components/DotMenu";
 
 interface Data {
     id: number;
-    calories: number;
-    carbs: number;
-    fat: number;
-    name: string;
-    protein: number;
+    position: number;
+    phoneNumber: number;
+    email: number;
+    department: number;
+    status: number;
 }
 
 function createData(
     id: number,
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
+    position: number,
+    phoneNumber: number,
+    email: number,
+    department: number,
+    status: number,
 ): Data {
     return {
         id,
-        name,
-        calories,
-        fat,
-        carbs,
-        protein,
+        position,
+        phoneNumber,
+        email,
+        department,
+        status,
     };
 }
 
@@ -95,36 +97,41 @@ const headCells: readonly HeadCell[] = [
         id: 'name',
         numeric: false,
         disablePadding: true,
-        label: 'Name',
+        label: 'ID',
     },
     {
-        id: 'calories',
+        id: 'position',
         numeric: false,
         disablePadding: false,
         label: 'Position',
     },
     {
-        id: 'fat',
+        id: 'phoneNumber',
         numeric: true,
         disablePadding: false,
         label: 'Phone Number',
     },
     {
-        id: 'carbs',
+        id: 'email',
         numeric: true,
         disablePadding: false,
         label: 'Email',
     },
     {
-        id: 'protein',
+        id: 'department',
         numeric: true,
         disablePadding: false,
         label: 'Department',
     }, {
-        id: 'protein',
+        id: 'status',
         numeric: true,
         disablePadding: false,
         label: 'Status',
+    }, {
+        id: 'menu',
+        numeric: true,
+        disablePadding: false,
+        label: '',
     },
 ];
 
@@ -189,7 +196,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 export default function Employees() {
     const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
+    const [orderBy, setOrderBy] = React.useState<keyof Data>('position');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
@@ -306,17 +313,20 @@ export default function Employees() {
                                             scope="row"
                                             padding="none"
                                         >
-                                            {row.name}
+                                            {row.id}
                                         </TableCell>
                                         <TableCell align="right">
-                                            {/*{row.calories}*/}
+                                            {/*{row.position}*/}
                                             {/*TODO position menu*/}
-                                            <PositionMenu clientType={row.calories} />
+                                            <PositionMenu clientType={row.position} />
                                         </TableCell>
-                                        <TableCell align="right">{row.fat}</TableCell>
-                                        <TableCell align="right">{row.carbs}</TableCell>
-                                        <TableCell align="right">{row.protein}</TableCell>
-                                        <TableCell align="right">{row.protein}</TableCell>
+                                        <TableCell align="right">{row.phoneNumber}</TableCell>
+                                        <TableCell align="right">{row.email}</TableCell>
+                                        <TableCell align="right">{row.department}</TableCell>
+                                        <TableCell align="right">{row.status}</TableCell>
+                                        <TableCell align="right">
+                                            <LongMenu/>
+                                        </TableCell>
                                     </TableRow>
                                 );
                             })}
