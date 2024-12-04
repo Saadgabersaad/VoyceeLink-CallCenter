@@ -15,8 +15,7 @@ import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
 import PositionMenu from "modules/hhrr/departments/components/PositionMenu";
 import EnhancedTableToolbar from '../components/TableSelection'
-import DotMenu from "modules/hhrr/departments/components/DotMenu";
-import LongMenu from "modules/hhrr/departments/components/DotMenu";
+import DottedMenu from "modules/hhrr/departments/components/DottedMenu";
 
 interface Data {
     id: number;
@@ -325,7 +324,7 @@ export default function Employees() {
                                         <TableCell align="right">{row.department}</TableCell>
                                         <TableCell align="right">{row.status}</TableCell>
                                         <TableCell align="right">
-                                            <LongMenu/>
+                                            <DottedMenu/>
                                         </TableCell>
                                     </TableRow>
                                 );
