@@ -17,7 +17,7 @@ import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 
 //TODO: MAKE A DIALOG CORE COMPONENT
-export default function FormDialog() {
+export default function AddEmployeeFormDialog() {
   const methods = useForm<CreateEmployee>()
   const { handleSubmit } = methods
 
@@ -55,7 +55,7 @@ export default function FormDialog() {
                 <FormInput id="email" type='email' name="email" label='Email address' />
               </Grid>
               <Grid size={6}>
-                <FormInput id="phone" name="phone" label='Phone' />
+                <FormInput id='phone' type='phone' name='phone' label='Phone' />
               </Grid>
               <Grid size={6} mt={1}>
                 <Select
