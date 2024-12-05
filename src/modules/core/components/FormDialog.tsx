@@ -1,5 +1,6 @@
-import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
+import { Dialog, DialogActions, DialogTitle } from '@mui/material'
 import { FieldValues, FormProvider, useForm } from 'react-hook-form'
+import { Button } from './Button'
 
 type FormProps<T> = {
   title?: string

@@ -2,7 +2,6 @@ import * as React from 'react'
 import { useBoolean } from 'modules/core/hooks/use-boolean'
 import {
   FormDialog,
-  FormHeading,
   FormActions
 } from 'modules/core/components/FormDialog'
 import { Button } from 'modules/core/components/Button'
