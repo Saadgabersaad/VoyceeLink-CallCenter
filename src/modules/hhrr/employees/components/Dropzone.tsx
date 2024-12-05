@@ -53,7 +53,7 @@ export function Dropzone() {
   ])
 
   return (
-    <Box py={4}>
+    <Box py={2}>
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <Box py={.5}>

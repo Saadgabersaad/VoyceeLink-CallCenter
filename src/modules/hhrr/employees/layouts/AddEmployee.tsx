@@ -1,48 +1,36 @@
 import * as React from 'react'
+import { useBoolean } from 'modules/core/hooks/use-boolean'
+import { Button } from 'modules/core/components/button'
+import { Select } from 'modules/core/components/select'
+import { MultiplePositionsSelect } from '../components/PositionsMultipleSelect'
+import { FormInput } from '../components/FormInput'
+import { Dropzone } from '../components/Dropzone'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import Grid from '@mui/material/Grid2'
 import Divider from '@mui/material/Divider'
-import { useBoolean } from 'modules/core/hooks/use-boolean'
-import { Button } from 'modules/core/components/button'
-import { FormInput } from '../components/FormInput'
-import { SelectRoles } from '../components/SelectRoles'
-import { Select } from 'modules/core/components/select'
-import { Dropzone } from '../components/Dropzone'
+import Typography from '@mui/material/Typography'
+
 
 //TODO: MAKE A DIALOG CORE COMPONENT
 export default function FormDialog() {
   const [open, onOpen, onClose] = useBoolean()
 
-  const handleClickOpen = () => {
-    onOpen()
-  }
-
-  const handleClose = () => {
-    onClose()
-  }
-
   return (
     <React.Fragment>
-      <Button variant='outlined' onClick={handleClickOpen} sx={{ fontSize: 10 }}>
+      <Button variant='outlined' onClick={onOpen}>
         Add Employee
       </Button>
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={onClose}
         PaperProps={{
           component: 'form',
-          onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault()
-            const formData = new FormData(event.currentTarget)
-            const formJson = Object.fromEntries((formData as any).entries())
-            handleClose()
-          },
         }}
       >
-        <DialogTitle sx={{ fontWeight: '700', pb: 0, fontSize: 19 }}>Add Employee</DialogTitle>
+        <DialogTitle sx={{ fontWeight: '700', pb: 0, fontSize: 20 }}>Add Employee</DialogTitle>
         <DialogContent>
           <Divider sx={{ mt: 1.5 }} />
           <Grid container columnSpacing={2} rowSpacing={.5} sx={{ mt: 1.5 }}>
@@ -63,23 +51,21 @@ export default function FormDialog() {
                 name='department'
                 label='Department'
                 labelId='department'
+                placeholder='Select a department first'
                 options={[{ label: 'Department 1', value: 1 }]}
               />
             </Grid>
             <Grid size={6} mt={1}>
-              <Select
-                name='position'
-                label='Position'
-                labelId='position'
-                options={[{ label: 'Position 1', value: 1 }]}
-              />
+              <MultiplePositionsSelect />
             </Grid>
           </Grid>
-          <SelectRoles />
+          <Typography fontWeight={600} pt={4}>
+            Add a profile picture
+          </Typography>
           <Dropzone />
         </DialogContent>
         <DialogActions sx={{ paddingBottom: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
-          <Button onClick={handleClose} sx={{ boxShadow: 1, px: 2 }}>
+          <Button onClick={onClose} sx={{ boxShadow: 1, px: 2 }}>
             Cancel
           </Button>
           <Button variant='contained'>
