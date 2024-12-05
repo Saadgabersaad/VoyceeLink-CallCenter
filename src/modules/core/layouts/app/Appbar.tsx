@@ -1,6 +1,6 @@
 import { Box, AppBar, Toolbar, Button } from '@mui/material'
-import { Flex } from 'modules/core/components/flex'
-import { Logo } from 'modules/core/components/logo'
+import { Flex } from 'modules/core/components/Flex'
+import { Logo } from 'modules/core/components/Logo'
 import { SearchInput } from './Search'
 import { User } from './User'
 

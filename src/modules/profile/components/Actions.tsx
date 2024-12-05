@@ -1,6 +1,6 @@
 import { Add, Download, Upload } from '@mui/icons-material'
 import { Button } from '@mui/material'
-import { Flex } from 'modules/core/components/flex'
+import { Flex } from 'modules/core/components/Flex'
 
 export const Actions = () => {
   return (

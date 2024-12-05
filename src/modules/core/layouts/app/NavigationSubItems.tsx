@@ -6,7 +6,7 @@ import { modules } from './consts'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { PRIMARY } from 'modules/core/consts/theme'
-import { Flex } from 'modules/core/components/flex'
+import { Flex } from 'modules/core/components/Flex'
 
 const Navbar = styled(List)<{ component?: React.ElementType }>({
   '& .MuiListItemButton-root': {

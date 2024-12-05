@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { SelectChangeEvent } from '@mui/material'
-import { MultipleSelect } from 'modules/core/components/multiple-select'
+import { MultipleSelect } from 'modules/core/components/MultipleSelect'
 
 const roles = [1, 2, 3]
 
