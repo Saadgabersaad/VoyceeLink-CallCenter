@@ -320,9 +320,9 @@ export default function Employees() {
                                             {row.name}
                                         </TableCell>
                                         <TableCell align="left">
-                                            {/*{row.position}*/}
+                                            {row.position}
                                             {/*TODO position menu*/}
-                                            <PositionMenu position={row.position}  />
+                                            {/*<PositionMenu position={row.position}  />*/}
                                         </TableCell>
                                         <TableCell align="left">{row.phoneNumber}</TableCell>
                                         <TableCell align="left">{row.email}</TableCell>
