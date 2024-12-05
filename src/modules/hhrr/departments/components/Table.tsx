@@ -25,7 +25,6 @@ interface Data {
     email: string;
     department: string;
     status: string;
-
 }
 
 function createData(
@@ -95,6 +94,10 @@ interface HeadCell {
     numeric: boolean;
 }
 
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
+// @ts-ignore
 const headCells: readonly HeadCell[] = [
     {
         id: 'name',
@@ -131,6 +134,7 @@ const headCells: readonly HeadCell[] = [
         disablePadding: false,
         label: 'Status',
     }, {
+    //@ts-ignore
         id: 'menu',
         numeric: false,
         disablePadding: false,
@@ -318,13 +322,16 @@ export default function Employees() {
                                         <TableCell align="left">
                                             {/*{row.position}*/}
                                             {/*TODO position menu*/}
-                                            <PositionMenu clientType={row.position} />
+                                            <PositionMenu position={row.position}  />
                                         </TableCell>
                                         <TableCell align="left">{row.phoneNumber}</TableCell>
                                         <TableCell align="left">{row.email}</TableCell>
                                         <TableCell align="left">{row.department}</TableCell>
-                                        <TableCell align="left">{row.status}</TableCell>
                                         <TableCell align="left">
+                                            <PositionMenu status={row.status} />
+                                        </TableCell>
+                                        <TableCell align="left">
+
                                             <DottedMenu/>
                                         </TableCell>
                                     </TableRow>
