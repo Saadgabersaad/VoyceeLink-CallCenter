@@ -1,4 +1,4 @@
-import { Employees } from 'modules/hhrr/departments/layouts/Employees'
+import { Employees } from 'modules/hhrr/employees/layouts/Employees'
 
 //DEPARTMENTS SUBMODULE
 export default function DepartmentsPage() {
