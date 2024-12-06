@@ -4,8 +4,8 @@ import {
   FormDialog,
   FormActions
 } from 'modules/core/components/FormDialog'
-import { Button } from 'modules/core/components/Button'
-import { Select } from 'modules/core/components/Select'
+import { Button } from 'modules/core/components/button'
+import { Select } from 'modules/core/components/select'
 import { Dropzone } from '../components/Dropzone'
 import { MultiplePositionsSelect } from '../components/PositionsMultipleSelect'
 import { FormInput } from 'modules/core/components/FormInput'
