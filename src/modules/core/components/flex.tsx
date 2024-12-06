@@ -1,4 +1,7 @@
-import { Box, SxProps } from '@mui/material'
+import {
+  Box,
+  SxProps
+} from '@mui/material'
 
 export const Flex = (props: SxProps & React.PropsWithChildren) => {
   const { children, ...rest } = props

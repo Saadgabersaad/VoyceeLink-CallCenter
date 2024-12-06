@@ -13,9 +13,9 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { visuallyHidden } from '@mui/utils';
-import PositionMenu from "modules/hhrr/departments/components/StatusMenu";
+import PositionMenu from "modules/hhrr/employees/components/PositionMenu";
 import EnhancedTableToolbar from '../components/TableSelection'
-import DottedMenu from "modules/hhrr/departments/components/DottedMenu";
+import DottedMenu from "modules/hhrr/employees/components/DottedMenu";
 
 interface Data {
     id: number;

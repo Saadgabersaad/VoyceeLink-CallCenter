@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import { Flex } from 'modules/core/components/flex'
+import { Flex } from 'modules/core/components/Flex'
 
 export const GeneralUserData = () => {
   return (
