@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import Table from "../components/Table";
 import HrNavigation from "modules/hhrr/departments/components/HrNavigation";
 import {Box} from "@mui/material";
 import CustomTabPanel from "../components/DepartmentTabs"
