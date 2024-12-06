@@ -13,11 +13,12 @@ import FilterBtn from "modules/hhrr/departments/components/FilterBtn";
 
 interface EnhancedTableToolbarProps {
     numSelected: number;
+    tableSearch:boolean;
 }
     const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 
 
-
+            const {tableSearch} =props;
             const { numSelected } = props;
             return (
                 <Toolbar
@@ -30,25 +31,25 @@ interface EnhancedTableToolbarProps {
                     ]}
                 >
                     <Flex gap={2}>
-                        <SearchInput/>
+                        <SearchInput tableSearch={tableSearch} />
                         <Tooltip title="Filter list">
                                 <FilterBtn />
                         </Tooltip>
                     </Flex>
 
 
-                    {numSelected > 0 ? (
-                        <Flex>
-                            <Button variant="contained">DEACTIVATE</Button>
-                            <IconButton>
-                                <DeleteIcon sx={{ color: 'red' }} />
-                            </IconButton>
-                            <IconButton>
-                                <SettingsIcon sx={{ color: 'gray' }} />
-                            </IconButton>
+                    {/*{numSelected > 0 ? (*/}
+                    {/*    <Flex>*/}
+                    {/*        <Button variant="contained">DEACTIVATE</Button>*/}
+                    {/*        <IconButton>*/}
+                    {/*            <DeleteIcon sx={{ color: 'red' }} />*/}
+                    {/*        </IconButton>*/}
+                    {/*        <IconButton>*/}
+                    {/*            <SettingsIcon sx={{ color: 'gray' }} />*/}
+                    {/*        </IconButton>*/}
 
-                        </Flex>
-                    ) : null}
+                    {/*    </Flex>*/}
+                    {/*) : null}*/}
                 </Toolbar>
             );
 

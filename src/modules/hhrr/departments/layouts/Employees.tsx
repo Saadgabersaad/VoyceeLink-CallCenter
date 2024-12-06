@@ -5,7 +5,7 @@ import {Box} from "@mui/material";
 import CustomTabPanel from "../components/DepartmentTabs"
 export const Employees = () => {
     return (
-        <Box component='div' sx={{bgcolor:'grey.100',p:0,display:'flex',flexDirection:'column',gap:'24px',}}>
+        <Box component='div' sx={{bgcolor:'grey.100',p:0,display:'flex',flexDirection:'column',gap:'24px', pt:4,borderTop:'solid 1px lightgray'}}>
             <HrNavigation/>
             <CustomTabPanel/>
         </Box>

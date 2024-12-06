@@ -18,25 +18,25 @@ export default function FilterBtn() {
         {
             title: 'Position Options',
             options: [
-                { label: 'Admin', backgroundColor: '#F7F7F7', color: '' },
-                { label: 'Manager', backgroundColor: '#F7F7F7', color: '#589E67' },
-                { label: 'HR', backgroundColor: '#F7F7F7', color: '#4976F4' },
-                { label: 'User', backgroundColor: '#F7F7F7', color: '#B1AB1D' },
+                { label: 'Admin', backgroundColor: '#F7F7F7'},
+                { label: 'Manager', backgroundColor: '#F7F7F7' },
+                { label: 'HR', backgroundColor: '#F7F7F7' },
+                { label: 'User', backgroundColor: '#F7F7F7' },
             ],
         },
         {
             title: 'Department Options',
             options: [
-                { label: 'Depart-1', backgroundColor: '#F7F7F7', color: '#589E67' },
-                { label: 'Depart-3', backgroundColor: '#F7F7F7', color: '#B1AB1D' },
-                { label: 'Depart-2', backgroundColor: '#F7F7F7', color: '#954BAF' },
+                { label: 'Depart-1', backgroundColor: '#F7F7F7' },
+                { label: 'Depart-3', backgroundColor: '#F7F7F7' },
+                { label: 'Depart-2', backgroundColor: '#F7F7F7' },
             ],
         },
         {
             title: 'Status Options',
             options: [
-                { label: 'Active', backgroundColor: '#F7F7F7', color: '#589E67' },
-                { label: 'Inactive', backgroundColor: '#F7F7F7', color: '#B1AB1D' },
+                { label: 'Active', backgroundColor: '#F7F7F7' },
+                { label: 'Inactive', backgroundColor: '#F7F7F7' },
             ],
         },
     ];
@@ -114,18 +114,18 @@ export default function FilterBtn() {
                                         }}
                                     >
                                         {optionGroups.map((group) => (
-                                            <Box key={group.title}>
-                                                <strong style={{ marginBottom: '8px', display: 'block' }}>
+                                            <Box  key={group.title}>
+                                                <strong style={{ marginBottom: '8px', display: 'block' ,fontSize:'12px',color:'#616161'}}>
                                                     {group.title}
                                                 </strong>
                                                 {group.options.map((option) => (
                                                     <MenuItem
                                                         key={option.label}
                                                         sx={{
+                                                            fontSize:'12px',
                                                             borderRadius: '5px',
                                                             my: '5px',
                                                             backgroundColor: option.backgroundColor,
-                                                            color: option.color,
                                                         }}
                                                     >
                                                         {option.label}
