@@ -117,12 +117,13 @@
 // }
 
 import React, { useState, useRef } from 'react';
-import {Button, ButtonGroup, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList,} from '@mui/material';
+import {Button, ButtonGroup, ClickAwayListener, Grow, Paper, Popper, MenuItem, MenuList, Box,} from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import {Flex} from "modules/core/components/flex";
 
 
 interface SimpleListMenuProps {
-    status?: boolean;
+    status?: string;
 }
 
 const statusOptions = [
@@ -158,28 +159,29 @@ export default function SimpleListMenu({ status }: SimpleListMenuProps) {
         <>
             <ButtonGroup ref={anchorRef}
             sx={{
-                px:2,
+                px:1.5,
                 py:1,
                 border:'solid 1px lightgray'
             }}
             >
+                <Box
+                   sx={{display:'flex', justifyContent:"space-between", alignItems:"center",gap:'15px'}}
+                    onClick={handleToggle}
+                >
                 <Button
                     sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
                         color: selectedOption?.color || 'black',
                         bgcolor: selectedOption?.backgroundColor || 'white',
                         border: '1px solid lightGray',
                         textTransform: 'none',
-                        padding: '8px 12px',
+                        padding: '4px 10px',
                         borderRadius: '100px',
                     }}
-                    onClick={handleToggle}
                 >
                     {selectedOption?.label || 'Select Status'}
-                    <ArrowDropDownIcon />
                 </Button>
+                    <ArrowDropDownIcon />
+                </Box>
             </ButtonGroup>
 
             <Popper
@@ -213,6 +215,7 @@ export default function SimpleListMenu({ status }: SimpleListMenuProps) {
                                             sx={{
                                                 borderRadius: '50px',
                                                 my: '5px',
+                                                px:2,
                                                 backgroundColor: option.backgroundColor,
                                                 color: option.color,
                                             }}

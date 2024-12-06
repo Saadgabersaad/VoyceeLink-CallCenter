@@ -69,11 +69,16 @@ export default function FilterBtn() {
                         justifyContent: "space-between",
                         alignItems: "center",
                         py: 0,
+                        fontWeight: 'bold',
+                        fontSize: '16px',
+                        textTransform: 'capitalize'
+
                     }}
+
                     onClick={handleToggle}
                 >
                     <FilterListIcon />
-                    <span>Filter Options</span>
+                    <span >Filters</span>
                     <ArrowDropDownIcon />
                 </Button>
             </ButtonGroup>
