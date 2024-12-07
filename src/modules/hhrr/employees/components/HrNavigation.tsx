@@ -1,5 +1,5 @@
 import React from 'react'
-import {Actions} from "modules/hhrr/departments/components/Actions";
+import {Actions} from "modules/hhrr/employees/components/Actions";
 import {Flex} from "modules/core/components/flex";
 import {Box, Typography} from "@mui/material";
 
