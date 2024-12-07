@@ -53,14 +53,14 @@ export function Dropzone() {
   ])
 
   return (
-    <Box py={4}>
+    <Box py={2}>
       <div {...getRootProps({ style })}>
         <input {...getInputProps()} />
         <Box py={.5}>
           <UploadFileIcon sx={{ color: PRIMARY }} />
         </Box>
         <Typography component='p' fontSize={15}>
-          Drag and drop a Profile Picture
+          <Typography component='span' sx={{ textDecoration: 'underline' }} color={PRIMARY}>Link</Typography> or drag and drop Profile Picture
         </Typography>
         <Typography color={PRIMARY} fontSize={14}>
           SVG, PNG, JPG {`(max. 5MB)`}

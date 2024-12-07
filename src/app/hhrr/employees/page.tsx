@@ -1,9 +1,12 @@
-import { Employees } from 'modules/hhrr/departments/layouts/Employees'
+'use client'
 
-//DEPARTMENTS SUBMODULE
-export default function DepartmentsPage() {
+//import AddEmployeeForm from 'modules/hhrr/employees/layouts/AddEmployee'
+import Employees from 'modules/hhrr/employees/layouts/Employees'
+
+//EMPLOYEES SUBMODULE
+export default function EmployeesPage() {
   return <>
-    {/** YOUR EMPLOYEES TABLE */}
-    <Employees/>
+    <Employees />
+    {/*<AddEmployeeForm />*/}
   </>
 }

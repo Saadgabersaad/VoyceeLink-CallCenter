@@ -11,8 +11,8 @@ import Checkbox from '@mui/material/Checkbox';
 import EnhancedTableHead from '../components/TableHead';
 import { rows, headCells,Data, Order } from 'modules/core/consts/tableHead';
 import { getComparator } from 'modules/core/utils/tableUtlis';
-import StatusMenu from "modules/hhrr/departments/components/StatusMenu";
-import EnhancedTableToolbar from "modules/hhrr/departments/components/TableSelection";
+import StatusMenu from "modules/hhrr/employees/components/StatusMenu";
+import EnhancedTableToolbar from "modules/hhrr/employees/components/TableSelection";
 
 
 export default function Employees() {

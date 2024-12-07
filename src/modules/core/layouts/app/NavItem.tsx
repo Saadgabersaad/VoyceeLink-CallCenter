@@ -13,7 +13,7 @@ export const NavItem = ({
 }: NavigationItem) => {
 
   const pathname = usePathname()
-  const isActive = href === pathname
+  const isActive = pathname.includes(href)
 
   return (
     <ListItem key={''} disablePadding sx={{ display: 'block' }}>

@@ -4,13 +4,13 @@ import {
   MenuItem,
   Select as MuiSelect,
   SelectChangeEvent,
-  SelectProps
+  SelectProps as MUISelectProps
 } from '@mui/material'
 import React from 'react'
 
-type Props = SelectProps & {
+export type SelectProps = MUISelectProps & {
   options: SelectOption[]
-  labelId: string
+  labelId?: string
 }
 
 export type SelectOption = {
@@ -18,7 +18,7 @@ export type SelectOption = {
   value: string | number
 }
 
-export const Select = (props: Props) => {
+export const Select = (props: SelectProps) => {
   const { options, labelId, ...rest } = props
 
   const [value, setValue] = React.useState<string>('')
@@ -29,9 +29,9 @@ export const Select = (props: Props) => {
 
   return (
     <FormControl fullWidth>
-      <InputLabel id={labelId} size='small'>{props.label}</InputLabel>
+      <InputLabel id={labelId!} size='small'>{props.label}</InputLabel>
       <MuiSelect
-        id={labelId}
+        id={labelId!}
         size='small'
         value={value}
         onChange={handleChange}

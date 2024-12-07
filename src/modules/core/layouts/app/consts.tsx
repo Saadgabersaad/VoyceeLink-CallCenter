@@ -16,6 +16,18 @@ export const modules: NavigationItem[] = [
     icon: <Dashboard />
   },
   {
+    label: 'HR',
+    href: '/hhrr',
+    icon: <People />,
+    subItems: [
+      {
+        label: 'Employees',
+        href: '/hhrr/employees',
+        icon: <People />,
+      }
+    ]
+  },
+  {
     label: 'CRM',
     href: '/crm',
     icon: <People />,

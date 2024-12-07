@@ -1,4 +1,7 @@
-import { Button as MuiButton, ButtonProps } from '@mui/material'
+import {
+  Button as MuiButton,
+  ButtonProps
+} from '@mui/material'
 
 export const Button = (props: ButtonProps) => {
   const { children, ...rest } = props 
