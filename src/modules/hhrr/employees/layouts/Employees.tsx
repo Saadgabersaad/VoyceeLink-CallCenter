@@ -2,7 +2,7 @@
 import React from 'react'
 import HrNavigation from "modules/hhrr/employees/components/HrNavigation";
 import {Box} from "@mui/material";
-import CustomTabPanel from "../components/DepartmentTabs"
+import CustomTabPanel from "../components/EmployeesTabs"
 
 export default function Employees() {
     return (
