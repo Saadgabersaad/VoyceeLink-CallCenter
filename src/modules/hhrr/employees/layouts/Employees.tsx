@@ -1,14 +1,20 @@
 'use client'
-import React from 'react'
-import HrNavigation from "modules/hhrr/employees/components/HrNavigation";
-import {Box} from "@mui/material";
+
 import CustomTabPanel from "../components/EmployeesTabs"
+import { Page, Heading } from 'modules/core/components/page'
+import { HeadingActions } from 'modules/core/components/page/Actions'
+import AddEmployeeFormDialog from './AddEmployee'
 
 export default function Employees() {
     return (
-        <Box component='div' sx={{bgcolor:'grey.100',p:0,display:'flex',flexDirection:'column',gap:'24px', pt:4,borderTop:'solid 1px lightgray'}}>
-            <HrNavigation/>
-            <CustomTabPanel/>
-        </Box>
+        <Page>
+            <Heading title='Employee List' description='View all  your Company’s Employees'>
+                <HeadingActions
+                    buttonText='Add Employee'
+                    mainModal={<AddEmployeeFormDialog open={false} />}
+                />
+            </Heading>
+            <CustomTabPanel />
+        </Page>
     )
 }

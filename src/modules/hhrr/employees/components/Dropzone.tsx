@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { PRIMARY } from 'modules/core/consts/theme'
+import { DARK, PRIMARY } from 'modules/core/consts/theme'
 import React, { useMemo } from 'react'
 import { useDropzone } from 'react-dropzone'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
@@ -9,7 +9,8 @@ const baseStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '20px',
+  paddingInline: '20px',
+  paddingBlock: '25px',
   borderWidth: 2,
   borderRadius: 2,
   borderColor: PRIMARY,
@@ -62,7 +63,7 @@ export function Dropzone() {
         <Typography component='p' fontSize={15}>
           <Typography component='span' sx={{ textDecoration: 'underline' }} color={PRIMARY}>Link</Typography> or drag and drop Profile Picture
         </Typography>
-        <Typography color={PRIMARY} fontSize={14}>
+        <Typography color={DARK} fontSize={14}>
           SVG, PNG, JPG {`(max. 5MB)`}
         </Typography>
       </div>
