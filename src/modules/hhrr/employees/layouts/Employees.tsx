@@ -1,14 +1,14 @@
 'use client'
 import React from 'react'
-import Table from "../components/Table";
 import HrNavigation from "modules/hhrr/employees/components/HrNavigation";
 import {Box} from "@mui/material";
+import CustomTabPanel from "../components/EmployeesTabs"
 
 export default function Employees() {
     return (
-        <Box component='div' sx={{bgcolor:'grey.100',p:0,display:'flex',flexDirection:'column',gap:'24px',height:"100vh"}}>
+        <Box component='div' sx={{bgcolor:'grey.100',p:0,display:'flex',flexDirection:'column',gap:'24px', pt:4,borderTop:'solid 1px lightgray'}}>
             <HrNavigation/>
-            <Table/>
+            <CustomTabPanel/>
         </Box>
     )
 }

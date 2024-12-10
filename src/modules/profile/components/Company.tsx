@@ -1,6 +1,8 @@
 import { Box, Chip, Typography } from '@mui/material'
-import { Flex } from 'modules/core/components/Flex'
-import { Actions } from './Actions'
+
+import { Flex } from 'modules/core/components/flex'
+import { Actions } from '../../hhrr/employees/components/Actions'
+
 import Image from 'next/image'
 
 export const Company = () => {

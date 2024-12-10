@@ -5,7 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { Flex } from 'modules/core/components/Flex';
+import { Flex } from 'modules/core/components/flex';
 import {MenuList} from "@mui/material";
 
 const statusOptions = [

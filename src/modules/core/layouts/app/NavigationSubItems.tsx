@@ -5,7 +5,7 @@ import { SubNavItem } from './SubNavItem'
 import { modules } from './consts'
 import { usePathname } from 'next/navigation'
 import { PRIMARY } from 'modules/core/consts/theme'
-import { Flex } from 'modules/core/components/Flex'
+import { Flex } from 'modules/core/components/flex'
 
 const Navbar = styled(List)<{ component?: React.ElementType }>({
   '& .MuiListItemButton-root': {
