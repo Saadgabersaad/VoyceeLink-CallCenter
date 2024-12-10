@@ -19,7 +19,7 @@ type Props = {
 export default function AddEmployeeFormDialog({
   open,
   onClose
-}: Props) {
+}: Partial<Props>) {
 
   const onSubmit = (values: CreateEmployee) => {
     console.log(values)
@@ -28,8 +28,8 @@ export default function AddEmployeeFormDialog({
   return (
     <React.Fragment>
       <FormDialog
-        open={open}
-        onClose={onClose}
+        open={open!}
+        onClose={onClose!}
         onFinish={onSubmit}
         defaultValues={{
           positions: []
