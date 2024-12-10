@@ -1,5 +1,9 @@
 export type CreateEmployee = {
   name: string
   lastname: string
-  //etc
+  email: string
+  phone: string
+  department: number
+  picture: string
+  positions: number[]
 }

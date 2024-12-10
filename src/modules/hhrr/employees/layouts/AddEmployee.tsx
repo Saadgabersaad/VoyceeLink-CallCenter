@@ -1,23 +1,25 @@
 import * as React from 'react'
-import { useBoolean } from 'modules/core/hooks/use-boolean'
-import {
-  FormDialog,
-  FormActions
-} from 'modules/core/components/FormDialog'
-import { Button } from 'modules/core/components/button'
-import { Select } from 'modules/core/components/select'
-import { Dropzone } from '../components/Dropzone'
-import { MultiplePositionsSelect } from '../components/PositionsMultipleSelect'
-import { FormInput } from 'modules/core/components/FormInput'
-import { CreateEmployee } from '../shared/Employee'
 
+import { Dropzone } from 'modules/hhrr/employees/components/Dropzone'
+import { CreateEmployee } from 'modules/hhrr/employees/shared/Employee'
+import { FormDialog, FormActions } from 'modules/core/components/FormDialog'
+import { FormMultipleSelect } from 'modules/core/components/FormMultipleSelect'
+import { FormSelect } from 'modules/core/components/FormSelect'
+import { FormInput } from 'modules/core/components/FormInput'
 import DialogContent from '@mui/material/DialogContent'
 import Grid from '@mui/material/Grid2'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 
-export default function AddEmployeeFormDialog() {
-  const [open, onOpen, onClose] = useBoolean()
+type Props = {
+  open: boolean
+  onClose(): void
+}
+
+export default function AddEmployeeFormDialog({
+  open,
+  onClose
+}: Props) {
 
   const onSubmit = (values: CreateEmployee) => {
     console.log(values)
@@ -25,13 +27,13 @@ export default function AddEmployeeFormDialog() {
 
   return (
     <React.Fragment>
-      <Button variant='outlined' onClick={onOpen}>
-        Add Employee
-      </Button>
       <FormDialog
         open={open}
         onClose={onClose}
         onFinish={onSubmit}
+        defaultValues={{
+          positions: []
+        }}
         title='Add Employee'
       >
         <DialogContent>
@@ -50,16 +52,19 @@ export default function AddEmployeeFormDialog() {
               <FormInput id='phone' type='phone' name='phone' label='Phone' />
             </Grid>
             <Grid size={6} mt={1}>
-              <Select
+              <FormSelect
                 name='department'
                 label='Department'
-                labelId='department'
                 placeholder='Select a department first'
                 options={[{ label: 'Department 1', value: 1 }]}
               />
             </Grid>
             <Grid size={6} mt={1}>
-              <MultiplePositionsSelect />
+              <FormMultipleSelect
+                options={[1, 2, 3]}
+                placeholder='Positions'
+                name='positions'
+              />
             </Grid>
           </Grid>
           <Typography fontWeight={600} pt={4}>
@@ -67,7 +72,7 @@ export default function AddEmployeeFormDialog() {
           </Typography>
           <Dropzone />
         </DialogContent>
-        <FormActions buttonText='Add Employee' />
+        <FormActions buttonText='Add Employee' onClose={onClose} />
       </FormDialog>
     </React.Fragment>
   )

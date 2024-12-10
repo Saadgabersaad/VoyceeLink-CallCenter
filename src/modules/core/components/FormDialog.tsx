@@ -1,23 +1,29 @@
 import { Dialog, DialogActions, DialogTitle } from '@mui/material'
-import { FieldValues, FormProvider, useForm } from 'react-hook-form'
+import { DefaultValues, FieldValues, FormProvider, useForm } from 'react-hook-form'
 import { Button } from './button'
 
 type FormProps<T> = {
   title?: string
   children: React.ReactNode
   open: boolean
+  defaultValues?: Partial<T>
   onFinish(values: T): void
   onClose(): void
 }
 
+// FORM DIALOG WITH REACT HOOK FORM
 export const FormDialog = <T extends FieldValues>({
   open,
   title,
   onClose,
   children,
-  onFinish
+  onFinish,
+  defaultValues
 }: FormProps<T>) => {
-  const methods = useForm<T>()
+  const methods = useForm<T>({
+    defaultValues: defaultValues as DefaultValues<T>
+  })
+
   const { handleSubmit, reset } = methods
 
   const onSubmit = (data: T) => {
@@ -55,7 +61,7 @@ export const FormHeading = ({ children }: React.PropsWithChildren) => {
 }
 
 export const FormActions = ({
-  onClose = () => { },
+  onClose = () => {},
   buttonText = ''
 }) => {
   return (
