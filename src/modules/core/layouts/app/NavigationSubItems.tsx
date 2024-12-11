@@ -2,9 +2,9 @@
 
 import { List, ListSubheader, styled, Typography } from '@mui/material'
 import { SubNavItem } from './SubNavItem'
-import { modules } from './consts'
 import { usePathname } from 'next/navigation'
 import { PRIMARY } from 'modules/core/consts/theme'
+import { modules } from 'modules/core/consts/navigation'
 import { Flex } from 'modules/core/components/flex'
 
 const Navbar = styled(List)<{ component?: React.ElementType }>({

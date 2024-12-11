@@ -12,11 +12,10 @@ export interface Data {
 
 export interface HeadCell {
     disablePadding: boolean;
-    id: keyof Data;
+    id: string;
     label: string;
     numeric: boolean;
 }
-
 
 export const rows: Data[] = [
     { id: 1, name: 'Cupcake', position: '305', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },

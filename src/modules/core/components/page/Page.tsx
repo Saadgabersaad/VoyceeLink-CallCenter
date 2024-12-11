@@ -7,12 +7,11 @@ export const Page = ({
   children: React.ReactNode
 }) => {
   return (
-    <Box p={1} sx={{
-      bgcolor: 'grey.100',
+    <Box pt={4} px={3} sx={{
       display: 'flex',
       flexDirection: 'column',
       gap: '24px',
-      pt: 4
+      //pt: 4
     }}>
       {children}
     </Box>

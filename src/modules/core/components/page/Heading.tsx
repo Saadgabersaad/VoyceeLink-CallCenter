@@ -13,7 +13,7 @@ export const Heading = ({
   children
 }: HeadingProps) => {
   return (
-    <Flex justifyContent='space-between' width='95%' margin='auto'>
+    <Flex justifyContent='space-between'>
       <Box>
         <Typography fontWeight='bold' fontSize={'30px'} variant='h4' component='h2'>
           {title}
