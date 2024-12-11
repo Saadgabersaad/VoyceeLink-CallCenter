@@ -7,7 +7,7 @@ export const Main = ({
   children: React.ReactNode
 }) => {
   return (
-    <Flex flexGrow={1}>
+    <Flex flexGrow={1} bgcolor={'grey.100'}>
       <Navigation />
       <Flex flexDirection='column' flexGrow={1}>
         {children}

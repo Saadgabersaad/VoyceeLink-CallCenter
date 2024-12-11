@@ -6,8 +6,15 @@ import {
   Phone,
   CalendarMonth,
   DashboardOutlined,
+  DeviceHub,
 } from '@mui/icons-material'
-import { NavigationItem } from './types'
+
+export type NavigationItem = {
+  label: string
+  href: string
+  icon?: JSX.Element
+  subItems?: NavigationItem[]
+}
 
 export const modules: NavigationItem[] = [
   {
@@ -24,6 +31,11 @@ export const modules: NavigationItem[] = [
         label: 'Employees',
         href: '/hhrr/employees',
         icon: <People />,
+      },
+      {
+        label: 'Departments',
+        href: '/hhrr/departments',
+        icon: <DeviceHub />
       }
     ]
   },

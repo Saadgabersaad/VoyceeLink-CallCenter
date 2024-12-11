@@ -4,7 +4,7 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 
-export function SearchInput({ tableSearch }:{tableSearch:boolean}) {
+export function SearchInput({ tableSearch }: { tableSearch: boolean }) {
     return (
         <Paper
             component='form'

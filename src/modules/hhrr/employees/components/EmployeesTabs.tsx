@@ -42,7 +42,7 @@ export default function BasicTabs() {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' ,width:'95%',margin:'auto' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider',margin:'auto' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Tech department" {...a11yProps(0)} />
                     <Tab label="dept-1" {...a11yProps(1)} />

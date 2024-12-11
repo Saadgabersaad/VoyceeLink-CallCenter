@@ -1,6 +1,6 @@
 import { Box, List } from '@mui/material'
+import { modules } from 'modules/core/consts/navigation'
 import { NavItem } from './NavItem'
-import { modules } from './consts'
 import { NavigationSubItems } from './NavigationSubItems'
 
 export const Navigation = () => {

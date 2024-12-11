@@ -76,7 +76,7 @@ export default function Employees() {
     );
 
     return (
-        <Box sx={{ width: '95%', bgcolor: 'grey.100', margin: 'auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <Box sx={{ bgcolor: 'grey.100', margin: 'auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <EnhancedTableToolbar tableSearch={true} numSelected={selected.length} />
             <Paper sx={{ width: '100%', mb: 2 }}>
                 <TableContainer>

@@ -33,7 +33,7 @@ export const HeadingActions: React.FC<Props> = ({
           {buttonText}
         </Button>
       )}
-      {open && React.cloneElement(mainModal as React.ReactElement, { open, onClose })}
+      {open && mainModal && React.cloneElement(mainModal as React.ReactElement, { open, onClose })}
     </Flex>
   )
 }
