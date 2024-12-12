@@ -61,6 +61,8 @@ export const attendanceHeadCells :readonly HeadCell[] = [
 
 
 
+
+
 export const attendanceRows: AttendanceData[] = [
     { id: 1, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
     { id: 2, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'Late' },
@@ -69,5 +71,37 @@ export const attendanceRows: AttendanceData[] = [
     { id: 5, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
     { id: 6, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
     { id: 7, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+
+];
+
+
+
+
+export interface LeaveData {
+    id: number;
+    date: string;
+    duration: string;
+    days: string;
+    break: string;
+    manager: string;
+    status: string;
+}
+export const leaveHeadCells :readonly HeadCell[] = [
+    { id: 'data', numeric: false, disablePadding: true, label: 'Date' },
+    { id: 'duration', numeric: false, disablePadding: false, label: 'Duration' },
+    { id: 'days', numeric: false, disablePadding: false, label: 'Days' },
+    { id: 'manager', numeric: false, disablePadding: false, label: 'Manager' },
+    { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
+];
+
+
+export const LeaveRows: LeaveData[] = [
+    { id: 1, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Approved' },
+    { id: 2, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Denied' },
+    { id: 3, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Approved' },
+    { id: 4, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Denied' },
+    { id: 5, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Approved' },
+    { id: 6, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Pending' },
+    { id: 7, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Approved' },
 
 ];

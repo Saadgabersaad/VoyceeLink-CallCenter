@@ -3,7 +3,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import InfoTab from "modules/hhrr/employee-profile/components/InfoTab";
-import AttendanceTab from "modules/hhrr/employee-profile/components/AttendanceTab";
+import AttendanceTab from "./AttendanceTab";
+import LeaveTab from './LeaveTab';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -57,7 +58,7 @@ export default function ProfileTabs() {
                <AttendanceTab/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-                Item Three
+            <LeaveTab/>
             </CustomTabPanel>
         </Box>
     );
