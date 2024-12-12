@@ -2,7 +2,7 @@ import * as React from 'react';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 import ApartmentIcon from '@mui/icons-material/Apartment';
@@ -10,7 +10,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const options = [
-    { label: 'View Profile', icon: <PersonIcon color="primary" /> },
+    { label: 'View ProfileInfo', icon: <PersonIcon color="primary" /> },
     { label: 'Change User Position', icon: <WorkIcon color="primary" /> },
     { label: 'Change User Dept', icon: <ApartmentIcon color="primary" /> },
     { label: 'Edit User', icon: <EditIcon  color="primary"/> },
@@ -39,7 +39,7 @@ export default function DottedMenu() {
                 aria-haspopup="true"
                 onClick={handleClick}
             >
-                <MoreHorizIcon />
+                <MoreVertIcon />
             </IconButton>
             <Menu
                 id="long-menu"

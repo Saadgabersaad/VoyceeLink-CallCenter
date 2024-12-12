@@ -41,7 +41,7 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
                 </TableCell>
                 {headCells.map((headCell) => (
                     <TableCell
-                        sx={{fontWeight: 'bold',fontSize:'16px'}}
+                        sx={{fontWeight: 'bold',fontSize:'16px',pl:2}}
                         key={headCell.id}
                         align={headCell.numeric ? 'right' : 'left'}
                         padding={headCell.disablePadding ? 'none' : 'none'}
@@ -50,7 +50,7 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
                         <TableSortLabel
                             active={orderBy === headCell.id}
                             direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
+                                onClick={createSortHandler(headCell.id as keyof Data)}
                         >
                             {headCell.label}
                             {orderBy === headCell.id ? (
@@ -61,6 +61,7 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
                         </TableSortLabel>
                     </TableCell>
                 ))}
+                <TableCell/>
             </TableRow>
         </TableHead>
     );

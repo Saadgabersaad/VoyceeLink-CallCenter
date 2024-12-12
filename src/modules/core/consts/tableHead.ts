@@ -10,6 +10,7 @@ export interface Data {
     status: string;
 }
 
+
 export interface HeadCell {
     disablePadding: boolean;
     id: string;
@@ -35,4 +36,38 @@ export const headCells :readonly HeadCell[] = [
     { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
     { id: 'department', numeric: false, disablePadding: false, label: 'Department' },
     { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
+];
+
+
+
+export interface AttendanceData {
+    id: number;
+    date: string;
+    checkIn: string;
+    checkOut: string;
+    Break: string;
+    hours: string;
+    status: string;
+}
+export const attendanceHeadCells :readonly HeadCell[] = [
+    { id: 'data', numeric: false, disablePadding: true, label: 'Date' },
+    { id: 'position', numeric: false, disablePadding: false, label: 'Check In' },
+    { id: 'phoneNumber', numeric: false, disablePadding: false, label: 'Check Out' },
+    { id: 'email', numeric: false, disablePadding: false, label: 'Break' },
+    { id: 'department', numeric: false, disablePadding: false, label: 'Working Hours' },
+    { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
+];
+
+
+
+
+export const attendanceRows: AttendanceData[] = [
+    { id: 1, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+    { id: 2, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'Late' },
+    { id: 3, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+    { id: 4, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'Late' },
+    { id: 5, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+    { id: 6, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+    { id: 7, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+
 ];
