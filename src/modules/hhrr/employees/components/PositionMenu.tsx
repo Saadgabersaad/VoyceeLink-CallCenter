@@ -19,7 +19,6 @@ interface SimpleListMenuProps {
 }
 
 export default function SimpleListMenu({ status }: SimpleListMenuProps) {
-    // Options to display
     const options = status ? statusOptions : [];
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

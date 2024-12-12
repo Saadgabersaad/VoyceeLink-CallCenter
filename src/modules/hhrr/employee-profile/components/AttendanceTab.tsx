@@ -7,30 +7,17 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import {attendanceRows, AttendanceData, Order, attendanceHeadCells} from 'modules/core/consts/tableHead';
-import { getComparator } from 'modules/core/utils/tableUtlis';
+import {attendanceRows, attendanceHeadCells} from 'modules/core/consts/tableHead';
 import { HeadCell,  } from 'modules/core/consts/tableHead';
 import TableHead from "@mui/material/TableHead";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import {visuallyHidden} from "@mui/utils";
+import theme, {PRIMARY} from "modules/core/consts/theme";
+
 
 interface EnhancedTableProps {
-    numSelected: number;
-    onRequestSort: (event: React.MouseEvent<unknown>, property: keyof AttendanceData) => void;
-    onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    order: Order;
-    orderBy: string;
-    rowCount: number;
     headCells: readonly HeadCell[];
 }
-
 const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
-    const {  order, orderBy, onRequestSort, headCells } =
-        props;
-
-    const createSortHandler = (property: keyof AttendanceData) => (event: React.MouseEvent<unknown>) => {
-        onRequestSort(event, property);
-    };
+    const {  headCells } = props;
 
     return (
 
@@ -39,24 +26,12 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
             >
                 {headCells.map((headCell) => (
                     <TableCell
-                        sx={{fontWeight: 'bold', fontSize: '16px', pl: 2}}
+                        sx={{fontWeight: 'bold', fontSize: '16px', pl: 2,width: ''}}
                         key={headCell.id}
                         align={headCell.numeric ? 'left' : 'left'}
-                            padding={headCell.disablePadding ? 'none' : 'none'}
-                        sortDirection={orderBy === headCell.id ? order : false}
+                        padding={headCell.disablePadding ? 'normal' : 'none'}
                     >
-                        <TableSortLabel
-                            active={orderBy === headCell.id}
-                            direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id as keyof AttendanceData)}
-                        >
-                            {headCell.label}
-                            {orderBy === headCell.id ? (
-                                <Box component="span" sx={visuallyHidden}>
-                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                </Box>
-                            ) : null}
-                        </TableSortLabel>
+                        {headCell.label}
                     </TableCell>
                 ))}
             </TableRow>
@@ -65,19 +40,8 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
 };
 
 export default function AttendanceTab() {
-    const [order, setOrder] = React.useState<Order>('asc');
-    const [orderBy, setOrderBy] = React.useState<keyof AttendanceData>('date');
-    const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(7);
-
-    const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof AttendanceData) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
-    };
-
-
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -92,11 +56,19 @@ export default function AttendanceTab() {
 
     const visibleRows = React.useMemo(
         () =>
-            [...attendanceRows]
-                .sort(getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-        [order, orderBy, page, rowsPerPage],
+            [...attendanceRows].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+        [ page, rowsPerPage],
     );
+    const getStatusStyles = (status: string) => {
+        return {
+            bgcolor: status === 'On Time' ? '#ecf9f3' : '#fce4e4',
+            color: status === 'Late' ? '#f44336' : '#3FC28A',
+            width: 'fit-content',
+            py: 0.5,
+            px: 2.2,
+            borderRadius: 1,
+        };
+    };
 
     return (
         <Box sx={{ bgcolor: 'grey.100', margin: 'auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -104,37 +76,27 @@ export default function AttendanceTab() {
                 <TableContainer>
                     <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
                         <EnhancedTableHead
-                            numSelected={selected.length}
-                            order={order}
-                            orderBy={orderBy}
-                            onRequestSort={handleRequestSort}
-                            rowCount={attendanceRows.length}
                             headCells={attendanceHeadCells}
                         />
                         <TableBody>
                             {visibleRows.map((row, index) => {
-                                const isItemSelected = selected.indexOf(row.id) !== -1;
-                                const labelId = `enhanced-table-checkbox-${index}`;
-
                                 return (
                                     <TableRow
                                         sx={{height:'40px'}}
                                         hover
                                         role="checkbox"
-                                        aria-checked={isItemSelected}
                                         tabIndex={-1}
-                                        key={row.id}
-                                        selected={isItemSelected}
-                                    >
-
-                                        <TableCell padding="checkbox" sx={{pl:2}}>
-                                            {row.date}
-                                        </TableCell>
+                                        key={row.id}>
+                                        <TableCell padding="checkbox" sx={{pl:2}}>{row.date}</TableCell>
                                         <TableCell   padding={"none"} sx={{pl:2}}>{row.checkIn}</TableCell>
                                         <TableCell padding={"none"} sx={{pl:2}}>{row.checkOut}</TableCell>
                                         <TableCell padding={"none"} sx={{pl:2}}>{row.Break}</TableCell>
                                         <TableCell padding={"none"} sx={{pl:2}}>{row.hours}</TableCell>
-                                        <TableCell padding={"none"}  sx={{pl:2}}> {row.status}</TableCell>
+                                        <TableCell padding={"none"}  sx={{pl:2}}>
+                                            <Box sx={getStatusStyles(row.status)}>
+                                                {row.status}
+                                            </Box>
+                                            </TableCell>
                                     </TableRow>
                                 );
                             })}
