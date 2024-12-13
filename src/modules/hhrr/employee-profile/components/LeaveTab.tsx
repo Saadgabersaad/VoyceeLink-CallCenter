@@ -7,66 +7,70 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import {LeaveRows, leaveHeadCells} from 'modules/core/consts/tableHead';
-import { HeadCell,  } from 'modules/core/consts/tableHead';
-import TableHead from "@mui/material/TableHead";
-
+import { LeaveRows, leaveHeadCells } from 'modules/core/consts/tableHead';
+import TableHead from '@mui/material/TableHead';
+import IconButton from '@mui/material/IconButton';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
+import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
+import theme, {PRIMARY} from "modules/core/consts/theme";
+import {Flex} from "modules/core/components/flex";
 interface EnhancedTableProps {
-    headCells: readonly HeadCell[];
+    headCells: readonly {
+        id: string;
+        label: string;
+        numeric: boolean;
+        disablePadding: boolean;
+    }[];
 }
-const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
-    const {  headCells } = props;
 
-    return (
+const EnhancedTableHead: React.FC<EnhancedTableProps> = ({ headCells }) => (
+    <TableHead>
+        <TableRow sx={{ height: '56px', bgcolor: '#F7F7F7' }}>
+            {headCells.map((headCell) => (
+                <TableCell
+                    key={headCell.id}
+                    sx={{ fontWeight: 'bold', fontSize: '16px', pl: 2 }}
+                    align={headCell.numeric ? 'left' : 'left'}
+                    padding={headCell.disablePadding ? 'normal' : 'none'}
+                >
+                    {headCell.label}
+                </TableCell>
+            ))}
+        </TableRow>
+    </TableHead>
+);
 
-        <TableHead>
-            <TableRow   sx={{height:'56px',bgcolor:"#F7F7F7"}}>
-                {headCells.map((headCell) => (
-                    <TableCell
-                        sx={{fontWeight: 'bold', fontSize: '16px', pl: 2,width: ''}}
-                        key={headCell.id}
-                        align={headCell.numeric ? 'left' : 'left'}
-                        padding={headCell.disablePadding ? 'normal' : 'none'}
-                    >
-                        {headCell.label}
-                    </TableCell>
-                ))}
-            </TableRow>
-        </TableHead>
-    );
-};
-
-export default function AttendanceTab() {
+const AttendanceTab: React.FC = () => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(7);
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
+    const [openRows, setOpenRows] = React.useState<{ [key: number]: boolean }>({});
+
+    const handleToggleRow = (rowId: number, status: string) => {
+        // Only toggle rows if the status is "Denied"
+        if (status === 'Denied') {
+            setOpenRows((prev) => ({
+                ...prev,
+                [rowId]: !prev[rowId],
+            }));
+        }
     };
 
+
+    const handleChangePage = (event: unknown, newPage: number) => setPage(newPage);
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
 
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - LeaveRows.length) : 0;
-
-    const visibleRows = React.useMemo(
-        () =>
-            [...LeaveRows].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-        [ page, rowsPerPage],
-    );
     const getStatusStyles = (status: string) => {
         const styles: Record<string, { bgcolor: string; color: string }> = {
             Approved: { bgcolor: '#ecf9f3', color: '#3FC28A' },
             Pending: { bgcolor: '#fff8e1', color: '#ffc107' },
-            Denied: { bgcolor: '#fce4e4', color: '#f44336' }, // Default case included as a named status
+            Denied: { bgcolor: '#fce4e4', color: '#f44336' },
         };
-
-        const { bgcolor, color } = styles[status] || styles['Denied']; // Fallback to 'Denied'
-
         return {
-            bgcolor,
-            color,
+            ...styles[status],
             width: 'fit-content',
             py: 0.5,
             px: 2.2,
@@ -74,41 +78,70 @@ export default function AttendanceTab() {
         };
     };
 
+    const visibleRows = React.useMemo(
+        () => LeaveRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+        [page, rowsPerPage]
+    );
 
     return (
         <Box sx={{ bgcolor: 'grey.100', margin: 'auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <Paper sx={{ width: '100%', mb: 2 }}>
                 <TableContainer>
                     <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
-                        <EnhancedTableHead
-                            headCells={leaveHeadCells}
-                        />
+                        <EnhancedTableHead headCells={leaveHeadCells} />
                         <TableBody>
-                            {visibleRows.map((row, index) => {
-                                return (
-                                    <TableRow
-                                        sx={{height:'40px'}}
-                                        hover
-                                        role="checkbox"
-                                        tabIndex={-1}
-                                        key={row.id}>
-                                        <TableCell padding="checkbox" sx={{pl:2}}>{row.date}</TableCell>
-                                        <TableCell   padding={"none"} sx={{pl:2}}>{row.duration}</TableCell>
-                                        <TableCell padding={"none"} sx={{pl:2}}>{row.days}</TableCell>
-                                        <TableCell padding={"none"} sx={{pl:2}}>{row.manager}</TableCell>
-                                        <TableCell padding={"none"}  sx={{pl:2}}>
-                                            <Box sx={getStatusStyles(row.status)}>
-                                                {row.status}
-                                            </Box>
+                            {visibleRows.map((row) => (
+                                <React.Fragment key={row.id}>
+                                    {/* Main Row */}
+                                    <TableRow hover sx={{height:'52px'}}>
+                                        <TableCell padding={'none'} sx={{ pl: 2 }}>{row.date}</TableCell>
+                                        <TableCell padding={'none'} sx={{ pl: 2,borderRight:'solid 1px lightgray',borderLeft:'solid 1px lightgray' }}>{row.period}</TableCell>
+                                        <TableCell padding={'none'} sx={{ pl: 2 }}>{row.duration}</TableCell>
+                                        <TableCell padding={'none'} sx={{ pl: 2 }}>{row.reason}</TableCell>
+                                        <TableCell padding={'none'} sx={{ pl: 2 }}>
+                                            <Box sx={getStatusStyles(row.status)}>{row.status}</Box>
+                                        </TableCell>
+                                        <TableCell padding={'none'} sx={{ pl: 2 }}>{row.supervisor}</TableCell>
+                                        <TableCell padding={'none'}>
+                                            {row.status === 'Denied' && (
+                                                <IconButton
+                                                    sx={{ color: theme.palette.primary.main }}
+                                                    size="small"
+                                                    onClick={() => handleToggleRow(row.id, row.status)}
+                                                    aria-expanded={openRows[row.id] || false}
+                                                >
+                                                    <Flex>
+                                                        <InsertCommentOutlinedIcon />
+                                                        <ExpandMoreIcon />
+                                                    </Flex>
+                                                </IconButton>
+                                            )}
+                                            {/*<IconButton*/}
+                                            {/*    sx={{color:theme.palette.primary.main}}*/}
+                                            {/*    size="small"*/}
+                                            {/*    onClick={() => handleToggleRow(row.id)}*/}
+                                            {/*    aria-expanded={openRows[row.id] || false}*/}
+                                            {/*>*/}
+                                            {/*</IconButton>*/}
+
                                         </TableCell>
                                     </TableRow>
-                                );
-                            })}
-                            {emptyRows > 0 && (
-                                <TableRow style={{ height: 53 * emptyRows }}>
-                                    <TableCell colSpan={6} />
-                                </TableRow>
-                            )}
+                                    {/* Collapsible Row */}
+                                    <TableRow>
+                                        <TableCell colSpan={6} style={{ padding: 0 }}>
+                                            <Collapse in={openRows[row.id]} timeout="auto" unmountOnExit>
+                                                <Box sx={{ margin: 2, padding: 2, bgcolor: '#f9f9f9', borderRadius: 1 }}>
+                                                    {/* Add detailed content here */}
+                                                    <strong>Details for {row.date}:</strong>
+                                                    <Box>
+                                                        <p>Additional information about this entry can go here.</p>
+                                                    </Box>
+                                                </Box>
+                                            </Collapse>
+                                        </TableCell>
+                                    </TableRow>
+                                </React.Fragment>
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -124,4 +157,6 @@ export default function AttendanceTab() {
             </Paper>
         </Box>
     );
-}
+};
+
+export default AttendanceTab;

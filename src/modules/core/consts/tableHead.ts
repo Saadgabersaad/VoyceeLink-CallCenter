@@ -64,13 +64,13 @@ export const attendanceHeadCells :readonly HeadCell[] = [
 
 
 export const attendanceRows: AttendanceData[] = [
-    { id: 1, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
-    { id: 2, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'Late' },
-    { id: 3, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
-    { id: 4, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'Late' },
-    { id: 5, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
-    { id: 6, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
-    { id: 7, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+    { id: 1, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'On Time' },
+    { id: 2, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'Late' },
+    { id: 3, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'On Time' },
+    { id: 4, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'Late' },
+    { id: 5, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'On Time' },
+    { id: 6, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'On Time' },
+    { id: 7, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'On Time' },
 
 ];
 
@@ -80,28 +80,37 @@ export const attendanceRows: AttendanceData[] = [
 export interface LeaveData {
     id: number;
     date: string;
+    period: string;
     duration: string;
-    days: string;
+    reason: string;
     break: string;
-    manager: string;
     status: string;
+    supervisor: string;
 }
 export const leaveHeadCells :readonly HeadCell[] = [
     { id: 'data', numeric: false, disablePadding: true, label: 'Date' },
+    { id: 'period', numeric: false, disablePadding: true, label: 'Period' },
     { id: 'duration', numeric: false, disablePadding: false, label: 'Duration' },
-    { id: 'days', numeric: false, disablePadding: false, label: 'Days' },
-    { id: 'manager', numeric: false, disablePadding: false, label: 'Manager' },
+    { id: 'reason', numeric: false, disablePadding: false, label: 'Reason' },
     { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
+    { id: 'supervisor', numeric: false, disablePadding: false, label: 'Supervisor' },
+    { id: 'Note', numeric: false, disablePadding: false, label: '' },
 ];
 
 
 export const LeaveRows: LeaveData[] = [
-    { id: 1, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Approved' },
-    { id: 2, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Denied' },
-    { id: 3, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Approved' },
-    { id: 4, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Denied' },
-    { id: 5, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Approved' },
-    { id: 6, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Pending' },
-    { id: 7, date: 'July 01, 2023', duration: '09:28 AM', days: "07:00 PM", break: '00:30 Min', manager: '09:02 Hrs', status: 'Approved' },
+    { id: 1, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Approved', },
+    { id: 2, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Denied' ,},
+    { id: 3, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Approved' ,},
+    { id: 4, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Denied' ,},
+    { id: 5, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Approved', },
+    { id: 6, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Pending' ,},
+    { id: 7, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Approved', },
+    { id: 8, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Approved', },
+    { id: 9, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Approved' ,},
+    { id: 10, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Approved' ,},
+    { id: 11, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Approved', },
+    { id: 12, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Approved' ,},
+    { id: 13, date: 'July 01, 2023',period:'July 01, 2023 ==> July 01, 2023', duration: '2 Days', reason: "Vacation", break: '00:30 Min', supervisor: 'Mark Willians', status: 'Approved' ,},
 
 ];
