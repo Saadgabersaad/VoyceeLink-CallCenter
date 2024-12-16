@@ -10,7 +10,6 @@ export const headCells: HeadCell[] = [
     disablePadding: false,
     label: 'Department Head',
   },
-  { id: 'totalEmployees', numeric: false, disablePadding: false, label: 'Employee Number' },
   { id: 'lastUpdated', numeric: false, disablePadding: false, label: 'Last Updated' },
   { id: 'positions', numeric: false, disablePadding: false, label: 'Positions' },
 ]

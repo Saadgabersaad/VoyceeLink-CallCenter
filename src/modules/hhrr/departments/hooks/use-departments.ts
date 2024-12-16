@@ -1,25 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
-import { Department } from 'modules/hhrr/departments/shared/Department';
-
-
-
-const getDepartments = () => {
-  return fetch('http://localhost:4000/departments', {
-    method: 'GET',
-    headers: {
-      'x-tenant-id': 'develop'
-    }
-  }).then(res => res.json()) as Promise<Department[]>
-}
+import { useTable } from 'modules/core/hooks/use-table'
+import { getDepartments } from '../services/departments'
 
 export const useDepartments = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryFn: async () => await getDepartments(),
-    queryKey: ['departments'],
+  const { data, isLoading, isError } = useTable({
+    key: 'departments',
+    fetcher: getDepartments
   })
 
   return {
-    data: data?.data ?? [],
+    data: data ?? [],
     isLoading,
     isError
   }

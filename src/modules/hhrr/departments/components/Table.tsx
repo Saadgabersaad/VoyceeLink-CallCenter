@@ -1,19 +1,23 @@
 import { TableCell } from '@mui/material'
-import { EnhancedTable } from 'modules/core/components/tables/EnhancedTable'
+import {
+  EnhancedTable,
+  EnhancedTableProps
+} from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from '../consts/headCells'
-import { useDepartments } from '../hooks/use-departments'
+import { Department } from '../shared/Department'
 
-//TODO: USE REACT QUERY
-export const Table = () => {
-  const { data, isError, isLoading } = useDepartments()
-  console.log(data.data, 'a')
+export const Table = ({
+  rows,
+  loading
+}: Partial<EnhancedTableProps<Department>>) => {
+
   return (
     <EnhancedTable
-      loading={isLoading}
-      rows={data?.data?.concat(data?.data)}
+      rows={rows!}
+      loading={loading!}
       rowsPerPageCount={1}
       headCells={headCells}
-      onPageChange={() => { }}
+      onPageChange={() => {}}
       render={(row) => {
         console.log(row, 'row')
         return <>
@@ -21,7 +25,7 @@ export const Table = () => {
           {row.name}
         </TableCell>
         <TableCell>
-          a
+          John Doe
         </TableCell>
         <TableCell>
           {'12 May, 2024'}

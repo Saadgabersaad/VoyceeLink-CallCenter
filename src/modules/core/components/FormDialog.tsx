@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogTitle } from '@mui/material'
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { DefaultValues, FieldValues, FormProvider, useForm } from 'react-hook-form'
 import { Button } from './button'
 
@@ -10,6 +10,13 @@ type FormProps<T> = {
   onFinish(values: T): void
   onClose(): void
 }
+
+export type DialogProps = Partial<{
+  open: boolean
+  create(values: any): void
+  onClose(): void
+}>
+
 
 // FORM DIALOG WITH REACT HOOK FORM
 export const FormDialog = <T extends FieldValues>({
@@ -42,7 +49,7 @@ export const FormDialog = <T extends FieldValues>({
     >
       {title && (
         <FormHeading>
-          Add Employee
+          {title}
         </FormHeading>
       )}
       <FormProvider {...methods}>
@@ -51,6 +58,12 @@ export const FormDialog = <T extends FieldValues>({
     </Dialog>
   )
 }
+
+export const FormDialogContent = ({ children }: React.PropsWithChildren) => (
+  <DialogContent>
+    {children}
+  </DialogContent>
+)
 
 export const FormHeading = ({ children }: React.PropsWithChildren) => {
   return (
@@ -61,7 +74,7 @@ export const FormHeading = ({ children }: React.PropsWithChildren) => {
 }
 
 export const FormActions = ({
-  onClose = () => {},
+  onClose = () => { },
   buttonText = ''
 }) => {
   return (

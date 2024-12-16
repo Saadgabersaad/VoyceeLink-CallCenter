@@ -3,12 +3,8 @@ import { Checkbox, TableCell, TableContainer, Table, TableRow, TableBody, Paper,
 import { HeadCell } from 'modules/core/consts/tableHead'
 import { EnhancedTableHead } from './EnhancedTableHead'
 
-type TableRowDataSource<T> = T & {
-  id: number
-}
-
-type EnhancedTableProps<T> = {
-  rows: TableRowDataSource<T>[]
+export type EnhancedTableProps<T> = {
+  rows: (T & { id: string })[]
   headCells: HeadCell[]
   loading: boolean
   rowsPerPageCount: number
@@ -24,13 +20,13 @@ export function EnhancedTable<T>({
   rowsPerPageCount,
   onPageChange
 }: EnhancedTableProps<T>) {
-  const [selected, setSelected] = React.useState<readonly number[]>([])
+  const [selected, setSelected] = React.useState<readonly string[]>([])
   const [page, setPage] = React.useState<number>(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageCount || 5)
 
-  const handleClick = (_event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (_event: React.MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
+    let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -49,7 +45,7 @@ export function EnhancedTable<T>({
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n!.id);
+      const newSelected = rows.map((n) => n?.id)
       setSelected(newSelected);
       return
     }
