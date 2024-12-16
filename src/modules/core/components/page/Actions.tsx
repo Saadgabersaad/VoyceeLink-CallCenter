@@ -11,23 +11,29 @@ type Props = {
   disableDownload?: boolean
   disableImport?: boolean
   buttonText: string
-  mainModal: React.ReactNode
+  mainModal?: React.ReactNode
 }
 
 export const HeadingActions: React.FC<Props> = ({
   mainModal,
   buttonText,
+  disableDownload,
+  disableImport
 }) => {
   const [open, onOpen, onClose] = useBoolean()
 
   return (
-    <Flex alignItems='start' gap={1.7} >
-      <Button startIcon={<Download />} variant='contained' sx={buttonStyle}>
-        Download
-      </Button>
-      <Button startIcon={<CloudUpload />} variant='contained' sx={buttonStyle}>
-        Import
-      </Button>
+    <Flex alignItems='start' gap={1.7}>
+      {!disableDownload && (
+        <Button startIcon={<Download />} variant='contained' sx={buttonStyle}>
+          Download
+        </Button>
+      )}
+      {!disableImport && (
+        <Button startIcon={<CloudUpload />} variant='contained' sx={buttonStyle}>
+          Import
+        </Button>
+      )}
       {buttonText && (
         <Button startIcon={<Add />} variant='contained' onClick={onOpen}>
           {buttonText}

@@ -7,6 +7,8 @@ import {
   CalendarMonth,
   DashboardOutlined,
   DeviceHub,
+  BusinessCenter,
+  LibraryAddCheck,
 } from '@mui/icons-material'
 
 export type NavigationItem = {
@@ -33,10 +35,20 @@ export const modules: NavigationItem[] = [
         icon: <People />,
       },
       {
+        label: 'Positions',
+        href: '/hhrr/positions',
+        icon: <BusinessCenter />
+      },
+      {
+        label: 'Roles',
+        href: '/hhrr/roles',
+        icon: <LibraryAddCheck />
+      },
+      {
         label: 'Departments',
         href: '/hhrr/departments',
         icon: <DeviceHub />
-      }
+      },
     ]
   },
   {

@@ -1,7 +1,7 @@
 import { Heading, Page } from 'modules/core/components/page'
 import { HeadingActions } from 'modules/core/components/page/Actions'
+import { Search } from 'modules/core/components/Search'
 import { Table } from '../components/Table'
-
 
 export default function Departments() {
   return (
@@ -12,6 +12,7 @@ export default function Departments() {
           mainModal={undefined}
         />
       </Heading>
+      <Search />
       <Table />
     </Page>
   )
