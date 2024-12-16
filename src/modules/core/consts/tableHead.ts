@@ -43,19 +43,18 @@ export const headCells :readonly HeadCell[] = [
 export interface AttendanceData {
     id: number;
     date: string;
-    checkIn: string;
-    checkOut: string;
+    checkIn: [string,string];
     Break: string;
     hours: string;
     status: string;
 }
+
 export const attendanceHeadCells :readonly HeadCell[] = [
     { id: 'data', numeric: false, disablePadding: true, label: 'Date' },
-    { id: 'position', numeric: false, disablePadding: false, label: 'Check In' },
-    { id: 'phoneNumber', numeric: false, disablePadding: false, label: 'Check Out' },
-    { id: 'email', numeric: false, disablePadding: false, label: 'Break' },
-    { id: 'department', numeric: false, disablePadding: false, label: 'Working Hours' },
+    { id: 'position', numeric: false, disablePadding: false, label: 'Check In and Out' },
     { id: 'status', numeric: false, disablePadding: false, label: 'Status' },
+    { id: 'email', numeric: false, disablePadding: false, label: 'Breaks' },
+    { id: 'department', numeric: false, disablePadding: false, label: 'Working Hours' },
 ];
 
 
@@ -64,13 +63,13 @@ export const attendanceHeadCells :readonly HeadCell[] = [
 
 
 export const attendanceRows: AttendanceData[] = [
-    { id: 1, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'On Time' },
-    { id: 2, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'Late' },
-    { id: 3, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'On Time' },
-    { id: 4, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'Late' },
-    { id: 5, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'On Time' },
-    { id: 6, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'On Time' },
-    { id: 7, date: 'July 01, 2023', checkIn: '09:28 AM', checkOut: "07:00 PM", Break: '00:30 Min', hours: 'Mark Willians', status: 'On Time' },
+    { id: 1, date: 'July 01, 2023', checkIn: ['09:30 AM','09:28 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+    { id: 2, date: 'July 01, 2023', checkIn: ['09:28 AM','09:00 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'Late' },
+    { id: 3, date: 'July 01, 2023', checkIn: ['09:28 AM','09:28 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+    { id: 4, date: 'July 01, 2023', checkIn: ['09:39 AM','09:28 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'Late' },
+    { id: 5, date: 'July 01, 2023', checkIn: ['09:28 AM','09:20 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+    { id: 6, date: 'July 01, 2023', checkIn: ['09:40 AM','09:28 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+    { id: 7, date: 'July 01, 2023', checkIn: ['09:28 AM','09:28 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
 
 ];
 
