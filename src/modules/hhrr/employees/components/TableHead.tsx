@@ -41,7 +41,7 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
                 </TableCell>
                 {headCells.map((headCell) => (
                     <TableCell
-                        sx={{fontWeight: 'bold',fontSize:'16px',pl:2}}
+                        sx={{fontWeight: 'bold',fontSize:'16px'}}
                         key={headCell.id}
                         align={headCell.numeric ? 'right' : 'left'}
                         padding={headCell.disablePadding ? 'none' : 'none'}

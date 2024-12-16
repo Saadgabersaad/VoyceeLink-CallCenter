@@ -54,7 +54,7 @@ export default function ProfileTabs() {
             <CustomTabPanel value={value} index={0}>
                 <InfoTab/>
             </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
+            <CustomTabPanel  value={value} index={1}>
                <AttendanceTab/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>

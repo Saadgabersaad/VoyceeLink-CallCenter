@@ -47,7 +47,6 @@ const AttendanceTab: React.FC = () => {
     const [openRows, setOpenRows] = React.useState<{ [key: number]: boolean }>({});
 
     const handleToggleRow = (rowId: number, status: string) => {
-        // Only toggle rows if the status is "Denied"
         if (status === 'Denied') {
             setOpenRows((prev) => ({
                 ...prev,
@@ -55,7 +54,6 @@ const AttendanceTab: React.FC = () => {
             }));
         }
     };
-
 
     const handleChangePage = (event: unknown, newPage: number) => setPage(newPage);
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +90,6 @@ const AttendanceTab: React.FC = () => {
                         <TableBody>
                             {visibleRows.map((row) => (
                                 <React.Fragment key={row.id}>
-                                    {/* Main Row */}
                                     <TableRow hover sx={{height:'52px'}}>
                                         <TableCell padding={'none'} sx={{ pl: 2 }}>{row.date}</TableCell>
                                         <TableCell padding={'none'} sx={{ pl: 2,borderRight:'solid 1px lightgray',borderLeft:'solid 1px lightgray' }}>{row.period}</TableCell>
@@ -116,13 +113,7 @@ const AttendanceTab: React.FC = () => {
                                                     </Flex>
                                                 </IconButton>
                                             )}
-                                            {/*<IconButton*/}
-                                            {/*    sx={{color:theme.palette.primary.main}}*/}
-                                            {/*    size="small"*/}
-                                            {/*    onClick={() => handleToggleRow(row.id)}*/}
-                                            {/*    aria-expanded={openRows[row.id] || false}*/}
-                                            {/*>*/}
-                                            {/*</IconButton>*/}
+
 
                                         </TableCell>
                                     </TableRow>

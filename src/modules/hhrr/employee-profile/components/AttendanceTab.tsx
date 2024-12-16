@@ -11,12 +11,15 @@ import {attendanceRows, attendanceHeadCells} from 'modules/core/consts/tableHead
 import { HeadCell,  } from 'modules/core/consts/tableHead';
 import TableHead from "@mui/material/TableHead";
 import DatePickerViews from "modules/hhrr/employee-profile/components/DatePicker";
+import Button from '@mui/material/Button';
+import { Flex } from 'modules/core/components/flex';
+import {Download} from "@mui/icons-material";
 
 
 interface EnhancedTableProps {
     headCells: readonly HeadCell[];
 }
-  const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
+const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
     const {  headCells } = props;
 
     return (
@@ -80,9 +83,12 @@ export default function AttendanceTab() {
 
     return (
         <Box sx={{ bgcolor: 'grey.100', margin: 'auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                {/*<Box>*/}
-                {/*    <DatePickerViews/>*/}
-                {/*</Box>*/}
+            <Flex height={'40px'} justifyContent={'space-between'} alignItems={'center'}>
+                <DatePickerViews/>
+                <Button startIcon={<Download />} variant='contained'  >
+                    Download Logs
+                </Button>
+            </Flex>
             <Paper sx={{ width: '100%', mb: 2 }}>
                 <TableContainer>
                     <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
@@ -101,10 +107,10 @@ export default function AttendanceTab() {
                                         <TableCell padding="checkbox" sx={{pl:2}}>{row.date}</TableCell>
 
                                         <TableCell padding={"none"} sx={{pl:2 ,borderRight:'solid 1px lightgray',borderLeft:'solid 1px lightgray'}}>
-                                      <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center',width:'fit-content'}}>
-                                          <Box sx={getCheckStyles(row.checkIn[0],true)}>{row.checkIn[0]}</Box> -
-                                          <Box sx={getCheckStyles(row.checkIn[1],false)}>{row.checkIn[1]}</Box>
-                                      </Box>
+                                            <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center',width:'fit-content'}}>
+                                                <Box sx={getCheckStyles(row.checkIn[0],true)}>{row.checkIn[0]}</Box> -
+                                                <Box sx={getCheckStyles(row.checkIn[1],false)}>{row.checkIn[1]}</Box>
+                                            </Box>
                                         </TableCell>
                                         <TableCell padding={"none"}  sx={{pl:2}}><Box sx={getStatusStyles(row.status)}>{row.status}</Box></TableCell>
                                         <TableCell padding={"none"} sx={{pl:2}}>{row.Break}</TableCell>

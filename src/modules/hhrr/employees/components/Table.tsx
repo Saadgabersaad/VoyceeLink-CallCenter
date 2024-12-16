@@ -9,12 +9,11 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import EnhancedTableHead from '../components/TableHead';
-import { rows, headCells,Data, Order } from 'modules/core/consts/tableHead';
+import { rows, headCells, Data, Order } from 'modules/core/consts/tableHead';
 import { getComparator } from 'modules/core/utils/tableUtlis';
 import StatusMenu from "modules/hhrr/employees/components/StatusMenu";
 import EnhancedTableToolbar from "modules/hhrr/employees/components/TableSelection";
 import DottedMenu from "modules/hhrr/employees/components/DottedMenu";
-
 
 export default function Employees() {
     const [order, setOrder] = React.useState<Order>('asc');
@@ -28,17 +27,24 @@ export default function Employees() {
         setOrder(isAsc ? 'desc' : 'asc');
         setOrderBy(property);
     };
-
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.checked) {
-            const newSelected = rows.map((n) => n.id);
-            setSelected(newSelected);
-            return;
-        }
+       if (selected.length === 0) {
+           if (event.target.checked) {
+               const newSelected = rows
+                   .filter((row) => row.status !== 'Inactive') // Exclude inactive rows
+                   .map((n) => n.id);
+               setSelected(newSelected);
+               return;
+           }
+       }
         setSelected([]);
     };
+        const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+            const row = rows.find((row) => row.id === id);
+            if (row?.status === 'Inactive') {
+                return; // Prevent selection for inactive rows
+            }
 
-    const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
         const selectedIndex = selected.indexOf(id);
         let newSelected: readonly number[] = [];
 
@@ -95,11 +101,19 @@ export default function Employees() {
                             {visibleRows.map((row, index) => {
                                 const isItemSelected = selected.indexOf(row.id) !== -1;
                                 const labelId = `enhanced-table-checkbox-${index}`;
+                                const isInactive = row.status === 'Inactive';
+                                const textColorStyle = isInactive ? { color: 'lightgray' } : {};
+
+                                const handleStatusChange = (newStatus: string) => {
+                                    row.status = newStatus;
+                                    console.log(`Row ${row.id} status updated to ${newStatus}`);
+                                };
 
                                 return (
                                     <TableRow
-                                        sx={{height:'72px'}}
-                                        hover
+                                        sx={{ height: '72px',
+                                            cursor: row.status === 'Inactive' ? 'not-allowed' : 'pointer'}}
+                                        hover={row.status !== 'Inactive'}
                                         onClick={(event) => handleClick(event, row.id)}
                                         role="checkbox"
                                         aria-checked={isItemSelected}
@@ -111,24 +125,22 @@ export default function Employees() {
                                             <Checkbox
                                                 color="primary"
                                                 checked={isItemSelected}
-                                                inputProps={{
-                                                    'aria-labelledby': labelId,
-                                                }}
-                                            />
+                                                inputProps={{'aria-labelledby': labelId}}
+                                                disabled={isInactive}/>
                                         </TableCell>
-                                        <TableCell component="th" id={labelId} scope="row" padding="none">
+                                        <TableCell  sx={textColorStyle} component="th" id={labelId} scope="row" padding="none">
                                             {row.name}
                                         </TableCell>
-                                        <TableCell padding={"none"} >{row.position}</TableCell>
-                                        <TableCell padding={"none"} >{row.phoneNumber}</TableCell>
-                                        <TableCell padding={"none"} >{row.email}</TableCell>
-                                        <TableCell padding={"none"} >{row.department}</TableCell>
-                                        <TableCell padding={"none"}  >
-                                            <StatusMenu status={row.status} />
+                                        <TableCell  sx={textColorStyle} padding="none">{row.position}</TableCell>
+                                        <TableCell  sx={textColorStyle} padding="none">{row.phoneNumber}</TableCell>
+                                        <TableCell  sx={textColorStyle} padding="none">{row.email}</TableCell>
+                                        <TableCell  sx={textColorStyle} padding="none">{row.department}</TableCell>
+                                        <TableCell  sx={textColorStyle} padding="none">
+                                            <StatusMenu status={row.status} onStatusChange={handleStatusChange} />
                                         </TableCell>
-                                            <TableCell padding={"none"}  >
-                                                <DottedMenu  />
-                                            </TableCell>
+                                        <TableCell padding="none">
+                                            <DottedMenu userId={''} />
+                                        </TableCell>
                                     </TableRow>
                                 );
                             })}
