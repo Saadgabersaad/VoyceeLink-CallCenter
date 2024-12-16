@@ -8,7 +8,7 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import {Button} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SettingsIcon from "@mui/icons-material/Settings";
-import FilterBtn from "modules/hhrr/employees/components/FilterBtn";
+import FilterBtn from "modules/core/components/FilterBtn";
 
 
 interface EnhancedTableToolbarProps {

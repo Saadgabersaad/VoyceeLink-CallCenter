@@ -12,7 +12,7 @@ export const Page = ({
       flexDirection: 'column',
       gap: '24px',
       //pt: 4
-    }}>
+    }} component='section'>
       {children}
     </Box>
   )

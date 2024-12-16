@@ -10,6 +10,7 @@ type TableRowDataSource<T> = T & {
 type EnhancedTableProps<T> = {
   rows: TableRowDataSource<T>[]
   headCells: HeadCell[]
+  loading: boolean
   rowsPerPageCount: number
   onPageChange(newPage: number): void
   render?: (row: T) => React.ReactNode
@@ -19,6 +20,7 @@ export function EnhancedTable<T>({
   rows,
   render,
   headCells,
+  loading,
   rowsPerPageCount,
   onPageChange
 }: EnhancedTableProps<T>) {
@@ -63,10 +65,10 @@ export function EnhancedTable<T>({
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   const visibleRows = React.useMemo(
-    () =>
+    () => loading ? [] :
       [...rows]
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [page, rowsPerPage],
+    [page, rowsPerPage, loading],
   )
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,11 +83,11 @@ export function EnhancedTable<T>({
           <EnhancedTableHead
             headCells={headCells}
             numSelected={selected.length}
-            rowCount={rows.length}
+            rowCount={rows?.length || 0}
             onSelectAllClick={handleSelectAllClick}
           />
           <TableBody>
-            {visibleRows.map((row, index) => {
+            {visibleRows?.map((row, index) => {
               const key = row.id
               const isItemSelected = selected.includes(key);
               const labelId = `enhanced-table-checkbox-${index}`
@@ -129,7 +131,7 @@ export function EnhancedTable<T>({
           page={page}
           rowsPerPageOptions={[5, 10, 25]}
           component='div'
-          count={rows.length}
+          count={rows?.length || 0}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}

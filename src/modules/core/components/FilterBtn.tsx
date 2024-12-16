@@ -18,7 +18,7 @@ export default function FilterBtn() {
         {
             title: 'Position Options',
             options: [
-                { label: 'Admin', backgroundColor: '#F7F7F7'},
+                { label: 'Admin', backgroundColor: '#F7F7F7' },
                 { label: 'Manager', backgroundColor: '#F7F7F7' },
                 { label: 'HR', backgroundColor: '#F7F7F7' },
                 { label: 'User', backgroundColor: '#F7F7F7' },
@@ -114,15 +114,15 @@ export default function FilterBtn() {
                                         }}
                                     >
                                         {optionGroups.map((group) => (
-                                            <Box  key={group.title}>
-                                                <strong style={{ marginBottom: '8px', display: 'block' ,fontSize:'12px',color:'#616161'}}>
+                                            <Box key={group.title}>
+                                                <strong style={{ marginBottom: '8px', display: 'block', fontSize: '12px', color: '#616161' }}>
                                                     {group.title}
                                                 </strong>
                                                 {group.options.map((option) => (
                                                     <MenuItem
                                                         key={option.label}
                                                         sx={{
-                                                            fontSize:'12px',
+                                                            fontSize: '12px',
                                                             borderRadius: '5px',
                                                             my: '5px',
                                                             backgroundColor: option.backgroundColor,
