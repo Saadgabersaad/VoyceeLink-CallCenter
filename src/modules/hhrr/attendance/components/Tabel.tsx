@@ -4,19 +4,19 @@ import React from 'react';
 
 export const AttendanceTable = () => {
   const rows = [
-    { name: 'Romany Moner', department: 'Engineering', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs' },
-    { name: 'Romany Moner', department: 'Human Resources', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Product', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Design', date: '12 May, 2024', status: 'Late', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Sales', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Data Analytics', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Customer Support', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Finance', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Marketing', date: '12 May, 2024', status: 'Late', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Infrastructure', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Infrastructure', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Infrastructure', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
-    { name: 'Romany Moner', department: 'Infrastructure', date: '12 May, 2024', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  }
+    { name: 'Romany Moner', department: 'Engineering', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs' },
+    { name: 'Romany Moner', department: 'Human Resources', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Product', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Design', date: '12 May, 2024', checkInOutTime:'09:10 AM - 04:30 PM',status: 'Late', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Sales', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Data Analytics', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Customer Support', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Finance', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Marketing', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'Late', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Infrastructure', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Infrastructure', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Infrastructure', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  },
+    { name: 'Romany Moner', department: 'Infrastructure', date: '12 May, 2024',checkInOutTime:'09:10 AM - 04:30 PM', status: 'On Time', breaks:'40 Min', workingHours:'09:02 Hrs'  }
   ];
 
   return (
@@ -39,11 +39,11 @@ export const AttendanceTable = () => {
           disablePadding: false,
           numeric: false
         },
-        // {
-        //   id: 'checkInOutTime', label: 'Check In & Out Time',
-        //   disablePadding: false,
-        //   numeric: false
-        // },
+        {
+          id: 'checkInOutTime', label: 'Check In & Out Time',
+          disablePadding: false,
+          numeric: false
+        },
         {
           id: 'status', label: 'Status',
           disablePadding: false,
@@ -67,6 +67,7 @@ export const AttendanceTable = () => {
           <TableCell>{row.name}</TableCell>
           <TableCell>{row.department}</TableCell>
           <TableCell>{row.date}</TableCell>
+          <TableCell>{row.checkInOutTime}</TableCell>
           <TableCell>{row.status}</TableCell>
           <TableCell>{row.breaks}</TableCell>
           <TableCell>{row.workingHours}</TableCell>
