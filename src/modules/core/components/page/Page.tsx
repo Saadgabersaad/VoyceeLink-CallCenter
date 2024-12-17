@@ -10,6 +10,8 @@ export const Page = ({
     <Box pt={4} px={3} sx={{
       display: 'flex',
       flexDirection: 'column',
+      overflowY: 'auto',
+      maxHeight: '100vh',
       gap: '24px',
       //pt: 4
     }} component='section'>

@@ -26,7 +26,7 @@ export default function RootLayout({
               {children}
             </AppLayout>
           </ReactQueryProvider>
-        </ThemeProvider>`
+        </ThemeProvider>
       </body>
     </html>
   )

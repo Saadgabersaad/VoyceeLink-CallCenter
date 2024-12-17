@@ -5,6 +5,7 @@ import {
 } from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from '../consts/headCells'
 import { Department } from '../shared/Department'
+import dayjs from 'dayjs'
 
 export const Table = ({
   rows,
@@ -15,25 +16,23 @@ export const Table = ({
     <EnhancedTable
       rows={rows!}
       loading={loading!}
-      rowsPerPageCount={1}
       headCells={headCells}
-      onPageChange={() => {}}
+      onPageChange={() => { }}
       render={(row) => {
-        console.log(row, 'row')
         return <>
-        <TableCell>
-          {row.name}
-        </TableCell>
-        <TableCell>
-          John Doe
-        </TableCell>
-        <TableCell>
-          {'12 May, 2024'}
-        </TableCell>
-        <TableCell>
-          Positions
-        </TableCell>
-      </>
+          <TableCell>
+            {row.name}
+          </TableCell>
+          <TableCell>
+            John Doe
+          </TableCell>
+          <TableCell>
+            {dayjs(row.createdAt).format('MMMM D, YYYY h:mm A')}
+          </TableCell>
+          <TableCell>
+            Positions
+          </TableCell>
+        </>
       }}
     />
   )

@@ -4,15 +4,17 @@ import { FormInput } from 'modules/core/components/FormInput'
 import { FormTextArea } from 'modules/core/components/FormTextarea'
 import { CreateDepartment } from '../shared/Department'
 
-type Props = DialogProps & {
-  create(department: CreateDepartment): void
+//You can extend props in a new type if needed
+type AddDepartmentModalProps = DialogProps & {
+  create(department: CreateDepartment): Promise<void> // POST FUNCTION FOR CREATE A NEW DEPARTMENT
 }
 
-export default function AddDepartment({
+//MAIN MODALS inherit Dialog Props by default
+export function AddDepartment({
   open,
+  create,
   onClose,
-  create
-}: Props) {
+}: AddDepartmentModalProps) {
 
   return <>
     <FormDialog
@@ -25,7 +27,7 @@ export default function AddDepartment({
         <Typography fontWeight={700} mt={2} mb={.2}>
           Department Details
         </Typography>
-        <Grid2 mb={4}>
+        <Grid2 mb={2}>
           <FormInput label='Department name' name='name' />
           <FormTextArea label='Description' name='description' />
         </Grid2>

@@ -1,6 +1,12 @@
 import { api, HttpMethod } from 'modules/core/utils/api'
-import { Department } from '../shared/Department'
+import { CreateDepartment, Department } from '../shared/Department'
+import { SearchParams } from 'modules/core/utils/types'
 
-export const getDepartments = () => {
-  return api<Department[]>(HttpMethod.GET, `/departments`)
+export const getDepartments = (search?: SearchParams) => {
+  const queryParam = search?.query ? `&search=${search.query}` : ''
+  return api<Department[]>(HttpMethod.GET, `/departments?sortByOrder=asc&sortByField=created_at${queryParam}`)
+}
+
+export const createDepartment = (department: CreateDepartment) => {
+  return api<Department[]>(HttpMethod.POST, `/departments`, department)
 }
