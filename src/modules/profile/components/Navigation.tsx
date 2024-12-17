@@ -1,6 +1,6 @@
 import { ArrowLeftOutlined, EditNote } from '@mui/icons-material'
 import { Button } from '@mui/material'
-import { Flex } from 'modules/core/components/Flex'
+import { Flex } from 'modules/core/components/flex'
 
 export const Navigation = () => {
   return (
