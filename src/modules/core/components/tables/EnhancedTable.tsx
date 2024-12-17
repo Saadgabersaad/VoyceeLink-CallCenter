@@ -87,7 +87,7 @@ const visibleRows = React.useMemo(
             onSelectAllClick={handleSelectAllClick}
           />
           <TableBody>
-            {loading ? <TableRowsLoader /> : (
+            {loading ? <TableRowsLoader columnsCount={headCells.length} /> : (
               <>
                 {visibleRows?.map((row, index) => {
                   const key = row.id
@@ -97,7 +97,6 @@ const visibleRows = React.useMemo(
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, key)}
                       role='checkbox'
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -107,6 +106,7 @@ const visibleRows = React.useMemo(
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
+                          onClick={(event) => handleClick(event, key)}
                           color="primary"
                           checked={isItemSelected}
                           inputProps={{
@@ -146,21 +146,17 @@ const visibleRows = React.useMemo(
 }
 
 
-const TableRowsLoader = ({ rowsNum = 10 }) => {
+const TableRowsLoader = ({ rowsNum = 10, columnsCount = 5 }) => {
   return [...Array(rowsNum)].map((row, index) => (
     <TableRow key={index}>
       <TableCell component="th" scope="row">
         <Skeleton animation="wave" variant="text" />
       </TableCell>
-      <TableCell>
-        <Skeleton animation="wave" variant="text" />
-      </TableCell>
-      <TableCell>
-        <Skeleton animation="wave" variant="text" />
-      </TableCell>
-      <TableCell>
-        <Skeleton animation="wave" variant="text" />
-      </TableCell>
+      {[...Array(columnsCount)].map((_, i) => (
+        <TableCell component="th" scope="row" key={String(i)}>
+          <Skeleton animation="wave" variant="text" />
+        </TableCell>
+      ))}
     </TableRow>
   ));
 };

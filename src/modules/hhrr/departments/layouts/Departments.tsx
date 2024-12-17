@@ -20,9 +20,7 @@ export default function Departments() {
       <Heading title='Departments' description={`View your Company’s Departments`}>
         <HeadingActions
           buttonText={'Add Department'}
-          mainModal={
-            <AddDepartment create={onCreateDepartment} />
-          }
+          mainModal={<AddDepartment create={onCreateDepartment} />}
         />
       </Heading>
       <Search onSearch={onSearch} />

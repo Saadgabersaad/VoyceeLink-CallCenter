@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { TableCell } from '@mui/material'
 import {
   EnhancedTable,
@@ -5,7 +6,7 @@ import {
 } from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from '../consts/headCells'
 import { Department } from '../shared/Department'
-import dayjs from 'dayjs'
+import { PositionsSelectRow } from './PositionsSelectRow'
 
 export const Table = ({
   rows,
@@ -27,11 +28,11 @@ export const Table = ({
             John Doe
           </TableCell>
           <TableCell>
-            {dayjs(row.createdAt).format('MMMM D, YYYY h:mm A')}
+            {dayjs(row.updatedAt).format('MMMM D, YYYY h:mm A')}
           </TableCell>
-          <TableCell>
-            Positions
-          </TableCell>
+          <PositionsSelectRow
+            positions={row.position}
+          />
         </>
       }}
     />
