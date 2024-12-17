@@ -15,6 +15,9 @@ import Collapse from '@mui/material/Collapse';
 import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
 import theme, {PRIMARY} from "modules/core/consts/theme";
 import {Flex} from "modules/core/components/flex";
+import DatePickerViews from "modules/hhrr/employee-profile/components/DatePicker";
+import Button from "@mui/material/Button";
+import {Download} from "@mui/icons-material";
 interface EnhancedTableProps {
     headCells: readonly {
         id: string;
@@ -83,6 +86,12 @@ const AttendanceTab: React.FC = () => {
 
     return (
         <Box sx={{ bgcolor: 'grey.100', margin: 'auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <Flex height={'40px'} justifyContent={'space-between'} alignItems={'center'}>
+                <DatePickerViews/>
+                <Button startIcon={<Download />} variant='contained'  >
+                    Download Logs
+                </Button>
+            </Flex>
             <Paper sx={{ width: '100%', mb: 2 }}>
                 <TableContainer>
                     <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">

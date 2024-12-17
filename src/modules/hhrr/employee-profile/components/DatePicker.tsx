@@ -11,7 +11,7 @@ export default function DatePickerViews() {
                 <DatePicker
                     label={'"YYYY", "MM" and "DD"'}
                     views={['year', 'month', 'day']}
-
+                    sx={{height:"40p"}}
 
                 />
             </DemoContainer>

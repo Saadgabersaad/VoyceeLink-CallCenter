@@ -29,7 +29,7 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
     return (
 
         <TableHead>
-            <TableRow>
+            <TableRow sx={{height:'56px',bgcolor:'#F7F7F7'}}>
                 <TableCell padding="checkbox">
                     <Checkbox
                         color="primary"

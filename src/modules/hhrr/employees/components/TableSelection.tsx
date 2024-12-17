@@ -14,13 +14,14 @@ import FilterBtn from "modules/hhrr/employees/components/FilterBtn";
 interface EnhancedTableToolbarProps {
     numSelected: number;
     tableSearch:boolean;
+    setPositionFilter: (value: string) => void;
+    setStatusFilter: (value: string) => void;
 }
     const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 
+        const { tableSearch, setPositionFilter, setStatusFilter } = props;
 
-            const {tableSearch} =props;
-            const { numSelected } = props;
-            return (
+        return (
                 <Toolbar
                     sx={[
                         {
@@ -33,7 +34,12 @@ interface EnhancedTableToolbarProps {
                     <Flex gap={2}>
                         <SearchInput tableSearch={tableSearch} />
                         <Tooltip title="Filter list">
-                                <FilterBtn />
+                                <FilterBtn
+                                    onFilterChange={{
+                                        setPositionFilter,
+                                        setStatusFilter,
+                                    }}
+                                />
                         </Tooltip>
                     </Flex>
 

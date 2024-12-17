@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo, useState} from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -73,22 +73,39 @@ export default function Employees() {
     };
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    const [positionFilter, setPositionFilter] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
 
-    const visibleRows = React.useMemo(
-        () =>
-            [...rows]
-                .sort(getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-        [order, orderBy, page, rowsPerPage],
-    );
+    const visibleRows = rows.filter((row) => {
+        return (
+            (!positionFilter || row.position === positionFilter) &&
+            (!statusFilter || row.status === statusFilter)
+        );
+    });
+    //
+    // const visibleRows = useMemo(() => {
+    //     const filters = { position: positionFilter, status: statusFilter };
+    //     return applyFilters(rows, filters)
+    //         .sort(getComparator(order, orderBy))
+    //         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    // }, [order, orderBy, page, rowsPerPage, positionFilter, statusFilter]);
+
+
+
+
+
 
     return (
         <Box sx={{ bgcolor: 'grey.100', margin: 'auto', display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            <EnhancedTableToolbar tableSearch={true} numSelected={selected.length} />
+            <EnhancedTableToolbar tableSearch={true} numSelected={selected.length}
+                                  setPositionFilter={setPositionFilter}
+                                  setStatusFilter={setStatusFilter}
+            />
             <Paper sx={{ width: '100%', mb: 2 }}>
                 <TableContainer>
                     <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="medium">
                         <EnhancedTableHead
+
                             numSelected={selected.length}
                             order={order}
                             orderBy={orderBy}
@@ -111,7 +128,7 @@ export default function Employees() {
 
                                 return (
                                     <TableRow
-                                        sx={{ height: '72px',
+                                        sx={{ height: '60px',
                                             cursor: row.status === 'Inactive' ? 'not-allowed' : 'pointer'}}
                                         hover={row.status !== 'Inactive'}
                                         onClick={(event) => handleClick(event, row.id)}

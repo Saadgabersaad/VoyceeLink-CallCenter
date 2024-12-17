@@ -19,13 +19,13 @@ export interface HeadCell {
 }
 
 export const rows: Data[] = [
-    { id: 1, name: 'Cupcake', position: '305', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Inactive' },
-    { id: 2, name: 'sadsd', position: '305', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
-    { id: 3, name: '[[[[[asdas]]]]]', position: '305', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
-    { id: 4, name: 'Cupcfsdake', position: '305', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
-    { id: 5, name: 'Cupcake', position: '305', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
-    { id:6, name: 'tyutyu', position: '305', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
-    { id: 7, name: 'oooooo', position: '305', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
+    { id: 1, name: 'Cupcake', position: 'HR', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Inactive' },
+    { id: 2, name: 'sadsd', position: 'HR', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
+    { id: 3, name: '[[[[[asdas]]]]]', position: 'User', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
+    { id: 4, name: 'Cupcfsdake', position: 'Admin', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
+    { id: 5, name: 'Cupcake', position: 'Admin', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
+    { id:6, name: 'tyutyu', position: 'User', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
+    { id: 7, name: 'oooooo', position: 'User', phoneNumber: 1243222437, email: 'aliaa@gmail.com', department: 'dept-1', status: 'Active' },
 
 ];
 
