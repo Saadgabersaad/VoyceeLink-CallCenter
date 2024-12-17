@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { usePathname, useRouter } from 'next/navigation'; // Get the current pathname
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 import ApartmentIcon from '@mui/icons-material/Apartment';
@@ -10,23 +11,34 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const options = [
-    { label: 'View Profile', icon: <PersonIcon color="primary" /> },
+    { label: 'View Profile Info', icon: <PersonIcon color="primary" /> },
     { label: 'Change User Position', icon: <WorkIcon color="primary" /> },
     { label: 'Change User Dept', icon: <ApartmentIcon color="primary" /> },
-    { label: 'Edit User', icon: <EditIcon  color="primary"/> },
+    { label: 'Edit User', icon: <EditIcon color="primary"/> },
     { label: 'Delete User', icon: <DeleteIcon sx={{color:'red'}} /> },
 ];
 
 const ITEM_HEIGHT = 48;
 
-export default function DottedMenu() {
+export default function DottedMenu({ userId }: { userId: string }) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+    const router = useRouter();
+    const pathname = usePathname();
+
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
+    };
+
+    const handleProfileClick = () => {
+        // const newPath = `/hhrr/employees/employee-profile/${userId}`;
+        const newPath = `/hhrr/employees/employee-profile/`;
+        router.push(newPath);
+        handleClose();
     };
 
     return (
@@ -39,7 +51,7 @@ export default function DottedMenu() {
                 aria-haspopup="true"
                 onClick={handleClick}
             >
-                <MoreHorizIcon />
+                <MoreVertIcon />
             </IconButton>
             <Menu
                 id="long-menu"
@@ -62,7 +74,7 @@ export default function DottedMenu() {
                 {options.map((option) => (
                     <MenuItem
                         key={option.label}
-                        onClick={handleClose}
+                        onClick={option.label === 'View Profile Info' ? handleProfileClick : handleClose}
                         sx={{paddingX:'16px',paddingY:'12px'}}
                     >
                         {option.icon}
