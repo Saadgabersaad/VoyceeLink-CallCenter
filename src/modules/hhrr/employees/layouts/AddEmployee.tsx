@@ -61,7 +61,7 @@ export default function AddEmployeeFormDialog({
             </Grid>
             <Grid size={6} mt={1}>
               <FormMultipleSelect
-                options={[1, 2, 3]}
+                //options={[1, 2, 3]}
                 placeholder='Positions'
                 name='positions'
               />

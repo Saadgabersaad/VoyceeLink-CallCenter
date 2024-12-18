@@ -16,6 +16,11 @@ const rows = [
 ];
 
 export const PositionsTable = () => {
+
+  const handleChange = (newPage: number) => {
+    console.log(newPage)
+  }
+
   return (
     <EnhancedTable
       rowsPerPageCount={10}
@@ -26,7 +31,7 @@ export const PositionsTable = () => {
         { id: 'department', numeric: false, disablePadding: true, label: 'Related Department' },
         { id: 'assigned', numeric: false, disablePadding: true, label: 'Number of employees assigned' },
       ]}
-      onPageChange={() => { }}
+      onPageChange={handleChange}
       render={(row) => (
         <>
           <TableCell>
@@ -42,7 +47,6 @@ export const PositionsTable = () => {
             {row.assigned}
           </TableCell>
         </>
-      )}
-    />
+      )} loading={false}    />
   )
 }
