@@ -20,7 +20,7 @@ export default function Employees() {
     const [orderBy, setOrderBy] = React.useState<keyof Data>('position');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(7);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -31,7 +31,7 @@ export default function Employees() {
        if (selected.length === 0) {
            if (event.target.checked) {
                const newSelected = rows
-                   .filter((row) => row.status !== 'Inactive') // Exclude inactive rows
+                   .filter((row) => row.status !== 'Inactive')
                    .map((n) => n.id);
                setSelected(newSelected);
                return;
@@ -76,21 +76,20 @@ export default function Employees() {
     const [positionFilter, setPositionFilter] = useState('');
     const [statusFilter, setStatusFilter] = useState('');
 
-    const visibleRows = rows.filter((row) => {
-        return (
-            (!positionFilter || row.position === positionFilter) &&
-            (!statusFilter || row.status === statusFilter)
-        );
-    });
-    //
-    // const visibleRows = useMemo(() => {
-    //     const filters = { position: positionFilter, status: statusFilter };
-    //     return applyFilters(rows, filters)
-    //         .sort(getComparator(order, orderBy))
-    //         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-    // }, [order, orderBy, page, rowsPerPage, positionFilter, statusFilter]);
 
 
+    const visibleRows = React.useMemo(() => {
+        const filteredRows = rows.filter((row) => {
+            return (
+                (!positionFilter || row.position === positionFilter) &&
+                (!statusFilter || row.status === statusFilter)
+            );
+        });
+
+        const sortedRows = filteredRows.sort(getComparator(order, orderBy));
+
+        return sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
+    }, [rows, positionFilter, statusFilter, order, orderBy, page, rowsPerPage]);
 
 
 
