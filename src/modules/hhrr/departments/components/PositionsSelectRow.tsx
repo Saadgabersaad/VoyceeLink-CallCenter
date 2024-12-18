@@ -10,15 +10,17 @@ type Props = {
 
 export function PositionsSelectRow({ positions }: Props) {
   const options = positions.map(({ name, id }) => selectAdapter(name, id)).concat({
-    label: 'UI GG',
-    value: 'fefeefe'
+    label: 'UI 2',
+    value: 'positionid'
   })
   const [checked, setChecked] = useState<SelectOption[]>(options)
+  console.log(checked)
 
   const handleChange = (ev: SelectChangeEvent<any>) => {
     const {
       target: { value },
     } = ev
+    //array of select options
     setChecked(value)
   }
 
@@ -26,6 +28,8 @@ export function PositionsSelectRow({ positions }: Props) {
     <TableCell>
       <MultipleSelect
         values={checked}
+        size='small'
+        width='10rem'
         name='Positions'
         onChange={handleChange}
         placeholder='Positions'

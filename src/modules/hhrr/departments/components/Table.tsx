@@ -12,13 +12,12 @@ export const Table = ({
   rows,
   loading
 }: Partial<EnhancedTableProps<Department>>) => {
-
   return (
     <EnhancedTable
       rows={rows!}
       loading={loading!}
       headCells={headCells}
-      onPageChange={() => { }}
+      onPageChange={() => {}}
       render={(row) => {
         return <>
           <TableCell>
