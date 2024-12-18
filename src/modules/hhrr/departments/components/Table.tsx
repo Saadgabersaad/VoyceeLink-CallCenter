@@ -1,35 +1,39 @@
+import dayjs from 'dayjs'
 import { TableCell } from '@mui/material'
-import { EnhancedTable } from 'modules/core/components/tables/EnhancedTable'
+import {
+  EnhancedTable,
+  EnhancedTableProps
+} from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from '../consts/headCells'
-import { useDepartments } from '../hooks/use-departments'
+import { Department } from '../shared/Department'
+import { PositionsSelectRow } from './PositionsSelectRow'
 
-//TODO: USE REACT QUERY
-export const Table = () => {
-  const { data, isError, isLoading } = useDepartments()
-  console.log(data.data, 'a')
+export const Table = ({
+  rows,
+  loading
+}: Partial<EnhancedTableProps<Department>>) => {
+
   return (
     <EnhancedTable
-      loading={isLoading}
-      rows={data?.data?.concat(data?.data)}
-      rowsPerPageCount={1}
+      rows={rows!}
+      loading={loading!}
       headCells={headCells}
       onPageChange={() => { }}
       render={(row) => {
-        console.log(row, 'row')
         return <>
-        <TableCell>
-          {row.name}
-        </TableCell>
-        <TableCell>
-          a
-        </TableCell>
-        <TableCell>
-          {'12 May, 2024'}
-        </TableCell>
-        <TableCell>
-          Positions
-        </TableCell>
-      </>
+          <TableCell>
+            {row.name}
+          </TableCell>
+          <TableCell>
+            John Doe
+          </TableCell>
+          <TableCell>
+            {dayjs(row.updatedAt).format('MMMM D, YYYY h:mm A')}
+          </TableCell>
+          <PositionsSelectRow
+            positions={row.position}
+          />
+        </>
       }}
     />
   )

@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast'
 import { AppHeader } from './Appbar'
 import { Main } from './Main'
 
@@ -8,6 +9,7 @@ export const AppLayout = ({ children }: Readonly<{
     <AppHeader />
     <Main>
       {children}
+      <Toaster />
     </Main>
   </>
 }

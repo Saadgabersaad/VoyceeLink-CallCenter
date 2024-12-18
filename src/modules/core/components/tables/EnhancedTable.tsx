@@ -1,17 +1,13 @@
 import React from 'react'
-import { Checkbox, TableCell, TableContainer, Table, TableRow, TableBody, Paper, TablePagination } from '@mui/material'
+import { Checkbox, TableCell, Skeleton, TableContainer, Table, TableRow, TableBody, Paper, TablePagination, CircularProgress } from '@mui/material'
 import { HeadCell } from 'modules/core/consts/tableHead'
 import { EnhancedTableHead } from './EnhancedTableHead'
 
-type TableRowDataSource<T> = T & {
-  id: number
-}
-
-type EnhancedTableProps<T> = {
-  rows: TableRowDataSource<T>[]
+export type EnhancedTableProps<T> = {
+  rows: (T & { id: string })[]
   headCells: HeadCell[]
   loading: boolean
-  rowsPerPageCount: number
+  rowsPerPageCount?: number
   onPageChange(newPage: number): void
   render?: (row: T) => React.ReactNode
 }
@@ -21,16 +17,16 @@ export function EnhancedTable<T>({
   render,
   headCells,
   loading,
-  rowsPerPageCount,
+  rowsPerPageCount = 10,
   onPageChange
 }: EnhancedTableProps<T>) {
-  const [selected, setSelected] = React.useState<readonly number[]>([])
+  const [selected, setSelected] = React.useState<readonly string[]>([])
   const [page, setPage] = React.useState<number>(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageCount || 5)
 
-  const handleClick = (_event: React.MouseEvent<unknown>, id: number) => {
+  const handleClick = (_event: React.MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
-    let newSelected: readonly number[] = [];
+    let newSelected: readonly string[] = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -49,7 +45,7 @@ export function EnhancedTable<T>({
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n!.id);
+      const newSelected = rows.map((n) => n?.id)
       setSelected(newSelected);
       return
     }
@@ -64,12 +60,16 @@ export function EnhancedTable<T>({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const visibleRows = React.useMemo(
-    () => loading ? [] :
-      [...rows]
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [page, rowsPerPage, loading],
-  )
+  /*
+const visibleRows = React.useMemo(
+  () => loading ? [] :
+    [...rows]
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+  [page, rowsPerPage, loading],
+)*/
+
+  const visibleRows = [...rows]
+    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -87,43 +87,47 @@ export function EnhancedTable<T>({
             onSelectAllClick={handleSelectAllClick}
           />
           <TableBody>
-            {visibleRows?.map((row, index) => {
-              const key = row.id
-              const isItemSelected = selected.includes(key);
-              const labelId = `enhanced-table-checkbox-${index}`
+            {loading ? <TableRowsLoader columnsCount={headCells.length} /> : (
+              <>
+                {visibleRows?.map((row, index) => {
+                  const key = row.id
+                  const isItemSelected = selected.includes(key);
+                  const labelId = `enhanced-table-checkbox-${index}`
 
-              return (
-                <TableRow
-                  hover
-                  onClick={(event) => handleClick(event, key)}
-                  role='checkbox'
-                  aria-checked={isItemSelected}
-                  tabIndex={-1}
-                  key={key}
-                  selected={isItemSelected}
-                  sx={{ cursor: 'pointer', height: '65px' }}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      color="primary"
-                      checked={isItemSelected}
-                      inputProps={{
-                        'aria-labelledby': labelId,
-                      }}
-                    />
-                  </TableCell>
-                  {render && render(row)}
-                </TableRow>
-              );
-            })}
-            {emptyRows > 0 && (
-              <TableRow
-                style={{
-                  height: 56,
-                }}
-              >
-                <TableCell colSpan={6} />
-              </TableRow>
+                  return (
+                    <TableRow
+                      hover
+                      role='checkbox'
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={key}
+                      selected={isItemSelected}
+                      sx={{ cursor: 'pointer', height: '65px' }}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          onClick={(event) => handleClick(event, key)}
+                          color="primary"
+                          checked={isItemSelected}
+                          inputProps={{
+                            'aria-labelledby': labelId,
+                          }}
+                        />
+                      </TableCell>
+                      {render && render(row)}
+                    </TableRow>
+                  );
+                })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: 56,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </>
             )}
           </TableBody>
         </Table>
@@ -140,3 +144,19 @@ export function EnhancedTable<T>({
     </Paper>
   )
 }
+
+
+const TableRowsLoader = ({ rowsNum = 10, columnsCount = 5 }) => {
+  return [...Array(rowsNum)].map((row, index) => (
+    <TableRow key={index}>
+      <TableCell component="th" scope="row">
+        <Skeleton animation="wave" variant="text" />
+      </TableCell>
+      {[...Array(columnsCount)].map((_, i) => (
+        <TableCell component="th" scope="row" key={String(i)}>
+          <Skeleton animation="wave" variant="text" />
+        </TableCell>
+      ))}
+    </TableRow>
+  ));
+};
