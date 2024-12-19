@@ -14,6 +14,7 @@ export default function Departments() {
   } = useDepartments()
 
   console.log(isLoading)
+    console.log(data)
 
   return (
     <Page>

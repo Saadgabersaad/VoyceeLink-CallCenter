@@ -16,6 +16,8 @@ const rows = [
 ];
 
 export const PositionsTable = () => {
+    console.log(rows)
+
   return (
     <EnhancedTable
       rowsPerPageCount={10}

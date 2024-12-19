@@ -47,6 +47,7 @@ export const FormDialog = <T extends FieldValues>({
 
   return (
     <Dialog
+        fullWidth={true}
       open={open}
       onClose={onClose}
       PaperProps={{
@@ -67,7 +68,7 @@ export const FormDialog = <T extends FieldValues>({
 }
 
 export const FormDialogContent = ({ children }: React.PropsWithChildren) => (
-  <DialogContent>
+  <DialogContent sx={{bgcolor:"#fafafa",my:3}}>
     {children}
   </DialogContent>
 )
