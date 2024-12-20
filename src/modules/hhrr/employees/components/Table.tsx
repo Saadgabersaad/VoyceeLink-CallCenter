@@ -155,7 +155,7 @@ export default function Employees() {
                                             <StatusMenu status={row.status} onStatusChange={handleStatusChange} />
                                         </TableCell>
                                         <TableCell padding="none">
-                                            <DottedMenu userId={''} />
+                                            <DottedMenu userId={''} menuType={"user"} />
                                         </TableCell>
                                     </TableRow>
                                 );

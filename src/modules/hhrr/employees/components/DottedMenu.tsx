@@ -10,21 +10,31 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const options = [
+const userOptions = [
     { label: 'View Profile Info', icon: <PersonIcon color="primary" /> },
     { label: 'Change User Position', icon: <WorkIcon color="primary" /> },
     { label: 'Change User Dept', icon: <ApartmentIcon color="primary" /> },
-    { label: 'Edit User', icon: <EditIcon color="primary"/> },
-    { label: 'Delete User', icon: <DeleteIcon sx={{color:'red'}} /> },
+    { label: 'Edit User', icon: <EditIcon color="primary" /> },
+    { label: 'Delete User', icon: <DeleteIcon sx={{ color: 'red' }} /> },
+];
+
+const positionOptions = [
+    { label: 'View Position', icon: <PersonIcon color="primary" /> },
+    { label: 'Change Position Name', icon: <WorkIcon color="primary" /> },
+    { label: 'Delete User', icon: <DeleteIcon sx={{ color: 'red' }} /> },
 ];
 
 const ITEM_HEIGHT = 48;
 
-export default function DottedMenu({ userId }: { userId: string }) {
+type DottedMenuProps = {
+    userId: string;
+    menuType: 'user' | 'position';
+};
+
+export default function DottedMenu({ userId, menuType }: DottedMenuProps) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const router = useRouter();
-    const pathname = usePathname();
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -35,11 +45,18 @@ export default function DottedMenu({ userId }: { userId: string }) {
     };
 
     const handleProfileClick = () => {
-        // const newPath = `/hhrr/employees/employee-profile/${userId}`;
-        const newPath = `/hhrr/employees/employee-profile/`;
+        const newPath = `/hhrr/employees/employee-profile/${userId}`;
         router.push(newPath);
         handleClose();
     };
+    const handlePositionClick = () => {
+        const newPath = `/hhrr/positions/position-view/${userId}`;
+        router.push(newPath);
+        handleClose();
+    };
+
+    // Decide which options to use based on menuType
+    const options = menuType === 'user' ? userOptions : positionOptions;
 
     return (
         <div>
@@ -74,8 +91,12 @@ export default function DottedMenu({ userId }: { userId: string }) {
                 {options.map((option) => (
                     <MenuItem
                         key={option.label}
-                        onClick={option.label === 'View Profile Info' ? handleProfileClick : handleClose}
-                        sx={{paddingX:'16px',paddingY:'12px'}}
+                        onClick={
+                            option.label === 'View Profile Info'
+                                ? handleProfileClick
+                                : handleClose
+                        }
+                        sx={{ paddingX: '16px', paddingY: '12px' }}
                     >
                         {option.icon}
                         <span style={{ marginLeft: '10px' }}>{option.label}</span>
