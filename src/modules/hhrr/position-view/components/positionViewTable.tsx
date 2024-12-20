@@ -1,8 +1,7 @@
-import { TableCell } from '@mui/material'
+import {Button, TableCell } from '@mui/material'
 import {EnhancedTable, EnhancedTableProps} from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from '../../position-view/consts/headCell'
 import {Position} from "modules/hhrr/departments/shared/Position";
-import DottedMenu from 'modules/hhrr/employees/components/DottedMenu';
 
 export const Table = ({
                           rows,
@@ -31,7 +30,8 @@ export const Table = ({
                         {row.employeeCount}
                     </TableCell>
                     <TableCell>
-                        <DottedMenu menuType={'position'} userId={''} />
+                        <Button sx={{bgcolor:"#ff6363"}} variant="contained">Unassign</Button>
+
                     </TableCell>
 
                 </>

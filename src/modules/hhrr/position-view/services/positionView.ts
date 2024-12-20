@@ -5,7 +5,7 @@ import {Position} from "modules/hhrr/departments/shared/Position";
 
 export const getPositionsView = (search?: SearchParams) => {
     const queryParam = search?.query ? `&search=${search.query}` : ''
-    return api<Position[]>(HttpMethod.GET, `GET employees/?position=cm489fa4p0000bf0r3e4i3byq	}`)
+    return api<Position[]>(HttpMethod.GET, `GET employees/?position=cm48g744s0002o2tct5he6tqk	}`)
 }
 
 export const createPosition = (position: CreatePosition) => {

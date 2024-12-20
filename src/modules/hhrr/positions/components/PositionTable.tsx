@@ -1,4 +1,4 @@
-import { TableCell } from '@mui/material'
+import {Button, TableCell} from '@mui/material'
 import {EnhancedTable, EnhancedTableProps} from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from '../../positions/consts/headCell'
 import {Position} from "modules/hhrr/departments/shared/Position";
@@ -32,6 +32,7 @@ export const Table = ({
                     </TableCell>
                     <TableCell>
                     <DottedMenu menuType={'position'} userId={''} />
+
                     </TableCell>
 
                 </>
