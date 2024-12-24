@@ -14,6 +14,11 @@ import { getComparator } from 'modules/core/utils/tableUtlis';
 import StatusMenu from "modules/hhrr/employees/components/StatusMenu";
 import EnhancedTableToolbar from "modules/hhrr/employees/components/TableSelection";
 import DottedMenu from "modules/hhrr/employees/components/DottedMenu";
+import PersonIcon from "@mui/icons-material/Person";
+import WorkIcon from "@mui/icons-material/Work";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Employees() {
     const [order, setOrder] = React.useState<Order>('asc');
@@ -21,6 +26,17 @@ export default function Employees() {
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+
+    const userOptions = [
+        { label: 'View Profile Info', icon: <PersonIcon color="primary" /> },
+        { label: 'Change User Position', icon: <WorkIcon color="primary" /> },
+        { label: 'Change User Dept', icon: <ApartmentIcon color="primary" /> },
+        { label: 'Edit User', icon: <EditIcon color="primary" /> },
+        { label: 'Delete User', icon: <DeleteIcon sx={{ color: 'red' }} /> },
+    ];
+
+
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -155,7 +171,7 @@ export default function Employees() {
                                             <StatusMenu status={row.status} onStatusChange={handleStatusChange} />
                                         </TableCell>
                                         <TableCell padding="none">
-                                            <DottedMenu userId={''} menuType={"user"} />
+                                            <DottedMenu userId={row.id} options={userOptions} mainModal={null} />
                                         </TableCell>
                                     </TableRow>
                                 );

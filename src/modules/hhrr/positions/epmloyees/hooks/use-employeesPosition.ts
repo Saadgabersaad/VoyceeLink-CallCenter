@@ -1,17 +1,22 @@
 import { useTable } from 'modules/core/hooks/use-table'
-import {createPosition, getPositionsView} from "../services/positionView";
-import { POSITIONS_KEY } from 'modules/hhrr/positions/consts/queryKeys';
+import {
+    createPosition,
+    getPositionsEmployees,
+} from "modules/hhrr/positions/epmloyees/services/positionEmployees";
+import {CreatePosition} from "modules/hhrr/positions/shared/Position";
+import {POSITIONS_KEY} from "modules/hhrr/positions/consts/queryKeys";
 
 
-export const usePositionView = () => {
+
+export const useEmployeesPosition = () => {
     const { data, isLoading, isError, mutate, isFetching,   onSearch } = useTable({
         key: POSITIONS_KEY,
-        fetcher: getPositionsView,
+        fetcher: getPositionsEmployees,
         mutationFn: createPosition,
     })
 
     // EXECUTED IN A ONSUBMIT FORM DIALOG EVENT
-    const onCreatePosition = async (createPosition: createPosition) => {
+    const onCreatePosition = async (createPosition: CreatePosition) => {
         mutate(createPosition)
     }
 

@@ -1,4 +1,4 @@
 export interface CreatePosition {
-    name: string
-    description: string
+    department: string
+    departmentId: string
 }

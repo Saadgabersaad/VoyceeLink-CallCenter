@@ -83,14 +83,15 @@ export const FormHeading = ({ children }: React.PropsWithChildren) => {
 
 export const FormActions = ({
   onClose = () => {},
-  buttonText = ''
+  buttonText = '',
+    bgcolor,
 }) => {
   return (
-    <DialogActions sx={{ paddingBottom: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
+    <DialogActions sx={{ paddingY: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
       <Button onClick={onClose} sx={{ boxShadow: 1, px: 2, color: 'currentColor' }}>
         Cancel
       </Button>
-      <Button variant='contained' type='submit'>
+      <Button variant='contained' type='submit' sx={{bgcolor:bgcolor}} >
         {buttonText}
       </Button>
     </DialogActions>

@@ -7,3 +7,11 @@ export interface Position {
   departmentId: string;
   employeeCount: number;
 }
+
+export interface PositionEmployee {
+ id:string;
+  name: string;
+  email: string;
+  department: string;
+
+}

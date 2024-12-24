@@ -4,18 +4,18 @@ import { Page, Heading } from 'modules/core/components/page'
 import {Box, Typography} from "@mui/material";
 import  {PRIMARY} from "modules/core/consts/theme";
 import {Search} from "modules/core/components/Search";
-import {Table} from "../components/positionViewTable";
-import {usePositionView} from "modules/hhrr/position-view/hooks/use-viewPosition";
+import {Table} from "modules/hhrr/positions/epmloyees/components/positionViewTable";
+import {useEmployeesPosition} from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 import TextField from "@mui/material/TextField";
 import { Flex } from "modules/core/components/flex";
 
-export default function PositionView() {
+export default function PositionView(positionId: string) {
     const {
         data,
         isLoading,
         onSearch,
         onCreatePosition,
-    } = usePositionView()
+    } = useEmployeesPosition()
 
     console.log(isLoading)
     console.log(data)

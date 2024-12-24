@@ -1,7 +1,6 @@
 import { Heading, Page } from 'modules/core/components/page'
 import { HeadingActions } from 'modules/core/components/page/Actions'
 import React from 'react'
-import { PositionsTable } from '../components/Table'
 import { Search } from 'modules/core/components/Search'
 import {AddPosition} from "./AddPosition";
 import {usePositions} from "../hooks/use-positions";
@@ -27,6 +26,7 @@ export default function Positions() {
       >
         <HeadingActions
           buttonText='Add Position'
+          // mainModal={<AddPosition create={onCreatePosition} />}// main worked component
           mainModal={<AddPosition create={onCreatePosition} />}
         />
       </Heading>

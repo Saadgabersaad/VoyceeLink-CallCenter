@@ -5,3 +5,8 @@ export const headCells: HeadCell[] = [
     {id: 'email', numeric: false, disablePadding: false, label: 'Email',},
     { id: 'department', numeric: false, disablePadding: false, label: 'Department' },
 ]
+export const DeleteHeadCells: HeadCell[] = [
+    {id: 'name', numeric: false, disablePadding: true, label: 'Name',},
+    {id: 'position', numeric: false, disablePadding: false, label: 'Select New Position',},
+
+]

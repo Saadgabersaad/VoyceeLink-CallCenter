@@ -1,13 +1,14 @@
 import {Button, TableCell } from '@mui/material'
 import {EnhancedTable, EnhancedTableProps} from 'modules/core/components/tables/EnhancedTable'
-import { headCells } from '../../position-view/consts/headCell'
-import {Position} from "modules/hhrr/departments/shared/Position";
+import { headCells } from 'modules/hhrr/positions/epmloyees/consts/headCell'
+import { PositionEmployee} from "modules/hhrr/departments/shared/Position";
 
 export const Table = ({
                           rows,
                           loading
-                      }: Partial<EnhancedTableProps<Position>>) => {
+                      }: Partial<EnhancedTableProps<PositionEmployee>>) => {
 
+    console.log(rows)
     return (
         <EnhancedTable
             rows={rows!}
@@ -17,18 +18,18 @@ export const Table = ({
             render={(row) => {
                 return <>
                     <TableCell>
-                        {row.id}
-                    </TableCell>
-                    <TableCell>
                         {row.name}
                     </TableCell>
                     <TableCell>
-                        {row.departmentId}
+                        {row.email}
+                    </TableCell>
+                    <TableCell>
+                        {row.department}
                     </TableCell>
 
-                    <TableCell>
-                        {row.employeeCount}
-                    </TableCell>
+                    {/*<TableCell>*/}
+                    {/*    {row.employeeCount}*/}
+                    {/*</TableCell>*/}
                     <TableCell>
                         <Button sx={{bgcolor:"#ff6363"}} variant="contained">Unassign</Button>
 
