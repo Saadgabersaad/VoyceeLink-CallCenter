@@ -1,8 +1,17 @@
 import React from 'react'
-import { Checkbox, TableCell, Skeleton, TableContainer, Table, TableRow, TableBody, Paper, TablePagination, CircularProgress } from '@mui/material'
+import { Checkbox, TableCell, Skeleton, TableContainer, Table, TableRow, TableBody, Paper, TablePagination } from '@mui/material'
 import { HeadCell } from 'modules/core/consts/tableHead'
 import { EnhancedTableHead } from './EnhancedTableHead'
+import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
+import DottedMenu from "modules/hhrr/employees/components/DottedMenu";
+import {DeletePosition} from "modules/hhrr/positions/epmloyees/layout/deletePosition";
+import {ChangePositionName} from "modules/hhrr/positions/epmloyees/layout/ChangePositionName";
 
+type OptionItem = {
+  label: string;
+  icon: JSX.Element;
+  action?: () => void;
+};
 export type EnhancedTableProps<T> = {
   rows: (T & { id: string })[]
   headCells: HeadCell[]
@@ -10,6 +19,9 @@ export type EnhancedTableProps<T> = {
   rowsPerPageCount?: number
   onPageChange(newPage: number): void
   render?: (row: T) => React.ReactNode
+  mainModal?: React.ReactNode
+  options: OptionItem[]; // List of options with labels, icons, and actions
+
 }
 
 export function EnhancedTable<T>({
@@ -18,8 +30,10 @@ export function EnhancedTable<T>({
   headCells,
   loading,
   rowsPerPageCount = 10,
-  onPageChange
+  onPageChange, options,
 }: EnhancedTableProps<T>) {
+  const { setPositionId } = usePositionContext();  // Using the context
+
   const [selected, setSelected] = React.useState<readonly string[]>([])
   const [page, setPage] = React.useState<number>(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageCount || 5)
@@ -27,6 +41,7 @@ export function EnhancedTable<T>({
   const handleClick = (_event: React.MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected: readonly string[] = [];
+    setPositionId(id)
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -59,14 +74,6 @@ export function EnhancedTable<T>({
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
-  /*
-const visibleRows = React.useMemo(
-  () => loading ? [] :
-    [...rows]
-      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-  [page, rowsPerPage, loading],
-)*/
 
   const visibleRows = [...rows]
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -103,6 +110,7 @@ const visibleRows = React.useMemo(
                       key={key}
                       selected={isItemSelected}
                       sx={{ cursor: 'pointer', height: '65px' }}
+                      onClick={()=>setPositionId(row.id)}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -115,6 +123,15 @@ const visibleRows = React.useMemo(
                         />
                       </TableCell>
                       {render && render(row)}
+                      <TableCell>
+                        <DottedMenu
+                            employees={rows}
+                            options={options}
+                            userId={row.id}
+                                    mainModal={<DeletePosition   positions={rows}    />}
+                                    NameModal={<ChangePositionName   positions={rows}    />}
+                                   />
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -146,7 +163,7 @@ const visibleRows = React.useMemo(
 }
 
 
-const TableRowsLoader = ({ rowsNum = 10, columnsCount = 5 }) => {
+const TableRowsLoader = ({ rowsNum = 5, columnsCount = 5 }) => {
   return [...Array(rowsNum)].map((row, index) => (
     <TableRow key={index}>
       <TableCell component="th" scope="row">

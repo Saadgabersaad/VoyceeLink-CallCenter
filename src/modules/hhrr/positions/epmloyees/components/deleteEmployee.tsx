@@ -4,19 +4,11 @@ import {EnhancedTable, EnhancedTableProps} from 'modules/core/components/tables/
 import {DeleteHeadCells} from "modules/hhrr/positions/epmloyees/consts/headCell";
 import {useEmployeesPosition} from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 import {PositionEmployees} from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
+import { PositionsSelectRow } from "./assignPosition";
 
 
-export const DeletePositionTable = ({rows, loading}: Partial<EnhancedTableProps<PositionEmployees>>) => {
+export const DeletePositionTable = ({rows, loading,mutate,positions,current}: Partial<EnhancedTableProps<PositionEmployees>>) => {
 
-    const {
-        data,
-        isLoading,
-        onSearch,
-        onCreatePosition
-    } = useEmployeesPosition()
-
-    console.log(isLoading)
-    console.log(data)
 
     return (
         <EnhancedTable
@@ -27,7 +19,6 @@ export const DeletePositionTable = ({rows, loading}: Partial<EnhancedTableProps<
             render={(row) => {
                 return <>
 
-
                     <TableCell>
                         {row.name}
                     </TableCell>
@@ -35,7 +26,7 @@ export const DeletePositionTable = ({rows, loading}: Partial<EnhancedTableProps<
                         {row.id}
                     </TableCell>
 
-
+                    <PositionsSelectRow  mutate={mutate} positions={positions} />
 
                 </>
             }}

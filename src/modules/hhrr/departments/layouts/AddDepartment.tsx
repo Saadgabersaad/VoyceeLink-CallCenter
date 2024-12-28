@@ -16,7 +16,6 @@ export function AddDepartment({
   onClose,
 }: AddDepartmentModalProps) {
 
-  console.log('sssssssssssss')
   return <>
     <FormDialog
       title='Add Department'

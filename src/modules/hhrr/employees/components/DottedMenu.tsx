@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Get the current pathname
+import { useRouter } from 'next/navigation';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useBoolean } from 'modules/core/hooks/use-boolean'; // Custom hook for managing boolean state
+import { useBoolean } from 'modules/core/hooks/use-boolean';
+import { usePositionContext } from 'modules/hhrr/positions/epmloyees/shared/PositionSelectedId';
 
 // Define the types for option items
 type OptionItem = {
@@ -15,16 +16,20 @@ type OptionItem = {
 
 type DottedMenuProps = {
     userId: string;
-    mainModal: React.ReactNode; // Modal to be rendered on option click
+    mainModal?: React.ReactNode; // Optional modal to be rendered on option click
+    NameModal?: React.ReactNode; // Additional modal for "Change Position Name"
     options: OptionItem[]; // List of options with labels, icons, and actions
 };
 
 const ITEM_HEIGHT = 48;
 
-export default function DottedMenu({ userId, mainModal, options }: DottedMenuProps) {
+export default function DottedMenu({ userId, mainModal, NameModal, options = [] }: DottedMenuProps) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [open, onOpen, onClose] = useBoolean();
+    const [nameModalOpen, setNameModalOpen] = useState(false); // Separate state for NameModal visibility
     const router = useRouter();
+
+    const { setPositionData, setPositionId } = usePositionContext();
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget); // Set anchor for menu
@@ -43,16 +48,15 @@ export default function DottedMenu({ userId, mainModal, options }: DottedMenuPro
     // Handle the opening of the modal on specific option click
     const handleOptionClick = (option: OptionItem) => {
         if (option.label === 'Delete User') {
-            onOpen();
+            onOpen(); // Open main modal
         } else if (option.label === 'View Position') {
+            setPositionId(userId);
             navigateTo(`/hhrr/positions/employee`);
-        }
-        else if (option.label === 'View Profile Info') {
-            navigateTo(`/employee/employee-profile/${userId}`);
+        } else if (option.label === 'Change Position Name') {
+            setNameModalOpen(true); // Open NameModal
         } else {
-            if (option.action) {
-                option.action(); // Execute the option action if defined
-            }
+            option.action?.();
+            handleClose();
         }
     };
 
@@ -81,7 +85,7 @@ export default function DottedMenu({ userId, mainModal, options }: DottedMenuPro
                     paper: {
                         maxHeight: ITEM_HEIGHT * 5.5,
                         width: '23ch',
-                        border: 'solid 1px green', // Styling can be improved
+                        border: 'solid 1px green',
                     },
                 }}
             >
@@ -97,8 +101,12 @@ export default function DottedMenu({ userId, mainModal, options }: DottedMenuPro
                 ))}
             </Menu>
 
-            {/* Render the modal if open */}
+            {/* Render the modals based on their respective states */}
             {open && mainModal && React.cloneElement(mainModal as React.ReactElement, { open, onClose })}
+            {nameModalOpen && NameModal && React.cloneElement(NameModal as React.ReactElement, {
+                open: nameModalOpen,
+                onClose: () => setNameModalOpen(false) // Close NameModal when onClose is triggered
+            })}
         </div>
     );
 }

@@ -19,6 +19,7 @@ export default function Positions() {
 
 
   return (
+
     <Page>
       <Heading
         title='Positions'
@@ -26,12 +27,11 @@ export default function Positions() {
       >
         <HeadingActions
           buttonText='Add Position'
-          // mainModal={<AddPosition create={onCreatePosition} />}// main worked component
           mainModal={<AddPosition create={onCreatePosition} />}
         />
       </Heading>
       <Search onSearch={onSearch} />
-      <Table rows={data} loading={isLoading} />
+      <Table rows={data} loading={isLoading}  />
     </Page>
   )
 }

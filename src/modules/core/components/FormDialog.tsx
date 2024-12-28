@@ -48,6 +48,7 @@ export const FormDialog = <T extends FieldValues>({
   return (
     <Dialog
         fullWidth={true}
+        maxWidth={'md'}
       open={open}
       onClose={onClose}
       PaperProps={{
@@ -68,33 +69,44 @@ export const FormDialog = <T extends FieldValues>({
 }
 
 export const FormDialogContent = ({ children }: React.PropsWithChildren) => (
-  <DialogContent sx={{bgcolor:"#fafafa",my:3}}>
+  <DialogContent sx={{bgcolor:"#fafafa",my:3 }}>
     {children}
   </DialogContent>
 )
 
 export const FormHeading = ({ children }: React.PropsWithChildren) => {
   return (
-    <DialogTitle sx={{ fontWeight: '700', pb: 0, fontSize: 20 }}>
+    <DialogTitle sx={{ fontWeight: '700', pb: 0, fontSize: 28 }}>
       {children}
     </DialogTitle>
   )
 }
-
 export const FormActions = ({
-  onClose = () => {},
-  buttonText = '',
-    bgcolor,
-}) => {
+                              onClose = () => {},
+                              buttonText = '',
+                              bgcolor,
+                              openModal,
+                              disabled = false,
+                            }) => {
   return (
-    <DialogActions sx={{ paddingY: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
-      <Button onClick={onClose} sx={{ boxShadow: 1, px: 2, color: 'currentColor' }}>
-        Cancel
-      </Button>
-      <Button variant='contained' type='submit' sx={{bgcolor:bgcolor}} >
-        {buttonText}
-      </Button>
-    </DialogActions>
-  )
-}
+      <DialogActions sx={{ paddingY: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
+        <Button onClick={onClose} sx={{ boxShadow: 1, px: 2, color: 'currentColor' }}>
+          Cancel
+        </Button>
+        <Button
+            onClick={openModal}
+            variant='contained'
+            type='submit'
+            sx={{
+              bgcolor: disabled ? 'gray' : bgcolor,  // Apply gray color if disabled
+              color: 'white',  // Text color remains white
+              cursor: disabled ? 'not-allowed' : 'pointer',  // Change cursor when disabled
+            }}
+            disabled={disabled}  // Disable the button based on the prop
+        >
+          {buttonText}
+        </Button>
+      </DialogActions>
+  );
+};
 

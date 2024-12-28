@@ -1,11 +1,7 @@
-import {Button, TableCell} from '@mui/material'
+import { TableCell} from '@mui/material'
 import {EnhancedTable, EnhancedTableProps} from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from '../../positions/consts/headCell'
 import {Position} from "modules/hhrr/departments/shared/Position";
-import DottedMenu from 'modules/hhrr/employees/components/DottedMenu';
-import {DeleteHeadCells} from "modules/hhrr/positions/epmloyees/consts/headCell";
-import {DeletePosition} from "modules/hhrr/positions/epmloyees/layout/deletePosition";
-import {usePositions} from "modules/hhrr/positions/hooks/use-positions";
 import PersonIcon from "@mui/icons-material/Person";
 import WorkIcon from "@mui/icons-material/Work";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -15,12 +11,8 @@ export const Table = ({
                           rows,
                           loading
                       }: Partial<EnhancedTableProps<Position>>) => {
-    const {
-        data,
-        isLoading,
-        onSearch,
-        onCreatePosition
-    } = usePositions()
+
+    // const {data} = useEmployeesPosition();
 
 
     const positionOptions = [
@@ -35,6 +27,7 @@ export const Table = ({
             loading={loading!}
             headCells={headCells}
             onPageChange={() => { }}
+            options={positionOptions}
             render={(row) => {
                 return <>
                     <TableCell>
@@ -50,11 +43,12 @@ export const Table = ({
                     <TableCell>
                         {row.employeeCount}
                     </TableCell>
-                    <TableCell>
-                    <DottedMenu options={positionOptions} mainModal={<DeletePosition create={onCreatePosition}/>}
-                                userId={''}/>
-
-                    </TableCell>
+                    {/*<TableCell  onClick={()=>setPositionId(row.id)} >*/}
+                    {/*<DottedMenu*/}
+                    {/*options={positionOptions}*/}
+                    {/*mainModal={<DeletePosition  id={rows} positionName={row.name}  count={row.employeeCount}  />}*/}
+                    {/*userId={''}/>*/}
+                    {/*</TableCell>*/}
 
                 </>
             }}

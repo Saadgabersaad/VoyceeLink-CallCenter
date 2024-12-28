@@ -1,3 +1,3 @@
-export type SearchParams = {
+export type   SearchParams = {
   query: string
 }

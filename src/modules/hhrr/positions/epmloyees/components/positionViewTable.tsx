@@ -2,11 +2,14 @@ import {Button, TableCell } from '@mui/material'
 import {EnhancedTable, EnhancedTableProps} from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from 'modules/hhrr/positions/epmloyees/consts/headCell'
 import { PositionEmployee} from "modules/hhrr/departments/shared/Position";
+import {useEmployeesPosition} from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 
 export const Table = ({
                           rows,
                           loading
                       }: Partial<EnhancedTableProps<PositionEmployee>>) => {
+
+
 
     console.log(rows)
     return (
@@ -27,9 +30,6 @@ export const Table = ({
                         {row.department}
                     </TableCell>
 
-                    {/*<TableCell>*/}
-                    {/*    {row.employeeCount}*/}
-                    {/*</TableCell>*/}
                     <TableCell>
                         <Button sx={{bgcolor:"#ff6363"}} variant="contained">Unassign</Button>
 

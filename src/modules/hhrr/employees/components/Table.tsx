@@ -13,7 +13,6 @@ import { rows, headCells, Data, Order } from 'modules/core/consts/tableHead';
 import { getComparator } from 'modules/core/utils/tableUtlis';
 import StatusMenu from "modules/hhrr/employees/components/StatusMenu";
 import EnhancedTableToolbar from "modules/hhrr/employees/components/TableSelection";
-import DottedMenu from "modules/hhrr/employees/components/DottedMenu";
 import PersonIcon from "@mui/icons-material/Person";
 import WorkIcon from "@mui/icons-material/Work";
 import ApartmentIcon from "@mui/icons-material/Apartment";
@@ -171,7 +170,7 @@ export default function Employees() {
                                             <StatusMenu status={row.status} onStatusChange={handleStatusChange} />
                                         </TableCell>
                                         <TableCell padding="none">
-                                            <DottedMenu userId={row.id} options={userOptions} mainModal={null} />
+                                            {/*<DottedMenu userId={row.id} options={userOptions} mainModal={null} />*/}
                                         </TableCell>
                                     </TableRow>
                                 );

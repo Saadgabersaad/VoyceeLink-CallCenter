@@ -1,6 +1,8 @@
 export const enum HttpMethod {
   GET = 'GET',
   POST = 'POST',
+  DELETE = 'DELETE',
+  PUT = 'PUT',
 }
 
 export type ApiStatus = {
@@ -39,7 +41,11 @@ export async function api<T>(method: HttpMethod, path: string, body?: ApiBody, h
       throw new Error(data?.message)
     }
 
-    return data.data.data as T
+    if (data.data.data !== undefined) {
+      return data.data.data as T
+    }
+
+    return data.data as T
   } catch (error) {
     console.error(error)
     throw error

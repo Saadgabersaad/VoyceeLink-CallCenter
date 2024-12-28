@@ -130,57 +130,7 @@ export function AddPosition({
                 ))}
             </FormDialogContent>
 
-            <FormActions buttonText="Add Position" onClose={onClose} />
+            <FormActions buttonText="Add Position" onClose={onClose} bgcolor={undefined} openModal={undefined} />
         </FormDialog>
     );
 }
-//
-// import { DialogProps, FormActions, FormDialog, FormDialogContent } from 'modules/core/components/FormDialog'
-// import { Grid2, Typography } from '@mui/material'
-// import { CreatePosition } from '../shared/Position'
-// import * as React from "react";
-// import {Table} from "modules/hhrr/positions/components/PositionTable";
-// import {usePositions} from "modules/hhrr/positions/hooks/use-positions";
-// //You can extend props in a new type if needed
-// type AddDepartmentModalProps = DialogProps & {
-//     create(department: CreatePosition): Promise<void> // POST FUNCTION FOR CREATE A NEW DEPARTMENT
-// }
-//
-// //MAIN MODALS inherit Dialog Props by default
-// export function AddPosition({
-//                                 open,
-//                                 create,
-//                                 onClose,
-//                             }: AddDepartmentModalProps) {
-//     const {
-//         data,
-//         isLoading,
-//         onSearch,
-//         onCreatePosition
-//     } = usePositions()
-//
-//     console.log(isLoading)
-//     console.log(data)
-//
-//     return <>
-//         <FormDialog
-//             title='Delete Position'
-//             open={open!}
-//             onClose={onClose!}
-//             onFinish={create}
-//         >
-//
-//
-//             <FormDialogContent  >
-//                 <Typography fontWeight={700} mt={2} mb={.2}>
-//                     Position Tech Lead is Assigned to 3 Employees in Department Tech
-//                     Please Assign Employees New Position
-//                 </Typography>
-//                 <Table rows={data} loading={isLoading}/>
-//             </FormDialogContent>
-//
-//
-//
-//         </FormDialog>
-//     </>
-// }

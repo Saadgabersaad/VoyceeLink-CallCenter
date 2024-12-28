@@ -1,24 +1,28 @@
-import { useTable } from 'modules/core/hooks/use-table'
+import { useTable } from 'modules/core/hooks/use-table';
 import {
-    createPosition,
+    addPositionToEmployee,
     getPositionsEmployees,
 } from "modules/hhrr/positions/epmloyees/services/positionEmployees";
-import {CreatePosition} from "modules/hhrr/positions/shared/Position";
-import {POSITIONS_KEY} from "modules/hhrr/positions/consts/queryKeys";
+import { AssignPositionToEmployee } from "modules/hhrr/positions/shared/Position";
+import { Employees_KEY } from "modules/hhrr/positions/consts/queryKeys";
+import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
 
-
+// Define the types for better readability and safety
+type PositionId = string | number;
 
 export const useEmployeesPosition = () => {
-    const { data, isLoading, isError, mutate, isFetching,   onSearch } = useTable({
-        key: POSITIONS_KEY,
-        fetcher: getPositionsEmployees,
-        mutationFn: createPosition,
-    })
+    const {positionId}=usePositionContext()
+    console.log(positionId)
+    const { data, isLoading, isError, mutate, isFetching, onSearch } = useTable({
+        key: Employees_KEY,
+        fetcher: (searchParams)=>getPositionsEmployees(searchParams,positionId),
+        mutationFn: addPositionToEmployee,
+    });
 
-    // EXECUTED IN A ONSUBMIT FORM DIALOG EVENT
-    const onCreatePosition = async (createPosition: CreatePosition) => {
-        mutate(createPosition)
-    }
+    // This will be triggered when the form dialog is submitted
+    const onAssignPosition = async (assignData: AssignPositionToEmployee) => {
+        mutate(assignData); // Trigger mutation with the data
+    };
 
     return {
         data,
@@ -26,6 +30,6 @@ export const useEmployeesPosition = () => {
         isLoading,
         isFetching,
         onSearch,
-        onCreatePosition,
-    }
-}
+        onAssignPosition,
+    };
+};

@@ -8,5 +8,4 @@ export interface PositionEmployees {
     positionId: string;
     createdAt: string;
     updatedAt: string;
-
 }

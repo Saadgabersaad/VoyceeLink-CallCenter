@@ -3,22 +3,28 @@ import React from "react";
 import { Page, Heading } from 'modules/core/components/page'
 import {Box, Typography} from "@mui/material";
 import  {PRIMARY} from "modules/core/consts/theme";
-import {Search} from "modules/core/components/Search";
 import {Table} from "modules/hhrr/positions/epmloyees/components/positionViewTable";
 import {useEmployeesPosition} from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 import TextField from "@mui/material/TextField";
 import { Flex } from "modules/core/components/flex";
+import { usePositionContext } from "../shared/PositionSelectedId";
 
-export default function PositionView(positionId: string) {
+export default function PositionView() {
+
     const {
-        data,
-        isLoading,
-        onSearch,
-        onCreatePosition,
+        data,isLoading,onAssignPosition
     } = useEmployeesPosition()
 
-    console.log(isLoading)
+
+
+    // const {positionData}=usePositionContext()
+
+    console.log('23456789234567892345678')
     console.log(data)
+    console.log(data)
+    console.log('23456789234567892345678')
+
+    // console.log(isLoading)
     const [positionName, setPositionName] = React.useState('Tech Administrator');
     const [departmentName, setDepartmentName] = React.useState('Tech Team');
 
@@ -58,6 +64,7 @@ export default function PositionView(positionId: string) {
                 rows={data}
                 loading={isLoading}
             />
+
 
         </Page>
     )
