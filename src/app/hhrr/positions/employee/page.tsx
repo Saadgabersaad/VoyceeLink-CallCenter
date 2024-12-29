@@ -6,10 +6,8 @@ import { PositionContextProvider } from "modules/hhrr/positions/epmloyees/shared
 export default function Employees(positionId: string) {
     return (
         <>
-        <PositionContextProvider>
 
          <PositionView positionId={positionId} />
-        </PositionContextProvider>
 
 </>
     )

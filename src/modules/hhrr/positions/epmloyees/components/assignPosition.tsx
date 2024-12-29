@@ -3,11 +3,13 @@ import { TableCell, SelectChangeEvent } from '@mui/material'
 import { MultipleSelect } from 'modules/core/components/MultipleSelect'
 import { selectAdapter, SelectOption } from 'modules/core/components/Select'
 import { Position } from 'modules/hhrr/departments/shared/Position'
+import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
 
 
 type Props = {
     positions: Position[] //positions from this department
 }
+
 
 export function     PositionsSelectRow({ positions ,mutate,}: Props) {
     console.log(positions)
@@ -16,6 +18,7 @@ export function     PositionsSelectRow({ positions ,mutate,}: Props) {
         value: 'fefeefe'
     })
     const [checked, setChecked] = useState<SelectOption[]>(options)
+    const {positionId}=usePositionContext()
 
     const assignPosition =()=>{
 
@@ -26,7 +29,7 @@ export function     PositionsSelectRow({ positions ,mutate,}: Props) {
             target: { value },
         } = ev
         setChecked(value)
-        mutate(id)
+        mutate(positionId)
     }
 
     return (

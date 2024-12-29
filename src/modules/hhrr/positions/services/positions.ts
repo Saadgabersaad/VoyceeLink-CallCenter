@@ -9,6 +9,6 @@ export const getPositions = (search?: SearchParams) => {
     return api<Position[]>(HttpMethod.GET, `/positions?sortByOrder=asc&sortByField=created_at${queryParam}`)
 }
 
-export const createPosition = (position: CreatePosition) => {
-    return api<Position[]>(HttpMethod.POST, `/positions`, position)
+export const createPosition = (positions: CreatePosition) => {
+    return api<Position[]>(HttpMethod.POST, `/positions`, positions)
 }

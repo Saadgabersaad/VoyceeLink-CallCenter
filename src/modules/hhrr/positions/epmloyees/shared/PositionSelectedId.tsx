@@ -1,13 +1,20 @@
 'use client'
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
+
+type Position = {
+    id: string;
+    name: string;
+    // Add other properties based on your data structure
+};
 // Define the context type
 type PositionContextType = {
     positionId: string | null;
     setPositionId: (id: string | null) => void;
-    positionData: PositionContextType | [] | null;
-    setPositionData: (data: [] | null) => void;
+    positionData: Position[] | null; // Array of positions or null
+    setPositionData: (data: Position[] | null) => void;
 };
+
 
 // Create the context
 const PositionContext = createContext<PositionContextType | undefined>(undefined);
@@ -15,7 +22,7 @@ const PositionContext = createContext<PositionContextType | undefined>(undefined
 // Create a provider to wrap components
 export const PositionContextProvider = ({ children }: { children: ReactNode }) => {
     const [positionId, setPositionId] = useState<string | null>(null);
-    const [positionData, setPositionData] = useState(null);
+    const [positionData, setPositionData] = useState<Position[] | null>(null);
 
     return (
         <PositionContext.Provider value={{ positionId, setPositionId,positionData,setPositionData }}>

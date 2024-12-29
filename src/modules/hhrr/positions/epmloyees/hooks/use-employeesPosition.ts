@@ -1,9 +1,10 @@
 import { useTable } from 'modules/core/hooks/use-table';
 import {
+    addPosition,
     addPositionToEmployee,
     getPositionsEmployees,
 } from "modules/hhrr/positions/epmloyees/services/positionEmployees";
-import { AssignPositionToEmployee } from "modules/hhrr/positions/shared/Position";
+import {AssignPosition, AssignPositionToEmployee } from "modules/hhrr/positions/shared/Position";
 import { Employees_KEY } from "modules/hhrr/positions/consts/queryKeys";
 import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
 
@@ -11,16 +12,18 @@ import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/Positi
 type PositionId = string | number;
 
 export const useEmployeesPosition = () => {
-    const {positionId}=usePositionContext()
+    const {positionId} = usePositionContext()
+    console.log('-----------------')
     console.log(positionId)
+    console.log('-----------------')
     const { data, isLoading, isError, mutate, isFetching, onSearch } = useTable({
         key: Employees_KEY,
-        fetcher: (searchParams)=>getPositionsEmployees(searchParams,positionId),
-        mutationFn: addPositionToEmployee,
+        fetcher: (searchParams)=>getPositionsEmployees(searchParams, positionId),
+        mutationFn: addPosition,
     });
 
     // This will be triggered when the form dialog is submitted
-    const onAssignPosition = async (assignData: AssignPositionToEmployee) => {
+    const onAddPosition = async (assignData: AssignPosition) => {
         mutate(assignData); // Trigger mutation with the data
     };
 
@@ -30,6 +33,20 @@ export const useEmployeesPosition = () => {
         isLoading,
         isFetching,
         onSearch,
-        onAssignPosition,
+        onAddPosition,
     };
 };
+//     // This will be triggered when the form dialog is submitted
+//     const onAssignPosition = async (assignData: AssignPositionToEmployee) => {
+//         mutate(assignData); // Trigger mutation with the data
+//     };
+//
+//     return {
+//         data,
+//         isError,
+//         isLoading,
+//         isFetching,
+//         onSearch,
+//         onAssignPosition,
+//     };
+// };

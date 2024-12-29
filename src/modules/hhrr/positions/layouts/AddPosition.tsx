@@ -6,18 +6,26 @@ import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid2";
 import React, { useState } from "react";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { createPosition } from "modules/hhrr/positions/shared/Position";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import {useDepartments} from "modules/hhrr/departments/hooks/use-departments";
+import { CreatePosition } from '../shared/Position';
+import {FormInput} from "modules/core/components/FormInput";
 
 type AddPositionModalProps = DialogProps & {
-    create(position: createPosition): Promise<void>;
+    create(position: CreatePosition): Promise<void>;
 };
+
+
 
 export function AddPosition({
                                 open,
                                 create,
                                 onClose,
                             }: AddPositionModalProps) {
+
+    const {data} = useDepartments()
+
+
     const [positions, setPositions] = useState([{ id: Date.now(), name: '' }]);
     const [isAddClicked, setIsAddClicked] = useState(false);
 
@@ -60,20 +68,18 @@ export function AddPosition({
                 <Grid container columnSpacing={2} rowSpacing={0.5} sx={{ mt: 1.5, bgcolor: "#fafafa" }} mb={2}>
                     <Grid size={6} mt={1}>
                         <FormSelect
-                            name="department"
+                            name="departmentId"
                             label="Department"
                             placeholder="Select a department first"
-                            options={[
-                                { label: 'List Item 1', value: 1 },
-                                { label: 'List Item 2', value: 2 },
-                                { label: 'List Item 3', value: 3 },
-                            ]}
+                            options={data.map((department) => (
+                                {label: department.name, value: department.id}
+                            )) }
                         />
                     </Grid>
                 </Grid>
             </FormDialogContent>
 
-            <FormDialogContent>
+            <FormDialogContent >
                 <Typography fontWeight={700} mt={2} mb={1}>
                     Create positions related to{" "}
                     <span style={{ color: '#1976d2' }}>Sales</span> department
@@ -87,10 +93,10 @@ export function AddPosition({
                         sx={{ mb: 1 }}
                     >
                         <Grid item xs={8}>
-                            <TextField
+                            <FormInput
                                 size={"small"}
                                 id={`position-${position.id}`}
-                                name={`position-${position.id}`}
+                                name={`name${position.name}`}
                                 label={index === 0 ? "Main Position Name" : `Position ${index} `}
                                 value={position.name}
                                 onChange={(e) =>

@@ -12,7 +12,7 @@ import { usePositionContext } from "../shared/PositionSelectedId";
 export default function PositionView() {
 
     const {
-        data,isLoading,onAssignPosition
+        data,isLoading,onAddPosition
     } = useEmployeesPosition()
 
 

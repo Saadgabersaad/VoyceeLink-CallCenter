@@ -1,9 +1,15 @@
 export interface CreatePosition {
-    department: string
+    position: string
     departmentId: string
 }
 
 export interface AssignPositionToEmployee {
     employeeId: string
     positionId: string
+}
+
+export interface AssignPosition {
+    positionName: string
+    description: string
+    departmentId: string
 }

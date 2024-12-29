@@ -2,7 +2,6 @@ import {Button, TableCell } from '@mui/material'
 import {EnhancedTable, EnhancedTableProps} from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from 'modules/hhrr/positions/epmloyees/consts/headCell'
 import { PositionEmployee} from "modules/hhrr/departments/shared/Position";
-import {useEmployeesPosition} from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 
 export const Table = ({
                           rows,

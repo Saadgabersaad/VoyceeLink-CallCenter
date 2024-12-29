@@ -110,7 +110,7 @@ export function EnhancedTable<T>({
                       key={key}
                       selected={isItemSelected}
                       sx={{ cursor: 'pointer', height: '65px' }}
-                      onClick={()=>setPositionId(row.id)}
+                      onClick={()=> setPositionId(key)}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -125,11 +125,11 @@ export function EnhancedTable<T>({
                       {render && render(row)}
                       <TableCell>
                         <DottedMenu
-                            employees={rows}
+                            // employees={rows}
                             options={options}
                             userId={row.id}
-                                    mainModal={<DeletePosition   positions={rows}    />}
-                                    NameModal={<ChangePositionName   positions={rows}    />}
+                                    mainModal={<DeletePosition positions={rows} />}
+                                    NameModal={<ChangePositionName positions={rows} />}
                                    />
                       </TableCell>
                     </TableRow>

@@ -54,7 +54,7 @@ export function ChangePositionName({ open, create, onClose }: DeletePositionModa
                         onClose={onClose}
                         buttonText="Change Name"
                         openModal={handleDeleteClick} // Open countdown modal when the button is clicked
-                    />
+                        bgcolor={undefined}                    />
                 </FormDialogContent>
 
             </FormDialog>
