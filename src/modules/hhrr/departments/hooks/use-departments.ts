@@ -1,26 +1,26 @@
-import { useQuery } from '@tanstack/react-query';
-import { Department } from 'modules/hhrr/departments/shared/Department';
-
-
-
-const getDepartments = () => {
-  return fetch('http://localhost:4000/departments', {
-    method: 'GET',
-    headers: {
-      'x-tenant-id': 'develop'
-    }
-  }).then(res => res.json()) as Promise<Department[]>
-}
+import { useTable } from 'modules/core/hooks/use-table'
+import { CreateDepartment } from '../shared/Department'
+import { getDepartments, createDepartment } from '../services/departments'
+import { DEPARTMENTS_KEY } from '../consts/queryKeys'
 
 export const useDepartments = () => {
-  const { data, isLoading, isError } = useQuery({
-    queryFn: async () => await getDepartments(),
-    queryKey: ['departments'],
+  const { data, isLoading, isError, mutate, isFetching, onSearch } = useTable({
+    key: DEPARTMENTS_KEY,
+    fetcher: getDepartments,
+    mutationFn: createDepartment
   })
 
+  //EXECUTED IN A ONSUBMIT FORM DIALOG EVENT
+  const onCreateDepartment = async (createDepartment: CreateDepartment) => {
+    mutate(createDepartment)
+  }
+
   return {
-    data: data?.data ?? [],
+    data,
+    isError,
     isLoading,
-    isError
+    isFetching,
+    onSearch,
+    onCreateDepartment,
   }
 }

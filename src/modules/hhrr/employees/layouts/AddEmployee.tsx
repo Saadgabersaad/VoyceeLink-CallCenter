@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Dropzone } from 'modules/hhrr/employees/components/Dropzone'
 import { CreateEmployee } from 'modules/hhrr/employees/shared/Employee'
-import { FormDialog, FormActions } from 'modules/core/components/FormDialog'
+import { FormDialog, FormActions, FormDialogContent } from 'modules/core/components/FormDialog'
 import { FormMultipleSelect } from 'modules/core/components/FormMultipleSelect'
 import { FormSelect } from 'modules/core/components/FormSelect'
 import { FormInput } from 'modules/core/components/FormInput'
@@ -36,7 +36,7 @@ export default function AddEmployeeFormDialog({
         }}
         title='Add Employee'
       >
-        <DialogContent>
+        <FormDialogContent>
           <Divider sx={{ mt: 1.5 }} />
           <Grid container columnSpacing={2} rowSpacing={.5} sx={{ mt: 1.5 }}>
             <Grid size={6}>
@@ -61,7 +61,7 @@ export default function AddEmployeeFormDialog({
             </Grid>
             <Grid size={6} mt={1}>
               <FormMultipleSelect
-                options={[1, 2, 3]}
+                //options={[1, 2, 3]}
                 placeholder='Positions'
                 name='positions'
               />
@@ -71,7 +71,7 @@ export default function AddEmployeeFormDialog({
             Add a profile picture
           </Typography>
           <Dropzone />
-        </DialogContent>
+        </FormDialogContent>
         <FormActions buttonText='Add Employee' onClose={onClose} />
       </FormDialog>
     </React.Fragment>

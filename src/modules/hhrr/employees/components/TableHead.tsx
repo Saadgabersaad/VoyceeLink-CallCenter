@@ -29,7 +29,7 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
     return (
 
         <TableHead>
-            <TableRow>
+            <TableRow sx={{height:'56px',bgcolor:'#F7F7F7'}}>
                 <TableCell padding="checkbox">
                     <Checkbox
                         color="primary"
@@ -50,7 +50,7 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
                         <TableSortLabel
                             active={orderBy === headCell.id}
                             direction={orderBy === headCell.id ? order : 'asc'}
-                            onClick={createSortHandler(headCell.id)}
+                                onClick={createSortHandler(headCell.id as keyof Data)}
                         >
                             {headCell.label}
                             {orderBy === headCell.id ? (
@@ -61,6 +61,7 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
                         </TableSortLabel>
                     </TableCell>
                 ))}
+                <TableCell/>
             </TableRow>
         </TableHead>
     );

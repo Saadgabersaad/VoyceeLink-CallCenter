@@ -15,7 +15,15 @@ export type SelectProps = MUISelectProps & {
 
 export type SelectOption = {
   label: string
-  value: string | number
+  value: string
+}
+
+
+export const selectAdapter = (label: string, value: string) => {
+  return {
+    label,
+    value
+  }
 }
 
 export const Select = (props: SelectProps) => {

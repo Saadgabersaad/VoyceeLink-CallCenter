@@ -14,7 +14,8 @@ import {
   SxProps,
   FormHelperText,
 } from '@mui/material'
-import { Controller, Control, FieldError, useFormContext } from 'react-hook-form'
+import { Controller, FieldError, useFormContext } from 'react-hook-form'
+import { MultipleSelectProps } from './MultipleSelect'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -28,19 +29,13 @@ const MenuProps = {
   },
 }
 
-export type MultipleSelectProps<T> = {
-  options: T[]
-  name: string
-  placeholder: string
-  width?: number
-}
-
+//MULTIPLE SELECT WRAPPED WITH REACT HOOK FORM
 export const FormMultipleSelect = <T,>({
   options,
   name,
   width,
   placeholder,
-}: MultipleSelectProps<T>) => {
+}: MultipleSelectProps) => {
   const { formState: { errors }, control } = useFormContext()
 
   //error from field

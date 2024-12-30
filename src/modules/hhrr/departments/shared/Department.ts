@@ -8,3 +8,8 @@ export interface Department {
   updatedAt: string; // ISO date string
   position: Position[];
 }
+
+export interface CreateDepartment {
+  name: string
+  description: string
+}

@@ -27,3 +27,11 @@ a {
   text-decoration: none;
   color: currentColor;
 }
+
+.rounded-full{
+  border-radius: 50%;
+}
+
+.text-main{
+  color: #2E7D32;
+}
