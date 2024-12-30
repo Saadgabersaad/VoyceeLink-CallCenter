@@ -20,7 +20,7 @@ export type EnhancedTableProps<T> = {
   onPageChange(newPage: number): void
   render?: (row: T) => React.ReactNode
   mainModal?: React.ReactNode
-  options: OptionItem[]; // List of options with labels, icons, and actions
+  options: OptionItem[];
 
 }
 
@@ -32,7 +32,7 @@ export function EnhancedTable<T>({
   rowsPerPageCount = 10,
   onPageChange, options,
 }: EnhancedTableProps<T>) {
-  const { setPositionId } = usePositionContext();  // Using the context
+  const { setPositionId } = usePositionContext();
 
   const [selected, setSelected] = React.useState<readonly string[]>([])
   const [page, setPage] = React.useState<number>(0)
@@ -41,7 +41,7 @@ export function EnhancedTable<T>({
   const handleClick = (_event: React.MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected: readonly string[] = [];
-    setPositionId(id)
+    // setPositionId(id)
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -123,15 +123,15 @@ export function EnhancedTable<T>({
                         />
                       </TableCell>
                       {render && render(row)}
-                      <TableCell>
+                      {options&& <TableCell>
                         <DottedMenu
                             // employees={rows}
                             options={options}
                             userId={row.id}
-                                    mainModal={<DeletePosition positions={rows} />}
-                                    NameModal={<ChangePositionName positions={rows} />}
-                                   />
-                      </TableCell>
+                            mainModal={<DeletePosition positions={rows}/>}
+                            NameModal={<ChangePositionName positions={rows}/>}
+                        />
+                      </TableCell>}
                     </TableRow>
                   );
                 })}

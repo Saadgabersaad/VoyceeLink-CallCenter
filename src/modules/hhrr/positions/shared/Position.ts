@@ -4,7 +4,6 @@ export interface CreatePosition {
 }
 
 export interface AssignPositionToEmployee {
-    employeeId: string
     positionId: string
 }
 

@@ -5,10 +5,12 @@ import {DeleteHeadCells} from "modules/hhrr/positions/epmloyees/consts/headCell"
 import {useEmployeesPosition} from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 import {PositionEmployees} from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
 import { PositionsSelectRow } from "./assignPosition";
+import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
 
 
-export const DeletePositionTable = ({rows, loading,mutate,positions,current}: Partial<EnhancedTableProps<PositionEmployees>>) => {
+export const DeletePositionTable = ({rows, loading,positions}: Partial<EnhancedTableProps<PositionEmployees>>) => {
 
+    const { setPositionId } = usePositionContext();
 
     return (
         <EnhancedTable
@@ -19,14 +21,12 @@ export const DeletePositionTable = ({rows, loading,mutate,positions,current}: Pa
             render={(row) => {
                 return <>
 
-                    <TableCell>
+                    <TableCell onClick={()=> setPositionId(row.positionId)}>
                         {row.name}
                     </TableCell>
-                         <TableCell>
-                        {row.id}
-                    </TableCell>
 
-                    <PositionsSelectRow  mutate={mutate} positions={positions} />
+
+                    <PositionsSelectRow id={row.id}   positions={positions} />
 
                 </>
             }}

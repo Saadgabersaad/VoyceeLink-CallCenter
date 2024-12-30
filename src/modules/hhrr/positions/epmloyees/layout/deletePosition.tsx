@@ -5,7 +5,6 @@ import { DeletePositionTable } from "modules/hhrr/positions/epmloyees/components
 import { CountdownModal } from "./countDown";
 import {useEmployeesPosition} from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 import {PRIMARY} from "modules/core/consts/theme";
-import { usePositionContext } from "../shared/PositionSelectedId";
 
 type DeletePositionModalProps = DialogProps & {
     count: number;
@@ -16,31 +15,29 @@ type DeletePositionModalProps = DialogProps & {
 
 
 
-export function DeletePosition({ open, create, onClose,count,positionName,positions }: DeletePositionModalProps) {
+export function DeletePosition({ open, onClose,count,positionName,positions }: DeletePositionModalProps) {
     const [isCountdownModalOpen, setCountdownModalOpen] = useState(false);
-    const {setPositionData}=usePositionContext()
 
     const {
-        data,isLoading,onAssignPosition
+        data,isLoading
     } = useEmployeesPosition()
 
 
     const handleDeleteClick = () => {
         setCountdownModalOpen(true);
-        // setPositionId(id)
 
 
     };
 
-    const handleCountdownFinish = async () => {
-        await create();
+    const handleCountdownFinish =  () => {
+
         setCountdownModalOpen(false);
     };
     return (
         <>
             <FormDialog
                 title="Delete Position" open={open!} onClose={onClose!}>
-                <FormDialogContent >
+                <FormDialogContent>
                     <Typography fontSize={20} fontWeight={700} mt={2} mb={0.5}>
                         Position
                          <span style={{color: PRIMARY}}> {positionName} </span>is Assigned to
@@ -49,7 +46,7 @@ export function DeletePosition({ open, create, onClose,count,positionName,positi
                     <Typography fontSize={20}  fontWeight={700} mb={2}>
                         Please Assign Employees New Position
                     </Typography>
-                    <DeletePositionTable mutate={onAssignPosition} rows={data} loading={isLoading} positions={positions}   />
+                    <DeletePositionTable  rows={data} loading={isLoading} positions={positions}   />
                     <FormActions
                         onClose={onClose}
                         buttonText="Delete Position"

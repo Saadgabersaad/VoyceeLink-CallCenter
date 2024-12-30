@@ -1,11 +1,6 @@
 import React, {useEffect, useState } from "react";
 import { DialogProps, FormActions, FormDialog, FormDialogContent } from "modules/core/components/FormDialog";
-import {Box, OutlinedInput, TextField, Typography} from "@mui/material";
-import { DeletePositionTable } from "modules/hhrr/positions/epmloyees/components/deleteEmployee";
-import { CountdownModal } from "./countDown";
-import {useEmployeesPosition} from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
-import {PRIMARY} from "modules/core/consts/theme";
-import { usePositionContext } from "../shared/PositionSelectedId";
+import {Box, TextField} from "@mui/material";
 
 type DeletePositionModalProps = DialogProps & {
     count: number;
@@ -18,16 +13,10 @@ type DeletePositionModalProps = DialogProps & {
 
 export function ChangePositionName({ open, create, onClose }: DeletePositionModalProps) {
     const [isCountdownModalOpen, setCountdownModalOpen] = useState(false);
-    const {setPositionData}=usePositionContext()
-
-    // const {
-    //     data,isLoading,onAssignPosition
-    // } = useEmployeesPosition()
 
 
-    const handleDeleteClick = () => {
+    const handleChangeName = () => {
         setCountdownModalOpen(true);
-        // setPositionId(id)
 
 
     };
@@ -44,7 +33,7 @@ export function ChangePositionName({ open, create, onClose }: DeletePositionModa
                 <FormDialogContent >
                     <Box
                         component="form"
-                        sx={{ '& > :not(style)': { m: 1, width: '35ch' ,borderTop:'1px solid lightgray' } }}
+                        sx={{ '& > :not(style)': { m: 1, width: '35ch' } }}
                         noValidate
                         autoComplete="off"
                     >
@@ -53,7 +42,7 @@ export function ChangePositionName({ open, create, onClose }: DeletePositionModa
                     <FormActions
                         onClose={onClose}
                         buttonText="Change Name"
-                        openModal={handleDeleteClick} // Open countdown modal when the button is clicked
+                        openModal={handleChangeName} // Open countdown modal when the button is clicked
                         bgcolor={undefined}                    />
                 </FormDialogContent>
 
