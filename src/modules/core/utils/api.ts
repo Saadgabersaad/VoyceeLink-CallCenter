@@ -36,7 +36,6 @@ export async function api<T>(method: HttpMethod, path: string, body?: ApiBody, h
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}`, options)
     const data: ApiResponse<T> = await response?.json()
 
-    console.log(data)
     if (data.status !== 'success') {
       throw new Error(data?.message)
     }

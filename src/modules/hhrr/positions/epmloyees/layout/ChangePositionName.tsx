@@ -1,17 +1,17 @@
 import React, {useEffect, useState } from "react";
 import { DialogProps, FormActions, FormDialog, FormDialogContent } from "modules/core/components/FormDialog";
 import {Box, TextField} from "@mui/material";
+import { FieldValues } from "react-hook-form";
 
 type DeletePositionModalProps = DialogProps & {
     count: number;
     positionName: string;
     create(): Promise<void>;
-    positionId:string|null;
+    positionId: string | null;
 };
 
 
-
-export function ChangePositionName({ open, create, onClose }: DeletePositionModalProps) {
+export function ChangePositionName({open, create, onClose}: DeletePositionModalProps) {
     const [isCountdownModalOpen, setCountdownModalOpen] = useState(false);
 
 
@@ -28,7 +28,10 @@ export function ChangePositionName({ open, create, onClose }: DeletePositionModa
     return (
         <>
             <FormDialog
-                title="Change Position Name" open={open!} onClose={onClose!}>
+                title="Change Position Name" open={open!} onClose={onClose!}
+                onFinish={function (values: FieldValues): void {
+                    throw new Error("Function not implemented.");
+                }}>
 
                 <FormDialogContent >
                     <Box
@@ -42,8 +45,8 @@ export function ChangePositionName({ open, create, onClose }: DeletePositionModa
                     <FormActions
                         onClose={onClose}
                         buttonText="Change Name"
-                        openModal={handleChangeName} // Open countdown modal when the button is clicked
-                        bgcolor={undefined}                    />
+                        openModal={handleChangeName}
+                        bgcolor={undefined}/>
                 </FormDialogContent>
 
             </FormDialog>

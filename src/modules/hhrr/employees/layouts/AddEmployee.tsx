@@ -72,7 +72,7 @@ export default function AddEmployeeFormDialog({
           </Typography>
           <Dropzone />
         </FormDialogContent>
-        <FormActions buttonText='Add Employee' onClose={onClose} />
+        <FormActions buttonText='Add Employee' onClose={onClose} bgcolor={undefined} openModal={undefined} />
       </FormDialog>
     </React.Fragment>
   )

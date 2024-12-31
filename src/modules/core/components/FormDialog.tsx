@@ -9,7 +9,6 @@ type FormProps<T> = {
   title?: string
   children: React.ReactNode
   open: boolean
-
   defaultValues?: Partial<T>
   onFinish(values: T): void
   onClose(): void

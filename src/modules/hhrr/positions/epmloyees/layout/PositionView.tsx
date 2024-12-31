@@ -9,12 +9,10 @@ import { Flex } from "modules/core/components/flex";
 import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
 
 export default function PositionView() {
-const {positionId}=usePositionContext()
     const { data, isLoading } = useEmployeesPosition();
-
+    // TODO position name and department name and TS
     const [positionName, setPositionName] = React.useState('Tech Administrator');
     const [departmentName, setDepartmentName] = React.useState('Tech Team');
-
     return (
         <Page>
             <Heading title=' Tech Admin Position' description='' children={undefined} />

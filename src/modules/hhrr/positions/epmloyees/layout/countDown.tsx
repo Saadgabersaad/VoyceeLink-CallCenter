@@ -8,7 +8,7 @@ import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
     onFinish: () => void;
 };
 
-export const CountdownModal = ({ open, onClose, onFinish }: CountdownModalProps) => {
+export const CountdownModal = ({ open, onClose, onFinish, }: CountdownModalProps) => {
     const [countdown, setCountdown] = useState<number>(10);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true); // Track if the button is disabled
 
@@ -25,7 +25,7 @@ export const CountdownModal = ({ open, onClose, onFinish }: CountdownModalProps)
         if (open && countdown > 0) {
             timer = setTimeout(() => setCountdown((prev) => prev - 1), 1000);
         } else if (countdown === 0) {
-            setIsButtonDisabled(false); // Enable the button when countdown reaches 0
+            setIsButtonDisabled(false);
         }
 
         return () => {
@@ -34,8 +34,8 @@ export const CountdownModal = ({ open, onClose, onFinish }: CountdownModalProps)
     }, [open, countdown]);
 
     const handleButtonClick = () => {
-        onFinish(); // Call the onFinish function when the button is clicked
-        onClose(); // Close the modal
+        onFinish();
+        onClose();
     };
 
     return (

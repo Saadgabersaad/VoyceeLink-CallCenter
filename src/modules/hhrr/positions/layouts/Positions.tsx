@@ -15,7 +15,6 @@ export default function Positions() {
     } = usePositions()
 
     console.log(isLoading)
-    console.log(data)
 
 
   return (

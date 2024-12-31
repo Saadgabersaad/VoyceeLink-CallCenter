@@ -14,8 +14,8 @@ import { usePositionContext } from '../shared/PositionSelectedId';
 import { useEmployeesPosition } from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 
 type Props = {
-    positions: Position[]; // Positions from this department
-    employeeId: string; // Ensure employeeId is passed correctly
+    positions: Position[];
+    employeeId: string;
 };
 export function PositionsSelectRow({ positions, employeeId }: Props) {
     const { positionId, setPositionId } = usePositionContext();
@@ -33,11 +33,7 @@ export function PositionsSelectRow({ positions, employeeId }: Props) {
     const handleChange = (event: SelectChangeEvent) => {
         const selectedId = event.target.value as string;
         setSelectedPosition(selectedId);
-        setPositionId(selectedId); // Update the positionId in the context
-
-        console.log("Selected Position ID:", selectedId); // Log the selected positionId
-
-        // Pass both employeeId and selected positionId to the mutation function
+        setPositionId(selectedId);
         onAssignPositionToEmployee(employeeId, selectedId);
     };
 

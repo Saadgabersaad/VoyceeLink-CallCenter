@@ -6,14 +6,18 @@ import PersonIcon from "@mui/icons-material/Person";
 import WorkIcon from "@mui/icons-material/Work";
 import DeleteIcon from "@mui/icons-material/Delete";
 import * as React from "react";
+import DottedMenu from 'modules/hhrr/employees/components/DottedMenu';
+import { DeletePosition } from '../epmloyees/layout/deletePosition';
+import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
+import { ChangePositionName } from '../epmloyees/layout/ChangePositionName';
 
 export const Table = ({
                           rows,
                           loading
                       }: Partial<EnhancedTableProps<Position>>) => {
 
-    // const {data} = useEmployeesPosition();
 
+    const {setPositionId}=usePositionContext()
 
     const positionOptions = [
         { label: 'View Position', icon: <PersonIcon color="primary" /> },
@@ -27,7 +31,6 @@ export const Table = ({
             loading={loading!}
             headCells={headCells}
             onPageChange={() => { }}
-            options={positionOptions}
             render={(row) => {
                 return <>
                     <TableCell>
@@ -43,12 +46,13 @@ export const Table = ({
                     <TableCell>
                         {row.employeeCount}
                     </TableCell>
-                    {/*<TableCell  onClick={()=>setPositionId(row.id)} >*/}
-                    {/*<DottedMenu*/}
-                    {/*options={positionOptions}*/}
-                    {/*mainModal={<DeletePosition  id={rows} positionName={row.name}  count={row.employeeCount}  />}*/}
-                    {/*userId={''}/>*/}
-                    {/*</TableCell>*/}
+                    <TableCell  onClick={()=>setPositionId(row.id)} >
+                        <DottedMenu
+                            options={positionOptions}
+                            mainModal={<DeletePosition  positions={rows} positionName={row.name}  count={row.employeeCount}  />}
+                            NameModal={<ChangePositionName positions={rows}/>}
+                            userId={''}/>
+                    </TableCell>
 
                 </>
             }}

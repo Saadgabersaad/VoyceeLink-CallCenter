@@ -40,7 +40,7 @@ export function AddPosition({
         setIsAddClicked(false); // Reset flag after adding a new position
     };
 
-    const handleInputChange = (id, value) => {
+    const handleInputChange = (id: number, value: string) => {
         setPositions((prevPositions) =>
             prevPositions.map((position) =>
                 position.id === id ? { ...position, name: value } : position
@@ -48,7 +48,7 @@ export function AddPosition({
         );
     };
 
-    const handleDeletePosition = (id) => {
+    const handleDeletePosition = (id: number) => {
         setPositions((prevPositions) =>
             prevPositions.filter((position) => position.id !== id)
         );
@@ -90,9 +90,9 @@ export function AddPosition({
                         container
                         spacing={1}
                         alignItems="center"
-                        sx={{ mb: 1 }}
+                        sx={{ mb: 1,display: "flex",alignItems: "center" }}
                     >
-                        <Grid item xs={8}>
+                        <Grid>
                             <FormInput
                                 size={"small"}
                                 id={`position-${position.id}`}
@@ -106,9 +106,9 @@ export function AddPosition({
                                 required={isAddClicked && position.name.trim() === ''}
                                 error={isAddClicked && position.name.trim() === ''}
                             />
-                        </Grid>
+                        </Grid >
                         {index !== positions.length - 1 && (
-                            <Grid item xs={2}>
+                            <Grid >
                                 <IconButton color={'success'}>
                                     <CheckCircleIcon/>
                                 </IconButton>
@@ -122,7 +122,7 @@ export function AddPosition({
                         )}
 
                         {index === positions.length - 1 && (
-                            <Grid item xs={2}>
+                            <Grid >
                                 <Button
                                     sx={{ boxShadow: 1, px: 2 }}
                                     variant="contained"

@@ -3,9 +3,6 @@ import { Checkbox, TableCell, Skeleton, TableContainer, Table, TableRow, TableBo
 import { HeadCell } from 'modules/core/consts/tableHead'
 import { EnhancedTableHead } from './EnhancedTableHead'
 import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
-import DottedMenu from "modules/hhrr/employees/components/DottedMenu";
-import {DeletePosition} from "modules/hhrr/positions/epmloyees/layout/deletePosition";
-import {ChangePositionName} from "modules/hhrr/positions/epmloyees/layout/ChangePositionName";
 
 type OptionItem = {
   label: string;
@@ -20,8 +17,6 @@ export type EnhancedTableProps<T> = {
   onPageChange(newPage: number): void
   render?: (row: T) => React.ReactNode
   mainModal?: React.ReactNode
-  options: OptionItem[]|null;
-
 }
 
 export function EnhancedTable<T>({
@@ -30,7 +25,7 @@ export function EnhancedTable<T>({
   headCells,
   loading,
   rowsPerPageCount = 10,
-  onPageChange, options,
+  onPageChange,
 }: EnhancedTableProps<T>) {
   const { setPositionId } = usePositionContext();
 
@@ -41,7 +36,6 @@ export function EnhancedTable<T>({
   const handleClick = (_event: React.MouseEvent<unknown>, id: string) => {
     const selectedIndex = selected.indexOf(id);
     let newSelected: readonly string[] = [];
-    // setPositionId(id)
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, id);
@@ -123,15 +117,15 @@ export function EnhancedTable<T>({
                         />
                       </TableCell>
                       {render && render(row)}
-                      {options&& <TableCell>
-                        <DottedMenu
-                            // employees={rows}
-                            options={options}
-                            userId={row.id}
-                            mainModal={<DeletePosition positions={rows}/>}
-                            NameModal={<ChangePositionName positions={rows}/>}
-                        />
-                      </TableCell>}
+                      {/*{options&& <TableCell>*/}
+                      {/*  <DottedMenu*/}
+                      {/*      // employees={rows}*/}
+                      {/*      options={options}*/}
+                      {/*      userId={row.id}*/}
+                      {/*      mainModal={<DeletePosition positions={rows}/>}*/}
+                      {/*      NameModal={<ChangePositionName positions={rows}/>}*/}
+                      {/*  />*/}
+                      {/*</TableCell>}*/}
                     </TableRow>
                   );
                 })}

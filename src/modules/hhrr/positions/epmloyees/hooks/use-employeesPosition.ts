@@ -15,33 +15,22 @@ export const useEmployeesPosition = () => {
     const onAssignPositionToEmployee = async (employeeId: string, selectedId: string) => {
         console.log("Employee ID in hook:", employeeId);
         console.log("Selected Position ID in hook:", selectedId);
-
-        // Prepare the payload to only include positionId
-        const payload = {
-            positionId: selectedId, // Only send positionId in the body
-        };
-
-        console.log("Payload before mutation:", payload); // Log to verify the payload
-
+        const payload = {positionId: selectedId};
         try {
-            // Call mutate function with the payload, ensuring the employeeId is part of the URL
             mutate({ employeeId, payload });
             console.log("Position assigned successfully");
         } catch (error) {
             console.error("Failed to assign position:", error);
         }
     };
-
-
-    const onDeletePosition = async (positionId: string) => {
+    const onDeletePosition =  (positionId: string) => {
         try {
-            await deletePosition(positionId);
+             deletePosition(positionId);
             console.log(`Position ${positionId} deleted successfully`);
         } catch (error) {
             console.error(`Failed to delete position ${positionId}:`, error);
         }
     };
-
 
     return {
         data,
@@ -49,7 +38,7 @@ export const useEmployeesPosition = () => {
         isLoading,
         isFetching,
         onSearch,
-        onAssignPositionToEmployee, // Return the updated function
+        onAssignPositionToEmployee,
         onDeletePosition
     };
 };

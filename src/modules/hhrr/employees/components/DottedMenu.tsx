@@ -23,7 +23,7 @@ type DottedMenuProps = {
 
 const ITEM_HEIGHT = 48;
 
-export default function DottedMenu({ userId, mainModal, NameModal, options = [] }: DottedMenuProps) {
+export default function DottedMenu({ userId, mainModal, NameModal, options  }: DottedMenuProps) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [open, onOpen, onClose] = useBoolean();
     const [nameModalOpen, setNameModalOpen] = useState(false); // Separate state for NameModal visibility
@@ -101,11 +101,10 @@ export default function DottedMenu({ userId, mainModal, NameModal, options = [] 
                 ))}
             </Menu>
 
-            {/* Render the modals based on their respective states */}
             {open && mainModal && React.cloneElement(mainModal as React.ReactElement, { open, onClose })}
             {nameModalOpen && NameModal && React.cloneElement(NameModal as React.ReactElement, {
                 open: nameModalOpen,
-                onClose: () => setNameModalOpen(false) // Close NameModal when onClose is triggered
+                onClose: () => setNameModalOpen(false)
             })}
         </div>
     );
