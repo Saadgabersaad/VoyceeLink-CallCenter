@@ -15,7 +15,7 @@ type DeletePositionModalProps = DialogProps & {
 
 
 
-export function DeletePosition({ open, onClose,count,positionName,positions }: DeletePositionModalProps) {
+export function DeletePosition({ open, onClose,count,positionName,positions, }: DeletePositionModalProps) {
     const [isCountdownModalOpen, setCountdownModalOpen] = useState(false);
 
     const {
@@ -35,7 +35,7 @@ export function DeletePosition({ open, onClose,count,positionName,positions }: D
     };
     return (
         <>
-            <FormDialog
+            <FormDialog onFinish={handleDeleteClick}
                 title="Delete Position" open={open!} onClose={onClose!}>
                 <FormDialogContent>
                     <Typography fontSize={20} fontWeight={700} mt={2} mb={0.5}>

@@ -3,11 +3,11 @@ import React from "react";
 import PositionView from "modules/hhrr/positions/epmloyees/layout/PositionView";
 
 
-export default function Employees(positionId: string) {
+export default function Employees() {
     return (
         <>
 
-         <PositionView positionId={positionId} />
+         <PositionView />
 
 </>
     )

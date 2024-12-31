@@ -20,7 +20,7 @@ export type EnhancedTableProps<T> = {
   onPageChange(newPage: number): void
   render?: (row: T) => React.ReactNode
   mainModal?: React.ReactNode
-  options: OptionItem[];
+  options: OptionItem[]|null;
 
 }
 

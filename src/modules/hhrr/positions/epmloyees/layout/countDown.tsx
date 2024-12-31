@@ -93,8 +93,8 @@ export const CountdownModal = ({ open, onClose, onFinish }: CountdownModalProps)
                     onClose={onClose}
                     buttonText="Delete"
                     bgcolor="red"
-                    disabled={isButtonDisabled} // Pass the disabled state
-                    openModal={handleButtonClick} // Handle button click
+                    disabled={isButtonDisabled}
+                    openModal={handleButtonClick}
 
                 />
             </DialogContent>

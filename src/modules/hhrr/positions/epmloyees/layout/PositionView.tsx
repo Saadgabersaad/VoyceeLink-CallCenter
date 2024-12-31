@@ -19,9 +19,7 @@ const {positionId}=usePositionContext()
         <Page>
             <Heading title=' Tech Admin Position' description='' children={undefined} />
             <Box
-                sx={{ '& > :not(style)': { m: 1, width: 'full' } }}
-                noValidate
-                autoComplete="off"
+                sx={{   m: 1, width: 'full' }}
             >
                 <Flex gap={2}>
                     <TextField

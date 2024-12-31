@@ -99,9 +99,9 @@ export const FormActions = ({
             variant='contained'
             type='submit'
             sx={{
-              bgcolor: disabled ? 'gray' : bgcolor,  // Apply gray color if disabled
-              color: 'white',  // Text color remains white
-              cursor: disabled ? 'not-allowed' : 'pointer',  // Change cursor when disabled
+              bgcolor: disabled ? 'gray' : bgcolor,
+              color: 'white',
+              cursor: disabled ? 'not-allowed' : 'pointer',
             }}
             disabled={disabled}  // Disable the button based on the prop
         >

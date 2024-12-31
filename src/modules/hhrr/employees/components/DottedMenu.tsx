@@ -29,7 +29,7 @@ export default function DottedMenu({ userId, mainModal, NameModal, options = [] 
     const [nameModalOpen, setNameModalOpen] = useState(false); // Separate state for NameModal visibility
     const router = useRouter();
 
-    const { setPositionData, setPositionId } = usePositionContext();
+    const { setPositionId } = usePositionContext();
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget); // Set anchor for menu

@@ -30,12 +30,11 @@ export const Table = ({
                     </TableCell>
 
                     <TableCell>
-                        <Button sx={{bgcolor:"#ff6363"}} variant="contained">Unassign</Button>
+                        <Button sx={{bgcolor: "#ff6363"}} variant="contained">Unassign</Button>
 
                     </TableCell>
 
-                </>
-            }}
-        />
+                </>;
+            }} options={null}       />
     )
 }

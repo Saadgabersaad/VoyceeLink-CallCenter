@@ -13,12 +13,16 @@ export const getPositionsEmployees = (search?: SearchParams | undefined, positio
     return api<any[]>(HttpMethod.GET, `/employees${queryParam}`);
 };
 
-    export const assignPositionToEmployee = (position: AssignPositionToEmployee,id?: string | null) => {
-    return api<PositionEmployees[]>(HttpMethod.PUT, `/employees/${id}/position`, position);
+// Log employeeId and positionId to verify values
+export const assignPositionToEmployee = ({ employeeId, payload }: { employeeId: string, payload: { positionId: string } }) => {
+    console.log("Employee ID in API function:", employeeId); // Log to verify employeeId
+    console.log("Position ID in API function:", payload.positionId); // Log to verify positionId
+
+    // Ensure the correct URL format with employeeId, and send only the positionId in the payload
+    return api<PositionEmployees[]>(HttpMethod.PUT, `/employees/${employeeId}/position`, payload);
 };
 
-  export const deletePosition = (position: AssignPositionToEmployee,positionId?: string | null) => {
-    return api<PositionEmployees[]>(HttpMethod.DELETE, `/positions${positionId}`, position);
+
+export const deletePosition = async (positionId: string) => {
+    return api<PositionEmployees[]>(HttpMethod.DELETE, `/positions/${positionId}`);
 };
-
-
