@@ -18,7 +18,7 @@ export function EnhancedTableHead({
   return (
     <TableHead>
       <TableRow sx={{bgcolor:'#f7f7f7'}} >
-        <TableCell  padding="checkbox">
+        <TableCell  padding="checkbox" >
           <Checkbox
             color='primary'
             checked={rowCount > 0 && numSelected === rowCount}
@@ -30,6 +30,7 @@ export function EnhancedTableHead({
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
+              width={'fit-content'}
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
@@ -38,7 +39,7 @@ export function EnhancedTableHead({
             {headCell.label}
           </TableCell>
         ))}
-        <TableCell padding="checkbox"></TableCell>
+        {/*<TableCell padding="checkbox"></TableCell>*/}
       </TableRow>
     </TableHead>
   );

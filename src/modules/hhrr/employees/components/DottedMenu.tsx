@@ -1,64 +1,97 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { useBoolean } from 'modules/core/hooks/use-boolean';
-import { usePositionContext } from 'modules/hhrr/positions/epmloyees/shared/PositionSelectedId';
 
-// Define the types for option items
 type OptionItem = {
     label: string;
     icon: JSX.Element;
     action?: () => void;
+    disabled?: boolean;
+    hidden?: boolean;
 };
 
 type DottedMenuProps = {
     userId: string;
-    mainModal?: React.ReactNode; // Optional modal to be rendered on option click
-    NameModal?: React.ReactNode; // Additional modal for "Change Position Name"
-    options: OptionItem[]; // List of options with labels, icons, and actions
+    mainModal?: React.ReactNode;
+    NameModal?: React.ReactNode;
+    options: OptionItem[];
+    name?: string;
 };
+
+enum ModalType {
+    Main = 'mainModalOpen',
+    Name = 'nameModalOpen',
+}
 
 const ITEM_HEIGHT = 48;
 
-export default function DottedMenu({ userId, mainModal, NameModal, options  }: DottedMenuProps) {
+const DottedMenu: React.FC<DottedMenuProps> = ({
+                                                   mainModal,
+                                                   NameModal,
+                                                   options,
+                                                   name = '',
+                                               }) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [open, onOpen, onClose] = useBoolean();
-    const [nameModalOpen, setNameModalOpen] = useState(false); // Separate state for NameModal visibility
+    const [modalState, setModalState] = useState<Record<ModalType, boolean>>({
+        [ModalType.Main]: false,
+        [ModalType.Name]: false,
+    });
     const router = useRouter();
 
-    const { setPositionId } = usePositionContext();
+    const handleNavigate = useCallback(() => {
+        const query = new URLSearchParams({ name}).toString();
+        router.push(`/hhrr/positions/employee?${query}`);
+    }, [name, router]);
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget); // Set anchor for menu
-    };
+    const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
+    }, []);
 
-    const handleClose = () => {
-        setAnchorEl(null); // Close the menu
-    };
+    const handleClose = useCallback(() => {
+        setAnchorEl(null);
+    }, []);
 
-    // Navigate to a new path
-    const navigateTo = (path: string) => {
-        router.push(path);
-        handleClose();
-    };
+    const handleOptionClick = useCallback(
+        (option: OptionItem) => {
+            if (option.disabled) return; // Skip if disabled
+            switch (option.label) {
+                case 'Delete User':
+                    setModalState((prev) => ({ ...prev, [ModalType.Main]: true }));
+                    break;
+                case 'View Position':
+                    handleNavigate();
+                    break;
+                case 'Change Position Name':
+                    setModalState((prev) => ({ ...prev, [ModalType.Name]: true }));
+                    break;
+                default:
+                    option.action?.();
+                    handleClose();
+            }
+        },
+        [handleNavigate]
+    );
 
-    // Handle the opening of the modal on specific option click
-    const handleOptionClick = (option: OptionItem) => {
-        if (option.label === 'Delete User') {
-            onOpen(); // Open main modal
-        } else if (option.label === 'View Position') {
-            setPositionId(userId);
-            navigateTo(`/hhrr/positions/employee`);
-        } else if (option.label === 'Change Position Name') {
-            setNameModalOpen(true); // Open NameModal
-        } else {
-            option.action?.();
-            handleClose();
-        }
-    };
+    const renderedOptions = useMemo(
+        () =>
+            options
+                .filter((option) => !option.hidden)
+                .map((option) => (
+                    <MenuItem
+                        key={option.label}
+                        onClick={() => handleOptionClick(option)}
+                        disabled={option.disabled}
+                        sx={{ paddingX: '16px', paddingY: '12px' }}
+                    >
+                        {option.icon}
+                        <span style={{ marginLeft: '10px' }}>{option.label}</span>
+                    </MenuItem>
+                )),
+        [options, handleOptionClick]
+    );
 
     return (
         <div>
@@ -85,27 +118,29 @@ export default function DottedMenu({ userId, mainModal, NameModal, options  }: D
                     paper: {
                         maxHeight: ITEM_HEIGHT * 5.5,
                         width: '23ch',
-                        border: 'solid 1px green',
+                        border: '1px solid green',
                     },
                 }}
             >
-                {options.map((option) => (
-                    <MenuItem
-                        key={option.label}
-                        onClick={() => handleOptionClick(option)} // Handle option click
-                        sx={{ paddingX: '16px', paddingY: '12px' }}
-                    >
-                        {option.icon}
-                        <span style={{ marginLeft: '10px' }}>{option.label}</span>
-                    </MenuItem>
-                ))}
+                {renderedOptions}
             </Menu>
 
-            {open && mainModal && React.cloneElement(mainModal as React.ReactElement, { open, onClose })}
-            {nameModalOpen && NameModal && React.cloneElement(NameModal as React.ReactElement, {
-                open: nameModalOpen,
-                onClose: () => setNameModalOpen(false)
-            })}
+            {modalState[ModalType.Main] &&
+                mainModal &&
+                React.cloneElement(mainModal as React.ReactElement, {
+                    open: modalState[ModalType.Main],
+                    onClose: () =>
+                        setModalState((prev) => ({ ...prev, [ModalType.Main]: false })),
+                })}
+            {modalState[ModalType.Name] &&
+                NameModal &&
+                React.cloneElement(NameModal as React.ReactElement, {
+                    open: modalState[ModalType.Name],
+                    onClose: () =>
+                        setModalState((prev) => ({ ...prev, [ModalType.Name]: false })),
+                })}
         </div>
     );
-}
+};
+
+export default DottedMenu;

@@ -22,3 +22,4 @@ export const assignPositionToEmployee = ({ employeeId, payload }: { employeeId: 
 export const deletePosition =  (positionId: string) => {
     return api<PositionEmployees[]>(HttpMethod.DELETE, `/positions/${positionId}`);
 };
+

@@ -8,14 +8,15 @@ import { PRIMARY } from "modules/core/consts/theme";
 import { usePositionContext } from "../shared/PositionSelectedId";
 import { FieldValues } from "react-hook-form";
 import {Position} from "modules/hhrr/departments/shared/Position";
+import { EnhancedTableProps } from "modules/core/components/tables/EnhancedTable";
 
 type DeletePositionModalProps = DialogProps & {
     count: number;
     positionName: string;
-    positions: Position[];
 };
 
 export function DeletePosition({open, onClose, count, positionName, positions}: DeletePositionModalProps) {
+
     const [isCountdownModalOpen, setCountdownModalOpen] = useState(false);
     const [isPositionEmpty, setIsPositionEmpty] = useState(true); // Track if position has employees
     const {positionId} = usePositionContext();
@@ -57,7 +58,8 @@ export function DeletePosition({open, onClose, count, positionName, positions}: 
 
     return (
         <>
-            <FormDialog title="Delete Position" open={open!} onClose={onClose!}>
+     {/*@ts-ignore*/}
+            <FormDialog  title="Delete Position" open={open!} onClose={onClose!}>
                 <FormDialogContent>
                     <Typography fontSize={20} fontWeight={700} mt={2} mb={0.5}>
                         Position <span style={{ color: PRIMARY }}>{positionName}  </span> is assigned to

@@ -1,6 +1,6 @@
-import React, {useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DialogProps, FormActions, FormDialog, FormDialogContent } from "modules/core/components/FormDialog";
-import {Box, TextField} from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { FieldValues } from "react-hook-form";
 
 type DeletePositionModalProps = DialogProps & {
@@ -10,32 +10,31 @@ type DeletePositionModalProps = DialogProps & {
     positionId: string | null;
 };
 
-
-export function ChangePositionName({open, create, onClose}: DeletePositionModalProps) {
+export function ChangePositionName({ open, create, onClose }: DeletePositionModalProps) {
     const [isCountdownModalOpen, setCountdownModalOpen] = useState(false);
-
 
     const handleChangeName = () => {
         setCountdownModalOpen(true);
-
-
     };
 
     const handleCountdownFinish = async () => {
         await create();
         setCountdownModalOpen(false);
     };
+
     return (
         <>
             <FormDialog
-                title="Change Position Name" open={open!} onClose={onClose!}
+                title="Change Position Name"
+                open={open!}
+                onClose={onClose!}
                 onFinish={function (values: FieldValues): void {
                     throw new Error("Function not implemented.");
-                }}>
-
-                <FormDialogContent >
+                }}
+            >
+                <FormDialogContent>
                     <Box
-                        component="form"
+                        component="data"
                         sx={{ '& > :not(style)': { m: 1, width: '35ch' } }}
                         noValidate
                         autoComplete="off"
@@ -46,11 +45,10 @@ export function ChangePositionName({open, create, onClose}: DeletePositionModalP
                         onClose={onClose}
                         buttonText="Change Name"
                         openModal={handleChangeName}
-                        bgcolor={undefined}/>
+                        bgcolor={undefined}
+                    />
                 </FormDialogContent>
-
             </FormDialog>
-
         </>
     );
 }

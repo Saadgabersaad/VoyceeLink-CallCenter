@@ -4,11 +4,6 @@ import { HeadCell } from 'modules/core/consts/tableHead'
 import { EnhancedTableHead } from './EnhancedTableHead'
 import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
 
-type OptionItem = {
-  label: string;
-  icon: JSX.Element;
-  action?: () => void;
-};
 export type EnhancedTableProps<T> = {
   rows: (T & { id: string })[]
   headCells: HeadCell[]
@@ -103,8 +98,7 @@ export function EnhancedTable<T>({
                       tabIndex={-1}
                       key={key}
                       selected={isItemSelected}
-                      sx={{ cursor: 'pointer', height: '65px' }}
-                      onClick={()=> setPositionId(key)}
+                      sx={{ cursor: 'pointer', height: '65px',width: 'fit-content' }}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -116,6 +110,7 @@ export function EnhancedTable<T>({
                           }}
                         />
                       </TableCell>
+
                       {render && render(row)}
                       {/*{options&& <TableCell>*/}
                       {/*  <DottedMenu*/}

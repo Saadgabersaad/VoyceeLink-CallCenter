@@ -1,13 +1,5 @@
 import { useState } from 'react';
-import {
-    TableCell,
-    SelectChangeEvent,
-    Box,
-    Select,
-    InputLabel,
-    MenuItem,
-    FormControl,
-} from '@mui/material';
+import {TableCell, SelectChangeEvent, Box, Select, InputLabel, MenuItem, FormControl} from '@mui/material';
 import { selectAdapter } from 'modules/core/components/Select';
 import { Position } from 'modules/hhrr/departments/shared/Position';
 import { usePositionContext } from '../shared/PositionSelectedId';

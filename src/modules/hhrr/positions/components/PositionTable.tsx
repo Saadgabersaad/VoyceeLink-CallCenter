@@ -1,3 +1,4 @@
+"use client"
 import { TableCell} from '@mui/material'
 import {EnhancedTable, EnhancedTableProps} from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from '../../positions/consts/headCell'
@@ -10,14 +11,21 @@ import DottedMenu from 'modules/hhrr/employees/components/DottedMenu';
 import { DeletePosition } from '../epmloyees/layout/deletePosition';
 import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
 import { ChangePositionName } from '../epmloyees/layout/ChangePositionName';
+import {useDepartmentById} from "modules/hhrr/departments/hooks/use-departmentById";
 
 export const Table = ({
                           rows,
                           loading
                       }: Partial<EnhancedTableProps<Position>>) => {
+    const {setPositionId,setDepartmentId }=usePositionContext()
 
 
-    const {setPositionId}=usePositionContext()
+
+    const handleClick = (id: string | null, departmentId: string | null) => {
+        setPositionId(id);
+        setDepartmentId(departmentId);
+
+    }
 
     const positionOptions = [
         { label: 'View Position', icon: <PersonIcon color="primary" /> },
@@ -42,12 +50,12 @@ export const Table = ({
                     <TableCell>
                         {row.departmentId}
                     </TableCell>
-
                     <TableCell>
                         {row.employeeCount}
                     </TableCell>
-                    <TableCell  onClick={()=>setPositionId(row.id)} >
+                    <TableCell  onClick={()=>handleClick(row.id,row.departmentId)}  >
                         <DottedMenu
+                            name={row.name}
                             options={positionOptions}
                             mainModal={<DeletePosition  positions={rows} positionName={row.name}  count={row.employeeCount}  />}
                             NameModal={<ChangePositionName positions={rows}/>}

@@ -18,8 +18,6 @@ export const DeletePositionTable = ({ rows, loading, positions }: Partial<Enhanc
                 return (
                     <>
                         <TableCell>{row.name}</TableCell>
-                        <TableCell>{row.id}</TableCell>
-
                         <PositionsSelectRow employeeId={row.id} positions={positions}/>
                     </>
                 );

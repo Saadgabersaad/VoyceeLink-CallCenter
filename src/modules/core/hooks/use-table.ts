@@ -29,7 +29,7 @@ export const useTable = <T, TRequestBody>({
     queryKey: [key, delayedSearchParams],
   })
 
-  // console.log(data, isLoading, isError, isFetching)
+
 
   //POST
   const { mutate } = useMutation({

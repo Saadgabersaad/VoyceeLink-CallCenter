@@ -84,8 +84,8 @@ export const FormHeading = ({ children }: React.PropsWithChildren) => {
 export const FormActions = ({
                               onClose = () => {},
                               buttonText = '',
-                              bgcolor,
-                              openModal,
+                              bgcolor='',
+                              openModal= () => {},
                               disabled = false,
                             }) => {
   return (

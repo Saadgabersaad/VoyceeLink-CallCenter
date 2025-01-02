@@ -2,14 +2,21 @@ import {Button, TableCell } from '@mui/material'
 import {EnhancedTable, EnhancedTableProps} from 'modules/core/components/tables/EnhancedTable'
 import { headCells } from 'modules/hhrr/positions/epmloyees/consts/headCell'
 import { PositionEmployee} from "modules/hhrr/departments/shared/Position";
+import {useEmployeesPosition} from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
+type Department = {
+    name: string;
+};
 
-export const Table = ({
-                          rows,
-                          loading
-                      }: Partial<EnhancedTableProps<PositionEmployee>>) => {
+type TableProps = Partial<EnhancedTableProps<PositionEmployee>> & {
+    department: Department|any[];
+};
 
+export const Table =({ department }: TableProps) => {
 
+    const { data, isLoading } = useEmployeesPosition();
 
+    const rows=data
+    const loading=isLoading
     console.log(rows)
     return (
         <EnhancedTable
@@ -19,22 +26,22 @@ export const Table = ({
             onPageChange={() => { }}
             render={(row) => {
                 return <>
-                    <TableCell>
+                    <TableCell >
                         {row.name}
                     </TableCell>
                     <TableCell>
                         {row.email}
                     </TableCell>
                     <TableCell>
-                        {row.department}
+                        {department.name}
                     </TableCell>
 
-                    <TableCell>
+                    <TableCell width={300}>
                         <Button sx={{bgcolor: "#ff6363"}} variant="contained">Unassign</Button>
 
                     </TableCell>
 
                 </>;
-            }} options={null}       />
+            }}       />
     )
 }
