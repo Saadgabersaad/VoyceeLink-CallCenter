@@ -17,35 +17,36 @@ const rows = [
 
 export const PositionsTable = () => {
 
+  const handleChange = (newPage: number) => {
+    console.log(newPage)
+  }
+
   return (
     <EnhancedTable
-        rowsPerPageCount={10}
-        rows={rows as any[]}
-        headCells={[
-            {id: 'id', numeric: false, disablePadding: true, label: 'ID'},
-            {id: 'name', numeric: false, disablePadding: true, label: 'Name'},
-            {id: 'department', numeric: false, disablePadding: true, label: 'Related Department'},
-            {id: 'assigned', numeric: false, disablePadding: true, label: 'Number of employees assigned'},
-        ]}
-        onPageChange={() => {
-        }}
-        render={(row) => (
-            <>
-                <TableCell>
-                    {row.id}
-                </TableCell>
-                <TableCell>
-                    {row.name}
-                </TableCell>
-                <TableCell>
-                    {row.department}
-                </TableCell>
-                <TableCell>
-                    {row.assigned}
-                </TableCell>
-            </>
-        )} loading={false}    />
+      rowsPerPageCount={10}
+      rows={rows as any[]}
+      headCells={[
+        { id: 'id', numeric: false, disablePadding: true, label: 'ID' },
+        { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
+        { id: 'department', numeric: false, disablePadding: true, label: 'Related Department' },
+        { id: 'assigned', numeric: false, disablePadding: true, label: 'Number of employees assigned' },
+      ]}
+      onPageChange={handleChange}
+      render={(row) => (
+        <>
+          <TableCell>
+            {row.id}
+          </TableCell>
+          <TableCell>
+            {row.name}
+          </TableCell>
+          <TableCell>
+            {row.department}
+          </TableCell>
+          <TableCell>
+            {row.assigned}
+          </TableCell>
+        </>
+      )} loading={false}    />
   )
 }
-export { Table };
-
