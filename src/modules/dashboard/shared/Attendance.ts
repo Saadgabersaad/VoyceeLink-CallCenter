@@ -1,5 +1,5 @@
 export interface Attendance {
-
+  
 }
 
 export interface CreateAttendanceEntrie {

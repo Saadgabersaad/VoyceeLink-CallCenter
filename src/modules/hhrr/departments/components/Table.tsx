@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { TableCell } from '@mui/material'
+import { Button, Menu, MenuItem, TableCell } from '@mui/material'
 import {
   EnhancedTable,
   EnhancedTableProps
@@ -7,17 +7,24 @@ import {
 import { headCells } from '../consts/headCells'
 import { Department } from '../shared/Department'
 import { PositionsSelectRow } from './PositionsSelectRow'
+import DropdownMenu from 'modules/core/components/Dropdown'
+import Link from 'next/link'
+import { useBoolean } from 'modules/core/hooks/use-boolean'
+import AddPositionsModal from 'modules/positions/components/AddPositionsModal'
 
 export const Table = ({
   rows,
   loading
 }: Partial<EnhancedTableProps<Department>>) => {
-  return (
+
+  const [open, onOpen, onClose] = useBoolean()
+
+  return <>
     <EnhancedTable
       rows={rows!}
       loading={loading!}
       headCells={headCells}
-      onPageChange={() => {}}
+      onPageChange={() => { }}
       render={(row) => {
         return <>
           <TableCell>
@@ -32,8 +39,21 @@ export const Table = ({
           <PositionsSelectRow
             positions={row.position}
           />
+          <TableCell>
+            <DropdownMenu>
+              <MenuItem>
+                <Link href={`departments/${row.id}`}>
+                  View Department
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={onOpen}>
+                Add new Position
+              </MenuItem>
+            </DropdownMenu>
+          </TableCell>
         </>
       }}
     />
-  )
+    {open && <AddPositionsModal open onClose={onClose}/>}
+  </>
 }

@@ -3,6 +3,9 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Table from "modules/hhrr/employees/components/Table";
+import { useTable } from 'modules/core/hooks/use-table';
+import { getEmployees } from '../services/employees';
+import { CreateEmployee, Employee } from '../shared/Employee';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -33,7 +36,23 @@ function a11yProps(index: number) {
     };
 }
 
+export type Response = {
+    data: Employee[]
+}
+
 export default function BasicTabs() {
+    const { data } = useTable({
+        fetcher: getEmployees,
+        key: 'AAAA',
+        mutationFn: async (data: CreateEmployee) => {
+            return new Promise<void>((resolve) => {
+                resolve();
+            });
+        }
+    })
+
+    const employees: Employee[] = data?.data ?? []
+
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -42,7 +61,7 @@ export default function BasicTabs() {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider',margin:'auto' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', margin: 'auto' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="Tech department" {...a11yProps(0)} />
                     <Tab label="dept-1" {...a11yProps(1)} />
@@ -50,13 +69,12 @@ export default function BasicTabs() {
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-                    <Table/>
+                <Table rows={employees} />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-                Item Two
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-                Item Three
+
             </CustomTabPanel>
         </Box>
     );

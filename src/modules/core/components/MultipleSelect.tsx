@@ -10,6 +10,7 @@ export type MultipleSelectProps = {
   name: string
   placeholder: string
   width?: number | string
+  defaultOpen?: boolean
   values?: SelectOption[]
   size?: 'small' | 'medium'
   onChange?(option: SelectChangeEvent<SelectOption[]>): void
@@ -28,6 +29,7 @@ const MenuProps = {
 export function MultipleSelect({
   size = 'medium',
   width = 200,
+  defaultOpen = false,
   options,
   values,
   onChange
@@ -43,10 +45,11 @@ export function MultipleSelect({
           value={values}
           sx={{ width }}
           onChange={onChange}
+          defaultOpen={defaultOpen}
           input={<OutlinedInput label="Name" size={size} />}
           MenuProps={MenuProps}
         >
-          {options.map((option) => (
+          {options?.map((option) => (
             <MenuItem
               key={option.value}
               value={option.value}

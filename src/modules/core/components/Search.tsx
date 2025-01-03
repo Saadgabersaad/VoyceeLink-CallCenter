@@ -7,10 +7,14 @@ import SearchIcon from '@mui/icons-material/Search';
 type Props = {
   placeholder?: string
   onSearch(value: string): void
+  disableForm?: boolean
+  width?: number
 }
 
 export function Search({
   placeholder,
+  disableForm,
+  width,
   onSearch
 }: Props) {
 
@@ -20,12 +24,12 @@ export function Search({
 
   return (
     <Paper
-      component='form'
+      {...disableForm ? { component: 'div' } : { component: 'form' }}
       sx={{
         p: '0px 3px',
         display: 'flex',
         alignItems: 'center',
-        width: 320,
+        width: width || 320,
         boxShadow: '0px 1px 3px 0px #0000001F',
       }}
     >

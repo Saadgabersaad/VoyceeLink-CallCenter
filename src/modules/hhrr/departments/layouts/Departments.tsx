@@ -8,8 +8,8 @@ import { AddDepartment } from './AddDepartment'
 export default function Departments() {
   const {
     data,
-    isLoading,
     onSearch,
+    isLoading,
     onCreateDepartment
   } = useDepartments()
 
@@ -23,7 +23,7 @@ export default function Departments() {
       </Heading>
       <Search onSearch={onSearch} />
       <Table
-        rows={data}
+        rows={data?.data?.data.data}
         loading={isLoading}
       />
     </Page>

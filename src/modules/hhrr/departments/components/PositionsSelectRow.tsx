@@ -9,7 +9,7 @@ type Props = {
 }
 
 export function PositionsSelectRow({ positions }: Props) {
-  const options = positions.map(({ name, id }) => selectAdapter(name, id)).concat({
+  const options = positions?.map(({ name, id }) => selectAdapter(name, id))?.concat({
     label: 'UI 2',
     value: 'positionid'
   })

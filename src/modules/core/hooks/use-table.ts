@@ -5,7 +5,7 @@ import { useDebounce } from './use-debounce'
 import { useState } from 'react'
 
 type UseTableProps<T, TRequestBody> = {
-  fetcher(searchParams?: SearchParams): Promise<T[]>
+  fetcher: (searchParams?: SearchParams) => Promise<T>
   //searchParams?: SearchParams
   mutationFn(data: TRequestBody): Promise<any> //FOR POST
   key: string
@@ -46,7 +46,7 @@ export const useTable = <T, TRequestBody>({
   }
 
   return {
-    data: data ?? [],
+    data: (data ?? []) as T,
     isLoading,
     isFetching,
     isError,

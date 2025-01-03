@@ -9,7 +9,7 @@ export type EnhancedTableProps<T> = {
   loading: boolean
   rowsPerPageCount?: number
   onPageChange(newPage: number): void
-  render?: (row: T) => React.ReactNode
+  render?: (row: T, index: number) => React.ReactNode
 }
 
 export function EnhancedTable<T>({
@@ -68,7 +68,7 @@ const visibleRows = React.useMemo(
   [page, rowsPerPage, loading],
 )*/
 
-  const visibleRows = [...rows]
+  const visibleRows = rows?.length ? [...rows] : []
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,7 +114,7 @@ const visibleRows = React.useMemo(
                           }}
                         />
                       </TableCell>
-                      {render && render(row)}
+                      {render && render(row, index)}
                     </TableRow>
                   );
                 })}
