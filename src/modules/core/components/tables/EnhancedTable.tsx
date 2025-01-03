@@ -2,7 +2,6 @@ import React from 'react'
 import { Checkbox, TableCell, Skeleton, TableContainer, Table, TableRow, TableBody, Paper, TablePagination } from '@mui/material'
 import { HeadCell } from 'modules/core/consts/tableHead'
 import { EnhancedTableHead } from './EnhancedTableHead'
-import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
 
 export type EnhancedTableProps<T> = {
   rows: (T & { id: string })[]
@@ -22,7 +21,6 @@ export function EnhancedTable<T>({
   rowsPerPageCount = 10,
   onPageChange,
 }: EnhancedTableProps<T>) {
-  const { setPositionId } = usePositionContext();
 
   const [selected, setSelected] = React.useState<readonly string[]>([])
   const [page, setPage] = React.useState<number>(0)

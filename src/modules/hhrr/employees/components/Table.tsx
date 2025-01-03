@@ -18,23 +18,31 @@ import WorkIcon from "@mui/icons-material/Work";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DottedMenu from './DottedMenu';
+import { useEmployees } from '../hooks/use-employees';
+import {useEmployeesPosition} from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
+import {SearchParams} from "modules/core/utils/types";
+import {api, HttpMethod} from "modules/core/utils/api";
 
-export default function Employees() {
+export default function Employees({rows}) {
     const [order, setOrder] = React.useState<Order>('asc');
     const [orderBy, setOrderBy] = React.useState<keyof Data>('position');
     const [selected, setSelected] = React.useState<readonly number[]>([]);
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
 
-    const userOptions = [
-        { label: 'View Profile Info', icon: <PersonIcon color="primary" /> },
-        { label: 'Change User Position', icon: <WorkIcon color="primary" /> },
-        { label: 'Change User Dept', icon: <ApartmentIcon color="primary" /> },
-        { label: 'Edit User', icon: <EditIcon color="primary" /> },
-        { label: 'Delete User', icon: <DeleteIcon sx={{ color: 'red' }} /> },
+    const {data}=useEmployeesPosition()
+    console.log(data)
+    console.log(rows)
+
+    const employeesOptions = [
+        { label: 'View Employee Profile', icon: <PersonIcon color="primary" /> },
+        { label: 'Change Employee Position', icon: <WorkIcon color="primary" /> },
+        { label: 'Change Employee Department', icon: <ApartmentIcon color="primary" /> },
+        { label: 'Edit Employee', icon: <EditIcon color="primary" /> },
+        { label: 'Delete Employee', icon: <DeleteIcon sx={{ color: 'red' }} /> },
     ];
-
 
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
@@ -106,6 +114,13 @@ export default function Employees() {
         return sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
     }, [rows, positionFilter, statusFilter, order, orderBy, page, rowsPerPage]);
 
+     const getPositionsEmployees = (search?: SearchParams | undefined, id?: string | null) => {
+        // Dynamically build the query string based on search params
+
+        const  positionQueryParam= search?.query ? `&search=${encodeURIComponent(search.query)}` : '';
+        const queryParam = id ? `?position=${id}${positionQueryParam}` : '';
+        return api<any[]>(HttpMethod.GET, `/employees${queryParam}`);
+    };
 
 
 
@@ -130,6 +145,8 @@ export default function Employees() {
                         />
                         <TableBody>
                             {visibleRows.map((row, index) => {
+                                const { data: positionData } = useEmployeesPosition(row.id); // Fetch position data
+
                                 const isItemSelected = selected.indexOf(row.id) !== -1;
                                 const labelId = `enhanced-table-checkbox-${index}`;
                                 const isInactive = row.status === 'Inactive';
@@ -160,18 +177,24 @@ export default function Employees() {
                                                 disabled={isInactive}/>
                                         </TableCell>
                                         <TableCell  sx={textColorStyle} component="th" id={labelId} scope="row" padding="none">
-                                            {row.name}
+                                            {row.name}{ row.lastName}
                                         </TableCell>
-                                        <TableCell  sx={textColorStyle} padding="none">{row.position}</TableCell>
-                                        <TableCell  sx={textColorStyle} padding="none">{row.phoneNumber}</TableCell>
+                                        <TableCell  sx={textColorStyle} padding="none">{row.id}</TableCell>
+                                        <TableCell  sx={textColorStyle} padding="none">{row.phone}</TableCell>
                                         <TableCell  sx={textColorStyle} padding="none">{row.email}</TableCell>
                                         <TableCell  sx={textColorStyle} padding="none">{row.department}</TableCell>
+                                        {/*<TableCell  sx={textColorStyle} padding="none">{row.positionId}</TableCell>*/}
                                         <TableCell  sx={textColorStyle} padding="none">
                                             <StatusMenu status={row.status} onStatusChange={handleStatusChange} />
                                         </TableCell>
                                         <TableCell padding="none">
-                                            {/*<DottedMenu userId={row.id} options={userOptions} mainModal={null} />*/}
-                                        </TableCell>
+                                            <DottedMenu
+                                                name={row.name}
+                                                options={employeesOptions}
+                                                // mainModal={<DeletePosition  positions={rows} positionName={row.name}  count={row.employeeCount}  />}
+                                                // NameModal={<ChangePositionName positions={rows}/>}
+                                                // EmployeeId={''}
+                                            />                                        </TableCell>
                                     </TableRow>
                                 );
                             })}

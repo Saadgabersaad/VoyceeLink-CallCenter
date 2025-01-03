@@ -13,14 +13,10 @@ export const useEmployeesPosition = () => {
         mutationFn: (positionData) => assignPositionToEmployee(positionData),
     });
 
-    // Updated mutation function to include employeeId in the URL
     const onAssignPositionToEmployee = async (employeeId: string, selectedId: string) => {
-        // console.log("Employee ID in hook:", employeeId);
-        // console.log("Selected Position ID in hook:", selectedId);
         const payload = {positionId: selectedId};
         try {
             mutate({ employeeId, payload });
-            // console.log("Position assigned successfully");
         } catch (error) {
             console.error("Failed to assign position:", error);
         }

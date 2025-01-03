@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Table from "modules/hhrr/employees/components/Table";
+import {useEmployees} from "modules/hhrr/employees/hooks/use-employees";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -35,6 +36,7 @@ function a11yProps(index: number) {
 
 export default function BasicTabs() {
     const [value, setValue] = React.useState(0);
+    const { data: rows = [] } = useEmployees();
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -50,7 +52,7 @@ export default function BasicTabs() {
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-                    <Table/>
+                    <Table rows={rows} />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
                 Item Two
