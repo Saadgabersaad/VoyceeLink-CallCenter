@@ -9,3 +9,7 @@ export const getPositions = () => {
 export const createPosition = (data: CreatePosition) => {
   return api(HttpMethod.POST, `/positions`, data)
 }
+
+export const deletePosition = (positionId: string) => {
+  return api(HttpMethod.DELETE, `/positions/${positionId}`)
+}

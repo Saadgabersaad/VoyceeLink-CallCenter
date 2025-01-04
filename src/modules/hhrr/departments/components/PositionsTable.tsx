@@ -2,22 +2,20 @@ import { Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow, T
 import { PRIMARY } from 'modules/core/consts/theme'
 import React from 'react'
 import useDepartment from '../hooks/use-department'
-import { useQuery } from '@tanstack/react-query'
-import { getPositionsByDepartment } from '../services/departments'
-import { Delete, DeleteForever } from '@mui/icons-material'
 import { Flex } from 'modules/core/components/flex'
 import { useBoolean } from 'modules/core/hooks/use-boolean'
 import AddPositionsModal from 'modules/positions/components/AddPositionsModal'
+import DeletePositionFromDepartment from './DeletePositionFromDepartment'
+import { usePositions } from 'modules/positions/hooks/use-positions'
 
 
 export default function PositionsTable() {
   const { data, departmentId } = useDepartment()
-  const { data: positions } = useQuery({
-    queryKey: ['positionsdepartment', departmentId],
-    queryFn: async () => {
-      return getPositionsByDepartment(departmentId)
-    }
-  })
+  const { data: positions } = usePositions()
+
+  const department = data?.data
+  const filteredByDepartment = positions?.data
+    ?.filter(pos => pos.departmentId === departmentId)
 
 
   //TODO IMPORT USE QUERY CLIENT TO GET NEWE PPO
@@ -51,14 +49,12 @@ export default function PositionsTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {positions?.data?.map((position) => (
+          {filteredByDepartment?.map((position) => (
             <TableRow key={position.id}>
               <TableCell>{position.name}</TableCell>
               <TableCell>{position.employeeCount}</TableCell>
               <TableCell>
-                <IconButton>
-                  <Delete />
-                </IconButton>
+                <DeletePositionFromDepartment department={department!} position={position} />
               </TableCell>
             </TableRow>
           ))}

@@ -54,15 +54,14 @@ export default function NewDepartmentAndPositionSelectors({
         </InputLabel>
         <Select
           labelId={`${employee.id}-department`}
-          required
           label='Select a New Department'
-          defaultValue={department.id}
+          value={newDepartment?.id}
           onChange={(e) => setNewDepartment(findDepartment(e.target.value))}
           sx={{
             width: 190
           }}
         >
-          {departments.map((department) => (
+          {departments?.map((department) => (
             <MenuItem key={department.id} value={department.id}>
               {department.name}
             </MenuItem>

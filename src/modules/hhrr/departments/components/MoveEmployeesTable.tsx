@@ -12,26 +12,31 @@ import { useNewAreas } from '../hooks/use-new-areas'
 export default function MoveEmployeesTable({
   department,
   onClose,
+  employeeToFilterId,
+  alertText = '',
+  submitting = false,
 }: Props) {
 
   const { newAreaState } = useNewAreas()
 
-  const { data: employees, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: [EMPLOYEES_BY_DEPARTMENT_KEY, department.id],
     queryFn: () => getEmployeesByDepartment(department.id)
   })
+
+  const employees = employeeToFilterId ? data
+    ?.data?.filter(employee => employee.id === employeeToFilterId) : data?.data
 
   const { data: departments } = useDepartments()
 
   const mustSelectNewDepartment = newAreaState
     .some(({ departmentId }) => departmentId === department.id)
 
-  const mustChangeAllEmployees = employees?.data
-    ?.every(employee => {
-      return newAreaState.some(({ employeeId }) => employeeId === employee.id)
-    })
+  const mustChangeAllEmployees = employees?.every(employee => {
+    return newAreaState?.some(({ employeeId }) => employeeId === employee.id)
+  })
 
-  const isDisabled = (mustChangeAllEmployees && mustSelectNewDepartment)
+  const isDisabled = !newAreaState.length ? true : (mustChangeAllEmployees && mustSelectNewDepartment)
 
   return <>
     <Box
@@ -50,7 +55,7 @@ export default function MoveEmployeesTable({
             </TableRow>
           </TableHead>
           <TableBody>
-            {employees?.data?.map((employee) => (
+            {employees?.map((employee) => (
               <TableRow key={employee.id}>
                 <TableCell>
                   <Flex alignItems='center' gap={1}>
@@ -72,13 +77,14 @@ export default function MoveEmployeesTable({
       </Box>}
     </Box>
     <Typography color='error' sx={{ mt: 1.5, mb: 2, mx: 3 }}>
-      Are you sure you want to delete this Department?
+      {alertText || 'Are you sure you want to delete this Department?'}
     </Typography>
     <FormActions
       deleteButton
       onClose={onClose}
+      loading={submitting}
       isDisabled={isDisabled}
-      buttonText='Delete Department'
+      buttonText='Delete'
     />
   </>
 }

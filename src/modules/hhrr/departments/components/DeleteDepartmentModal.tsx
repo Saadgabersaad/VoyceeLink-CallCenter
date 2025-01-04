@@ -16,6 +16,9 @@ import toast from 'react-hot-toast';
 
 export type Props = DialogProps & {
   department: Department
+  employeeToFilterId?: string
+  submitting?: boolean
+  alertText?: string
 }
 
 const notify = () => toast.success('Department deleted successfully')
