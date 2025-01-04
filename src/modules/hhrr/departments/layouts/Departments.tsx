@@ -23,7 +23,7 @@ export default function Departments() {
       </Heading>
       <Search onSearch={onSearch} />
       <Table
-        rows={data?.data?.data.data}
+        rows={data.data}
         loading={isLoading}
       />
     </Page>

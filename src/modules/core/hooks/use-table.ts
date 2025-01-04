@@ -21,10 +21,12 @@ export const useTable = <T, TRequestBody>({
   const [search, setSearch] = useState<SearchParams | undefined>()
   const delayedSearchParams = useDebounce(search?.query, 600)
 
+  console.log(delayedSearchParams?.query ? [key, delayedSearchParams] : [key])
+
   //GET
   const { data, isLoading, isError, isFetching } = useQuery({
     queryFn: async () => await fetcher(delayedSearchParams),
-    queryKey: [key, delayedSearchParams],
+    queryKey: delayedSearchParams?.query ? [key, delayedSearchParams] : [key],
   })
 
   //POST

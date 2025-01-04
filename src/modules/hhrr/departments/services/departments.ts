@@ -4,31 +4,9 @@ import { SearchParams } from 'modules/core/utils/types'
 import { Employee } from 'modules/hhrr/employees/shared/Employee'
 import { Position } from '../shared/Position'
 
-type DepartmentsRes = {
-  data: {
-    data: {
-      data: Department[]
-    }
-  }
-}
-
-type EmployeesRes = {
-  data: Employee[]
-}
-
-type DepartmentRes = {
-  data: Department
-}
-
-type PositionsRes = {
-  data: {
-    data: Position[]
-  }
-}
-
 export const getDepartments = (search?: SearchParams) => {
   const queryParam = search?.query ? `&search=${search.query}` : ''
-  return api<DepartmentsRes>(HttpMethod.GET, `/departments?sortByOrder=asc&sortByField=created_at${queryParam}`)
+  return api<Department[]>(HttpMethod.GET, `/departments?sortByOrder=asc&sortByField=created_at${queryParam}`)
 }
 
 export const createDepartment = (department: CreateDepartment) => {
@@ -36,11 +14,11 @@ export const createDepartment = (department: CreateDepartment) => {
 }
 
 export const getEmployeesByDepartment = async (departmentId: string) => {
-  return api<EmployeesRes>(HttpMethod.GET, `/employees?department=${departmentId}`)
+  return api<Employee[]>(HttpMethod.GET, `/employees?department=${departmentId}`)
 }
 
 export const getDepartment = (id: string) => {
-  return api<DepartmentRes>(HttpMethod.GET, `/departments/${id}`)
+  return api<Department>(HttpMethod.GET, `/departments/${id}`)
 }
 
 export const searchEmployees = async (search: string) => {
@@ -49,5 +27,9 @@ export const searchEmployees = async (search: string) => {
 }
 
 export const getPositionsByDepartment = async (departmentId: string) => {
-  return api<PositionsRes>(HttpMethod.GET, `/positions/?department=${departmentId}`)
+  return api<Position[]>(HttpMethod.GET, `/positions/?department=${departmentId}`)
+}
+
+export const deleteDepartment = (departmentId: string) => {
+  return api<any>(HttpMethod.DELETE, `/departments/${departmentId}`)
 }

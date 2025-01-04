@@ -5,7 +5,11 @@ import { MoreVertOutlined } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import Link from 'next/link';
 
-export default function DropdownMenu({ children }: { children: React.ReactNode }) {	
+interface DropdownMenuProps {
+  children: (props: { onClose: () => void }) => React.ReactNode;
+}
+
+export default function DropdownMenu({ children }: DropdownMenuProps) {	
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -35,7 +39,7 @@ export default function DropdownMenu({ children }: { children: React.ReactNode }
           'aria-labelledby': 'basic-button',
         }}
       >
-        {children}
+        {children({ onClose: handleClose })}
       </Menu>
     </div>
   );

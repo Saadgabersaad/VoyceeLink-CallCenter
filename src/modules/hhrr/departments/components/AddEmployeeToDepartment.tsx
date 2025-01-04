@@ -23,7 +23,7 @@ export default function AddEmployeeToDepartment({
   const { query } = useDebounce(search, 100)
 
   const { data, isLoading } = useQuery({
-    queryKey: ['addemployees', query],
+    queryKey: ['employees', query],
     queryFn: async () => {
       return searchEmployees(query)
     }

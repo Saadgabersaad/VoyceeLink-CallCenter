@@ -68,8 +68,15 @@ const visibleRows = React.useMemo(
   [page, rowsPerPage, loading],
 )*/
 
-  const visibleRows = rows?.length ? [...rows] : []
+  const getRows = () => {
+    if (!rows?.length) {
+      return []
+    }
+    return [...rows]
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+  }
+
+  const visibleRows = getRows()
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));

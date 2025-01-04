@@ -6,6 +6,7 @@ import { Link, MenuItem, TableCell } from '@mui/material'
 import DropdownMenu from 'modules/core/components/Dropdown'
 import { useBoolean } from 'modules/core/hooks/use-boolean'
 import ChangeEmployeePosModal from './ChangeEmployeePosModal'
+import { EMPLOYEES_BY_DEPARTMENT_KEY } from '../consts/queryKeys'
 
 type Props = {
   departmentId: string
@@ -20,7 +21,7 @@ export const headCells = [
 export default function Employees({ departmentId }: Props) {
   const { data, isLoading } = useQuery({
     queryFn: async () => await getEmployeesByDepartment(departmentId),
-    queryKey: ['employees', departmentId],
+    queryKey: [EMPLOYEES_BY_DEPARTMENT_KEY, departmentId],
   })
 
   const [open, onOpen, onClose] = useBoolean()
@@ -42,20 +43,25 @@ export default function Employees({ departmentId }: Props) {
           </TableCell>
           <TableCell>
             <DropdownMenu>
-              <MenuItem>
-                <Link href={`employee/profile/1`}>
-                  View Profile
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={onOpen}>
-                Change Employee Position
-              </MenuItem>
-              <MenuItem>
-                Move Employee
-              </MenuItem>
-              <MenuItem>
-                Delete Employee
-              </MenuItem>
+              {({ onClose }) => [
+                <MenuItem>
+                  <Link href={`employee/profile/1`}>
+                    View Profile
+                  </Link>
+                </MenuItem>,
+                <MenuItem onClick={() => {
+                  onOpen()
+                  onClose()
+                }}>
+                  Change Employee Position
+                </MenuItem>,
+                <MenuItem>
+                  Move Employee
+                </MenuItem>,
+                <MenuItem>
+                  Delete Employee
+                </MenuItem>
+              ]}
             </DropdownMenu>
           </TableCell>
         </>
