@@ -3,6 +3,7 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { DefaultValues, FieldValues, FormProvider, useForm } from 'react-hook-form'
 import { Button } from './button'
+import { LoadingButton } from '@mui/lab';
 
 type FormProps<T> = {
   title?: string
@@ -20,10 +21,6 @@ export type DialogProps = Partial<{
   onClose(): void
 }>
 
-type FormStateContextType = {
-  isSubmitting: boolean
-}
-
 // FORM DIALOG WITH REACT HOOK FORM
 export const FormDialog = <T extends FieldValues>({
   open,
@@ -33,9 +30,9 @@ export const FormDialog = <T extends FieldValues>({
   onFinish,
   defaultValues,
 }: FormProps<T>) => {
-  const methods = useForm<T>({
+  const methods = useForm<T>(defaultValues ? {
     defaultValues: defaultValues as DefaultValues<T>
-  })
+  } : {})
 
   const { handleSubmit, reset } = methods
 
@@ -82,16 +79,24 @@ export const FormHeading = ({ children }: React.PropsWithChildren) => {
 
 export const FormActions = ({
   onClose = () => {},
-  buttonText = ''
+  buttonText = '',
+  deleteButton = false,
+  isDisabled = false,
+  loading = false
 }) => {
   return (
     <DialogActions sx={{ paddingBottom: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
       <Button onClick={onClose} sx={{ boxShadow: 1, px: 2, color: 'currentColor' }}>
         Cancel
       </Button>
-      <Button variant='contained' type='submit'>
+      <LoadingButton
+        loading={loading}
+        sx={{ textTransform: 'capitalize' }}
+        disabled={isDisabled}
+        {...deleteButton && { color: 'error' }}
+      variant='contained' type='submit'>
         {buttonText}
-      </Button>
+      </LoadingButton>
     </DialogActions>
   )
 }

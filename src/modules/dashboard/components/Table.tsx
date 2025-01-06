@@ -64,7 +64,6 @@ const TableAttendance = () => {
     const fetchData = async () => {
       if (selectedDate?.isValid) {
         const dateISOstr = selectedDate.set('hour', 0).set('minute', 0).set('second', 0).toISOString();
-        console.log(selectedDate.toISOString());
         await onGetUserTimeEntriesDate(userID, dateISOstr);
       } else {        
         await onGetUserTimeEntries(userID);

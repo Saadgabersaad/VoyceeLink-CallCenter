@@ -1,24 +1,36 @@
 import { useState, useEffect } from 'react'
 import { SearchParams } from '../utils/types'
 
-export function useDebounce(value?: string, delay?: number) {
-  const [debouncedValue, setDebouncedValue] = useState(value)
+export function useDebounce(queryParams: SearchParams, delay?: number) {
+
+  const [params, setParams] = useState(queryParams)
+  const [isTyping, setIsTyping] = useState(false)
 
   useEffect(() => {
-    console.log(value, 'in hook')
-    if (typeof value !== 'string') return
+    if (typeof queryParams.search !== 'string') return
+    setIsTyping(true)
 
     // Set a timeout to update the debounced value
     const handler = setTimeout(() => {
-      setDebouncedValue(value)
+      setParams((p) => ({
+        ...p,
+        search: queryParams.search
+      }))
+      setIsTyping(false)
     }, delay || 600)
 
     return () => {
       clearTimeout(handler);
     };
-  }, [value, delay])
+  }, [queryParams.search, delay])
+
+  const onChangeParams = (param: Partial<SearchParams>) => {
+    setParams(p => ({...p, ...param }))
+  }
 
   return {
-    query: debouncedValue
-  } as SearchParams
+    query: params,
+    onChangeParams,
+    isTyping,
+  }
 }

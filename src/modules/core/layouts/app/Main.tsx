@@ -9,7 +9,12 @@ export const Main = ({
   return (
     <Flex flexGrow={1} bgcolor={'grey.100'}>
       <Navigation />
-      <Flex flexDirection='column' flexGrow={1}>
+      <Flex
+        flexGrow={1}
+        height={'95vh'}
+        flexDirection='column'
+        overflow={'scroll'}
+      >
         {children}
       </Flex>
     </Flex>

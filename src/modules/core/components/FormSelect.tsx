@@ -6,7 +6,9 @@ interface FormSelectProps {
   name: string
   label: string
   placeholder?: string
+  disabled?: boolean
   options: SelectOption[]
+  handleChange?(optionId: string): void
 }
 
 export type SelectOption = {
@@ -14,7 +16,7 @@ export type SelectOption = {
   label: string
 }
 
-export const FormSelect = ({ name, label, options, placeholder }: FormSelectProps) => {
+export const FormSelect = ({ name, label, options, placeholder, disabled, handleChange }: FormSelectProps) => {
   const { control } = useFormContext()
 
   return (
@@ -32,11 +34,15 @@ export const FormSelect = ({ name, label, options, placeholder }: FormSelectProp
           select
           fullWidth
           size='small'
+          disabled={disabled}
           label={!value ? (placeholder || label) : label}
           error={!!error}
           helperText={error ? error.message : null}
           value={value || ''}
-          onChange={onChange}
+          onChange={(e) => {
+            onChange(e)
+            handleChange && handleChange!(e.target.value)
+          }}
         >
           {options.map((option) => (
             <MenuItem key={option.value} value={option.value}>

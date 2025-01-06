@@ -9,26 +9,29 @@ export function useAttendance() {
 
   const onGetCurrentStatus = async (userID: string) => {
     const currentStatus = await getCurrentStatus(userID);
-    setEntrieStatus(currentStatus[0]);
+    if (currentStatus.data) {
+      setEntrieStatus(currentStatus?.data[0]);
+    }
   }
 
   const onChangeUserAttendance = async (newEntrie: CreateAttendanceEntrie) => {
     const entryStatus = await createUserAttendanceTimeEntrie(newEntrie);
-    setEntrieStatus(entryStatus);
-    setEntries((currentEntries)=>{
-      return [entryStatus,...currentEntries];
+    if (!entryStatus?.data) return
+    setEntrieStatus(entryStatus?.data);
+    setEntries((currentEntries) => {
+      return [entryStatus.data,...currentEntries];
     })
   }
 
   const onGetUserTimeEntries = async (userID: string) => {
     const entriess = await getUserTimeEntries(userID);
-    setEntries(entriess);
+    setEntries(entriess.data);
     return entries;
   }
 
   const onGetUserTimeEntriesDate = async (userID: string, date: string) => {
     const entriess = await getUserTimeEntriesForDate(userID, date);
-    setEntries(entriess);
+    setEntries(entriess.data);
   }
 
   return { entrieStatus, entries, setEntrieStatus, onGetUserTimeEntriesDate, onChangeUserAttendance, onGetCurrentStatus, onGetUserTimeEntries }
