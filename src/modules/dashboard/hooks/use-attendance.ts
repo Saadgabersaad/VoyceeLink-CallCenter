@@ -1,12 +1,11 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { createUserAttendanceTimeEntrie, getCurrentStatus, getUserTimeEntries, getUserTimeEntriesForDate } from '../services/attendance';
 import { Attendance, CreateAttendanceEntrie } from '../shared/Attendance';
-import { ContextStatus } from 'modules/core/layouts/contexts/clockTimeEntryStatus';
 
 export function useAttendance() {
 
-  const { entrieStatus, setEntrieStatus } = useContext(ContextStatus);
-  const [entries, setEntries] = useState<Attendance[] | null>(null);
+  const [ entrieStatus, setEntrieStatus ] = useState<Attendance|null>(null);
+  const [entries, setEntries] = useState<Attendance[]>([]);
 
   const onGetCurrentStatus = async (userID: string) => {
     const currentStatus = await getCurrentStatus(userID);
@@ -16,6 +15,9 @@ export function useAttendance() {
   const onChangeUserAttendance = async (newEntrie: CreateAttendanceEntrie) => {
     const entryStatus = await createUserAttendanceTimeEntrie(newEntrie);
     setEntrieStatus(entryStatus);
+    setEntries((currentEntries)=>{
+      return [entryStatus,...currentEntries];
+    })
   }
 
   const onGetUserTimeEntries = async (userID: string) => {

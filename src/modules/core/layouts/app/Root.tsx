@@ -3,17 +3,17 @@ import { Toaster } from 'react-hot-toast'
 import { AppHeader } from './Appbar'
 import { Main } from './Main'
 import React from 'react';
-import ClockContextEntry from '../contexts/clockTimeEntryStatus';
+import AttendanceContextProvider from '../contexts/attendanceContext';
 
 
 export const AppLayout = ({ children }: Readonly<{
   children: React.ReactNode
 }>) => {
-  return <ClockContextEntry>
+  return <AttendanceContextProvider>
     <AppHeader />
       <Main>
         {children}
         <Toaster />
       </Main>
-  </ClockContextEntry>
+  </AttendanceContextProvider>
 }

@@ -14,15 +14,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Dayjs } from 'dayjs';
-import { useAttendance } from '../hooks/use-attendance';
 import { Attendance } from '../shared/Attendance';
-import { ContextStatus } from '../../core/layouts/contexts/clockTimeEntryStatus'
+import { AttendanceContext } from '../../core/layouts/contexts/attendanceContext';
 
 const TableAttendance = () => {
   const userID = 'cm489st080002bf0rp2ld1uxf';
-  const { entrieStatus, setEntrieStatus } = useContext(ContextStatus);
+  // const { entrieStatus, setEntrieStatus } = useContext(ContextStatus);
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
-  const { entries, onGetUserTimeEntries, onGetUserTimeEntriesDate } = useAttendance();
+  const { entries, onGetUserTimeEntries, onGetUserTimeEntriesDate } = useContext(AttendanceContext);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -73,7 +72,7 @@ const TableAttendance = () => {
     };
 
     fetchData();
-  }, [selectedDate, entrieStatus]);
+  }, [selectedDate]);
 
   return (
     <Box>

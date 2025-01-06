@@ -4,12 +4,12 @@ import { Coffee, ExitToApp } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import { ClockIcon } from "@mui/x-date-pickers";
 import { Flex } from "modules/core/components/flex";
-import { useAttendance } from "../hooks/use-attendance";
 import { CreateAttendanceEntrie, EventType } from "../shared/Attendance";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { AttendanceContext } from "modules/core/layouts/contexts/attendanceContext";
 
 export default function Clocks() {
-    const { entrieStatus, entries, onChangeUserAttendance, onGetCurrentStatus } = useAttendance();
+    const { entrieStatus, entries, onChangeUserAttendance, onGetCurrentStatus } = useContext(AttendanceContext);
     const userID = 'cm489st080002bf0rp2ld1uxf';
 
     function handleChange(newStatus: EventType) {

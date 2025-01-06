@@ -13,9 +13,9 @@ export const getUserTimeEntries = (userID:string) => {
   return api<Attendance[]>(HttpMethod.GET, `/employees/${userID}/time-entries?take=1000&sortByOrder=desc`);
 }
 
-export const getUserTimeEntriesPages = (userID:string) => {
-  return api<Attendance[]>(HttpMethod.GET, `/employees/${userID}/time-entriesskip=1000&take=1000&sortByOrder=desc`);
-}
+// export const getUserTimeEntriesPages = (userID:string) => {
+//   return api<Attendance[]>(HttpMethod.GET, `/employees/${userID}/time-entriesskip=1000&take=1000&sortByOrder=desc`);
+// }
 
 export const getUserTimeEntriesForDate = (userID:string,date:string) => {
   return api<Attendance[]>(HttpMethod.GET, `/employees/${userID}/time-entries?startTime=${date}&sortByOrder=desc`);
