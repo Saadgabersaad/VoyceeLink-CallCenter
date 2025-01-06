@@ -1,8 +1,11 @@
+'use client'
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Table from "modules/hhrr/employees/components/Table";
+import { Employee } from '../shared/Employee';
+import { useEmployees } from '../hooks/use-employees';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -33,7 +36,13 @@ function a11yProps(index: number) {
     };
 }
 
+export type Response = {
+    data: Employee[]
+}
+
 export default function BasicTabs() {
+    const { data, onSearch, isLoading, filterByDepartment } = useEmployees()
+
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -42,22 +51,12 @@ export default function BasicTabs() {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider',margin:'auto' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Tech department" {...a11yProps(0)} />
-                    <Tab label="dept-1" {...a11yProps(1)} />
-                    <Tab label="dept-2" {...a11yProps(2)} />
-                </Tabs>
-            </Box>
-            <CustomTabPanel value={value} index={0}>
-                    <Table/>
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-                Item Two
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-                Item Three
-            </CustomTabPanel>
+            <Table
+                rows={data?.data || []}
+                onSearch={onSearch}
+                isLoading={isLoading}
+                filterByDepartment={filterByDepartment}
+            />
         </Box>
     );
 }

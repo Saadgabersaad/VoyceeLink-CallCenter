@@ -7,3 +7,9 @@ export interface Position {
   departmentId: string;
   employeeCount: number;
 }
+
+export interface CreatePosition {
+  name: string;
+  description?: string;
+  departmentId: string;
+}
