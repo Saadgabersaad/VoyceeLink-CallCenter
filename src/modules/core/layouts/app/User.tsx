@@ -3,11 +3,18 @@ import { Flex } from 'modules/core/components/flex'
 import { AccountMenu } from './AccountMenu'
 
 export const User = () => {
+
+  const userData={
+    name:'John Doe',
+    position:'Recruitment Manager',
+    imgURL:'https://randomuser.me/api/portraits/men/22.jpg'
+  }
+
   return (
     <Flex gap={1.5} alignItems='center'>
       <Avatar
-        alt='Current user name'
-        src='https://randomuser.me/api/portraits/men/22.jpg'
+        alt={userData.name}
+        src={userData.imgURL}
       />
       <div>
         <Flex alignItems='center' justifyContent='space-between'>
@@ -17,9 +24,9 @@ export const User = () => {
             fontWeight={500}
             sx={{ paddingBottom: 0, marginBottom: -.2 }}
           >
-            John Doe
+            {userData.name}
           </Typography>
-          <AccountMenu />
+          <AccountMenu userData={userData}/>
         </Flex>
         <Typography
           component='span'
@@ -27,7 +34,7 @@ export const User = () => {
           fontSize={12}
           display='block'
         >
-          Recruitment Manager
+          {userData.position}
         </Typography>
       </div>
     </Flex>

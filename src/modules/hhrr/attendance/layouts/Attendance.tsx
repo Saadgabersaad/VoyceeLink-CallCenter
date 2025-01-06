@@ -1,5 +1,6 @@
 import { Heading, Page, HeadingActions } from 'modules/core/components/page'
 import React from 'react'
+import { AttendanceTable } from '../components/Tabel';
 
 export default function Attendance() {
   return (
@@ -15,6 +16,7 @@ export default function Attendance() {
           mainModal={null}
         />
       </Heading>
+      <AttendanceTable/>
     </Page>
   )
 }
