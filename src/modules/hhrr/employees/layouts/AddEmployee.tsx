@@ -1,5 +1,4 @@
 import * as React from 'react'
-
 import { Dropzone } from 'modules/hhrr/employees/components/Dropzone'
 import { CreateEmployee } from 'modules/hhrr/employees/shared/Employee'
 import { FormDialog, FormActions, FormDialogContent } from 'modules/core/components/FormDialog'
@@ -61,10 +60,9 @@ export default function AddEmployeeFormDialog({
             </Grid>
             <Grid size={6} mt={1}>
               <FormMultipleSelect
-                //options={[1, 2, 3]}
-                placeholder='Positions'
-                name='positions'
-              />
+                  //options={[1, 2, 3]}
+                  placeholder='Positions'
+                  name='positions' options={[]}              />
             </Grid>
           </Grid>
           <Typography fontWeight={600} pt={4}>

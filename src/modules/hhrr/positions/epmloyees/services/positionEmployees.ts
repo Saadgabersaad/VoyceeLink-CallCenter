@@ -11,6 +11,14 @@ export const getPositionsEmployees = (search?: SearchParams | undefined, positio
     return api<any[]>(HttpMethod.GET, `/employees${queryParam}`);
 };
 
+export const getPositionsEmployees = (search?: SearchParams | undefined, positionId?: string | null) => {
+    // Dynamically build the query string based on search params
+
+    const  positionQueryParam= search?.query ? `&search=${encodeURIComponent(search.query)}` : '';
+    const queryParam = positionId ? `?positions=${positionId}${positionQueryParam}` : '';
+    return api<any[]>(HttpMethod.GET, `/employees${queryParam}`);
+};
+
 // Log employeeId and positionId to verify values
 export const assignPositionToEmployee = ({ employeeId, payload }: { employeeId: string, payload: { positionId: string } }) => {
 

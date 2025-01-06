@@ -8,8 +8,11 @@ import DeviceHubIcon from '@mui/icons-material/DeviceHub';
 import {PRIMARY} from "modules/core/consts/theme";
 import EditButton from "modules/hhrr/employee-profile/components/EditButton";
 import Avatar from "@mui/material/Avatar";
+import {useEmployee} from "modules/hhrr/employee-profile/hooks/use-employee";
 
 const ProfileInfo = () => {
+ const {data}=useEmployee('cm489st080002bf0rp2ld1uxf')
+
     return (
         <Box sx={{border:'solid 1px ',borderColor:PRIMARY,borderRadius:1,px:4,py:2}}>
             <Flex justifyContent='space-between' alignItems='start'>

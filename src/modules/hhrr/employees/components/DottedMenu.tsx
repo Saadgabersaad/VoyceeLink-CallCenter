@@ -12,7 +12,6 @@ type OptionItem = {
     disabled?: boolean;
     hidden?: boolean;
 };
-
 type DottedMenuProps = {
     userId: string;
     mainModal?: React.ReactNode;
@@ -20,14 +19,11 @@ type DottedMenuProps = {
     options: OptionItem[];
     name?: string;
 };
-
 enum ModalType {
     Main = 'mainModalOpen',
     Name = 'nameModalOpen',
 }
-
 const ITEM_HEIGHT = 48;
-
 const DottedMenu: React.FC<DottedMenuProps> = ({
                                                    mainModal,
                                                    NameModal,
@@ -42,7 +38,7 @@ const DottedMenu: React.FC<DottedMenuProps> = ({
     const router = useRouter();
 
     const handleNavigate = useCallback(() => {
-        const query = new URLSearchParams({ name}).toString();
+        const query = new URLSearchParams({name}).toString();
         router.push(`/hhrr/positions/employee?${query}`);
     }, [name, router]);
 
@@ -56,7 +52,7 @@ const DottedMenu: React.FC<DottedMenuProps> = ({
 
     const handleOptionClick = useCallback(
         (option: OptionItem) => {
-            if (option.disabled) return; // Skip if disabled
+            if (option.disabled) return;
             switch (option.label) {
                 case 'Delete User':
                     setModalState((prev) => ({ ...prev, [ModalType.Main]: true }));
