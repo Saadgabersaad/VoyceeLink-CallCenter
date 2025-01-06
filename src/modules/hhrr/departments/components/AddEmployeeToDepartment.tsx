@@ -13,6 +13,7 @@ import { usePositions } from 'modules/positions/hooks/use-positions'
 import { assignEmployeeToPosition } from '../services/employee'
 import { EMPLOYEES_BY_DEPARTMENT_KEY } from '../consts/queryKeys'
 import { useBoolean } from 'modules/core/hooks/use-boolean'
+import { SearchParams } from 'modules/core/utils/types'
 
 type Props = DialogProps & {
   departmentId: string
@@ -27,12 +28,12 @@ export default function AddEmployeeToDepartment({
   const [search, setQuery] = useState<string>('')
   const [newPositionId, setNewPositionId] = useState<string>('')
 
-  const { query } = useDebounce(search, 100)
+  const { query } = useDebounce({ search } as SearchParams, 100)
 
   const { data, isLoading } = useQuery({
     queryKey: ['employees', query],
     queryFn: async () => {
-      return searchEmployees(query)
+      return searchEmployees(query!.search!)
     }
   })
 
@@ -80,7 +81,7 @@ export default function AddEmployeeToDepartment({
         Add New Employee to Department
       </FormHeading>
       <FormDialogContent>
-        <p>By selecting the Employee, he will be <Typography component='span' color={PRIMARY}>
+        <p>By selecting the Employee,  be <Typography component='span' color={PRIMARY}>
           moved
         </Typography> from his Assigned Department</p>
         <Box sx={{ width: 310 }}>

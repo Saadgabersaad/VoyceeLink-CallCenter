@@ -4,10 +4,9 @@ export type CreateEmployee = {
   name: string
   lastname: string
   email: string
-  phone: string
   department: number
-  picture: string
-  positions: number[]
+  picture?: string
+  positionId: string
 }
 
 export interface Employee {

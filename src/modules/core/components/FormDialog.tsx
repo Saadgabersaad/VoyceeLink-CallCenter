@@ -30,9 +30,9 @@ export const FormDialog = <T extends FieldValues>({
   onFinish,
   defaultValues,
 }: FormProps<T>) => {
-  const methods = useForm<T>({
+  const methods = useForm<T>(defaultValues ? {
     defaultValues: defaultValues as DefaultValues<T>
-  })
+  } : {})
 
   const { handleSubmit, reset } = methods
 

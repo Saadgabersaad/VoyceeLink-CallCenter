@@ -3,9 +3,9 @@ import React from 'react'
 import { getDepartment } from '../services/departments'
 import { useParams } from 'next/navigation'
 
-export default function useDepartment() {
+export default function useDepartment(department?: string) {
   const params = useParams()
-  const departmentId = params.id as string
+  const departmentId = department ? department : params.id as string
 
   const { data } = useQuery({
     queryKey: ['department', departmentId],

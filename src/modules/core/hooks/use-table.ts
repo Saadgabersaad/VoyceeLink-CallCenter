@@ -3,10 +3,11 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { SearchParams } from '../utils/types'
 import { useDebounce } from './use-debounce'
 import { useState } from 'react'
+import { ApiResponse } from '../utils/api'
 
 type UseTableProps<T, TRequestBody> = {
-  fetcher: (searchParams?: SearchParams) => Promise<T>
-  //searchParams?: SearchParams
+  fetcher: (queryParams?: string) => Promise<ApiResponse<T>>
+  searchParams?: SearchParams
   mutationFn(data: TRequestBody): Promise<any> //FOR POST
   key: string
 }
@@ -18,17 +19,38 @@ export const useTable = <T, TRequestBody>({
 }: UseTableProps<T, TRequestBody>) => {
   const queryClient = useQueryClient()
 
-  const [search, setSearch] = useState<SearchParams | undefined>()
-  const delayedSearchParams = useDebounce(search?.query, 600)
+  const [queryParams, setQueryState] = useState<SearchParams>({})
+  const { query, isTyping, onChangeParams }= useDebounce(queryParams, 600)
 
-  console.log(delayedSearchParams?.query ? [key, delayedSearchParams] : [key])
+
+  console.log(query)
+  const buildQueryParams = (params: SearchParams) => {
+    if (!params) return ''
+    if (!Object.keys(params)?.length) return '';
+    const queryEntries = Object.entries(params)
+      .filter(([, value]) => value !== undefined && value !== '') // Ignora valores nulos o vacíos
+      .flatMap(([key, value]) => {
+        // Si el valor es un string separado por comas, crea múltiples entradas
+        if (typeof value === 'string' && value.includes(',')) {
+          return value
+            .split(',')
+            .map((val) => `${key}=${encodeURIComponent(val.trim())}`);
+        }
+        // Si no, simplemente codifica la clave y el valor
+        return `${key}=${encodeURIComponent(value as string)}`;
+      });
+  
+    return queryEntries.length > 0 ? `?${queryEntries.join('&')}` : '';
+  }
 
   //GET
   const { data, isLoading, isError, isFetching } = useQuery({
-    queryFn: async () => await fetcher(delayedSearchParams),
-    queryKey: delayedSearchParams?.query ? [key, delayedSearchParams] : [key],
+    queryFn: async () => {
+      const queryParams = buildQueryParams(query)
+      return await fetcher(queryParams)
+    },
+    queryKey: [key, query],
   })
-
   //POST
   const { mutate } = useMutation({
     mutationFn: async (data: TRequestBody) => {
@@ -44,13 +66,19 @@ export const useTable = <T, TRequestBody>({
   })
 
   const onSearch = (value: string) => {
-    setSearch({ query: value })
+    setQueryState((qp) => ({...qp, search: value }))
+  }
+
+  const setQuery = (params: Partial<SearchParams>) => {
+    console.log(params, 'aaaa')
+    onChangeParams(params)
   }
 
   return {
-    data: (data ?? []) as T,
-    isLoading,
+    data: (data ?? []) as ApiResponse<T>,
+    isLoading: isLoading || isTyping,
     isFetching,
+    setQuery,
     isError,
     onSearch,
     mutate,

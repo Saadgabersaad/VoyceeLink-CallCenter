@@ -14,13 +14,15 @@ import { EMPLOYEES_BY_DEPARTMENT_KEY } from '../consts/queryKeys'
 
 type Props = DialogProps & {
   employee?: Employee
-  department: Department
+  department?: Department
+  invalidateKey?: string
 }
 
 export default function ChangeEmployeePosModal({
   onClose,
   employee,
-  department
+  department,
+  invalidateKey
 }: Props) {
 
   const queryClient = useQueryClient()
@@ -29,7 +31,7 @@ export default function ChangeEmployeePosModal({
   const [submitting, setSubmitting, stopSubmitting] = useBoolean()
   const { data } = usePositions()
   const positions = data?.
-    data?.filter((position) => position.departmentId === department.id)
+    data?.filter((position) => position.departmentId === department?.id)
 
 
   const onChange = (e: SelectChangeEvent<string>) => {
@@ -38,10 +40,10 @@ export default function ChangeEmployeePosModal({
   }
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (employee && position) {
+    if (employee && position && department) {
       setSubmitting()
       await assignEmployeeToPosition(employee.id, position.id)
-      queryClient.invalidateQueries({ queryKey: [EMPLOYEES_BY_DEPARTMENT_KEY + department.id] })
+      queryClient.invalidateQueries({ queryKey: [invalidateKey ? invalidateKey : EMPLOYEES_BY_DEPARTMENT_KEY + department?.id] })
       stopSubmitting()
       onClose!()
     }
@@ -65,7 +67,7 @@ export default function ChangeEmployeePosModal({
           <Divider sx={{ marginBottom: 2, marginTop: 2 }} />
           <Typography>
             Select position related to <Typography component='span' color={PRIMARY}>
-              {department.name}
+              {department?.name}
             </Typography>
           </Typography>
 

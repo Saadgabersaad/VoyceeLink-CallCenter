@@ -1,11 +1,11 @@
+'use client'
 import * as React from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Table from "modules/hhrr/employees/components/Table";
-import { useTable } from 'modules/core/hooks/use-table';
-import { getEmployees } from '../services/employees';
-import { CreateEmployee, Employee } from '../shared/Employee';
+import { Employee } from '../shared/Employee';
+import { useEmployees } from '../hooks/use-employees';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -41,17 +41,7 @@ export type Response = {
 }
 
 export default function BasicTabs() {
-    const { data } = useTable({
-        fetcher: getEmployees,
-        key: 'AAAA',
-        mutationFn: async (data: CreateEmployee) => {
-            return new Promise<void>((resolve) => {
-                resolve();
-            });
-        }
-    })
-
-    const employees: Employee[] = data?.data ?? []
+    const { data, onSearch, isLoading, filterByDepartment } = useEmployees()
 
     const [value, setValue] = React.useState(0);
 
@@ -61,21 +51,12 @@ export default function BasicTabs() {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider', margin: 'auto' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="Tech department" {...a11yProps(0)} />
-                    <Tab label="dept-1" {...a11yProps(1)} />
-                    <Tab label="dept-2" {...a11yProps(2)} />
-                </Tabs>
-            </Box>
-            <CustomTabPanel value={value} index={0}>
-                <Table rows={employees} />
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-
-            </CustomTabPanel>
+            <Table
+                rows={data?.data || []}
+                onSearch={onSearch}
+                isLoading={isLoading}
+                filterByDepartment={filterByDepartment}
+            />
         </Box>
     );
 }
