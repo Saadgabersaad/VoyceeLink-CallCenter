@@ -1,5 +1,5 @@
 import React from 'react'
-import { Checkbox, TableCell, Skeleton, TableContainer, Table, TableRow, TableBody, Paper, TablePagination, CircularProgress } from '@mui/material'
+import { Checkbox, TableCell, Skeleton, TableContainer, Table, TableRow, TableBody, Paper, TablePagination } from '@mui/material'
 import { HeadCell } from 'modules/core/consts/tableHead'
 import { EnhancedTableHead } from './EnhancedTableHead'
 
@@ -9,6 +9,7 @@ export type EnhancedTableProps<T> = {
   loading: boolean
   rowsPerPageCount?: number
   onPageChange(newPage: number): void
+  mainModal?: React.ReactNode
   render?: (row: T, index: number) => React.ReactNode
 }
 
@@ -18,8 +19,9 @@ export function EnhancedTable<T>({
   headCells,
   loading,
   rowsPerPageCount = 10,
-  onPageChange
+  onPageChange,
 }: EnhancedTableProps<T>) {
+
   const [selected, setSelected] = React.useState<readonly string[]>([])
   const [page, setPage] = React.useState<number>(0)
   const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageCount || 5)
@@ -45,9 +47,11 @@ export function EnhancedTable<T>({
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n?.id)
-      setSelected(newSelected);
-      return
+      if (rows) {
+        const newSelected = rows?.map((n) => n?.id)
+        setSelected(newSelected);
+        return
+      }
     }
     setSelected([])
   }
@@ -109,7 +113,7 @@ const visibleRows = React.useMemo(
                       tabIndex={-1}
                       key={key}
                       selected={isItemSelected}
-                      sx={{ cursor: 'pointer', height: '65px' }}
+                      sx={{ cursor: 'pointer', height: '65px',width: 'fit-content' }}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
@@ -153,7 +157,7 @@ const visibleRows = React.useMemo(
 }
 
 
-const TableRowsLoader = ({ rowsNum = 10, columnsCount = 5 }) => {
+const TableRowsLoader = ({ rowsNum = 5, columnsCount = 5 }) => {
   return [...Array(rowsNum)].map((row, index) => (
     <TableRow key={index}>
       <TableCell component="th" scope="row">

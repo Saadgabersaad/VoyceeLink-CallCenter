@@ -15,7 +15,7 @@ import Collapse from '@mui/material/Collapse';
 import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
 import theme, {PRIMARY} from "modules/core/consts/theme";
 import {Flex} from "modules/core/components/flex";
-import DatePickerViews from "modules/hhrr/employee-profile/components/DatePicker";
+import DatePickerViews from "modules/hhrr/employees/profile/components/DatePicker";
 import Button from "@mui/material/Button";
 import {Download} from "@mui/icons-material";
 interface EnhancedTableProps {

@@ -2,6 +2,7 @@ export const enum HttpMethod {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
+  PATCH = 'PARTCH',
   DELETE = 'DELETE'
 }
 
@@ -40,6 +41,7 @@ export async function api<T>(method: HttpMethod, path: string, body?: ApiBody, h
 
     return data//return only the data
   } catch (error) {
+    console.error(error)
     throw error
   }
 }

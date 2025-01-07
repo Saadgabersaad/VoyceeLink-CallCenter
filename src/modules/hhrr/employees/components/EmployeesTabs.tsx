@@ -29,25 +29,12 @@ function CustomTabPanel(props: TabPanelProps) {
     );
 }
 
-function a11yProps(index: number) {
-    return {
-        id: `simple-tab-${index}`,
-        'aria-controls': `simple-tabpanel-${index}`,
-    };
-}
-
 export type Response = {
     data: Employee[]
 }
 
 export default function BasicTabs() {
     const { data, onSearch, isLoading, filterByDepartment } = useEmployees()
-
-    const [value, setValue] = React.useState(0);
-
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
 
     return (
         <Box sx={{ width: '100%' }}>

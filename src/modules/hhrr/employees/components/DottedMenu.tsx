@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { usePathname, useRouter } from 'next/navigation'; // Get the current pathname
+import React, { useState, useCallback, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -14,10 +14,21 @@ import ChangeEmployeePosModal from 'modules/hhrr/departments/components/ChangeEm
 import { Employee } from '../shared/Employee';
 import useDepartment from 'modules/hhrr/departments/hooks/use-department';
 import { DialogProps } from 'modules/core/components/FormDialog';
-import { useQueryClient } from '@tanstack/react-query';
 import { EMPLOYEES } from '../consts/queryKeys';
 import DeleteEmployeeModal from './DeleteEmployeeModal';
 
+type OptionItem = {
+    label: string;
+    icon: JSX.Element;
+    action?: () => void;
+    disabled?: boolean;
+    hidden?: boolean;
+}
+
+enum ModalType {
+    Main = 'mainModalOpen',
+    Name = 'nameModalOpen',
+}
 const ITEM_HEIGHT = 48;
 
 
@@ -29,7 +40,6 @@ export default function DottedMenu({ employee }: Props) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const router = useRouter();
-    const pathname = usePathname();
 
     const [moveEmployeePosModal, openMoveEmployeePos, closeMoveEmployeePos] = useBoolean()
     const [deleteEmployeeModal, openDeleteModal, closeDeleteModal] = useBoolean()
@@ -47,44 +57,36 @@ export default function DottedMenu({ employee }: Props) {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setAnchorEl(null);
-    };
-
-    const handleProfileClick = () => {
-        // const newPath = `/hhrr/employees/employee-profile/${userId}`;
-        const newPath = `/hhrr/employees/employee-profile/`;
-        router.push(newPath);
-        handleClose();
-    };
+    }, []);
 
     return (
         <div>
             <IconButton
                 aria-label="more"
                 id="long-button"
-                aria-controls={open ? 'long-menu' : undefined}
-                aria-expanded={open ? 'true' : undefined}
+                aria-controls={anchorEl ? 'long-menu' : undefined}
+                aria-expanded={anchorEl ? 'true' : undefined}
                 aria-haspopup="true"
                 onClick={handleClick}
             >
                 <MoreVertIcon />
             </IconButton>
+
             <Menu
                 id="long-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
                 MenuListProps={{
                     'aria-labelledby': 'long-button',
                 }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                slotProps={{
+                sx={{
                     paper: {
-                        style: {
-                            maxHeight: ITEM_HEIGHT * 5.5,
-                            width: '23ch',
-                            border: 'solid 1px green',
-                        },
+                        maxHeight: ITEM_HEIGHT * 5.5,
+                        width: '23ch',
+                        border: '1px solid green',
                     },
                 }}
             >

@@ -23,7 +23,6 @@ export const useTable = <T, TRequestBody>({
   const { query, isTyping, onChangeParams }= useDebounce(queryParams, 600)
 
 
-  console.log(query)
   const buildQueryParams = (params: SearchParams) => {
     if (!params) return ''
     if (!Object.keys(params)?.length) return '';
@@ -42,6 +41,8 @@ export const useTable = <T, TRequestBody>({
   
     return queryEntries.length > 0 ? `?${queryEntries.join('&')}` : '';
   }
+
+
 
   //GET
   const { data, isLoading, isError, isFetching } = useQuery({
@@ -70,7 +71,6 @@ export const useTable = <T, TRequestBody>({
   }
 
   const setQuery = (params: Partial<SearchParams>) => {
-    console.log(params, 'aaaa')
     onChangeParams(params)
   }
 

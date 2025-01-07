@@ -5,6 +5,7 @@ import theme from 'modules/core/consts/theme'
 import './globals.css'
 import React from 'react'
 import ReactQueryProvider from 'modules/core/providers/ReactQuery'
+import { PositionContextProvider } from 'modules/hhrr/positions/epmloyees/context/PositionSelectedId'
 
 export const metadata: Metadata = {
   title: 'Voycelink',
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
+      <PositionContextProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <ReactQueryProvider>
@@ -30,6 +32,8 @@ export default function RootLayout({
             </AppLayout>
           </ReactQueryProvider>
         </ThemeProvider>
+      </PositionContextProvider>
+
       </body>
     </html>
   )

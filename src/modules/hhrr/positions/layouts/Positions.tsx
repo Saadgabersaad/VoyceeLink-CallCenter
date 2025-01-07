@@ -1,11 +1,24 @@
 import { Heading, Page } from 'modules/core/components/page'
 import { HeadingActions } from 'modules/core/components/page/Actions'
 import React from 'react'
-import { PositionsTable } from '../components/Table'
 import { Search } from 'modules/core/components/Search'
+import {AddPosition} from "./AddPosition";
+import {usePositions} from "../hooks/use-positions";
+import {Table} from "modules/hhrr/positions/components/PositionTable";
 
 export default function Positions() {
+    const {
+        data,
+        isLoading,
+        onSearch,
+        onCreatePosition
+    } = usePositions()
+
+    console.log(isLoading)
+
+
   return (
+
     <Page>
       <Heading
         title='Positions'
@@ -13,11 +26,11 @@ export default function Positions() {
       >
         <HeadingActions
           buttonText='Add Position'
-          mainModal={null}
+          mainModal={<AddPosition create={onCreatePosition} />}
         />
       </Heading>
-      <Search />
-      <PositionsTable />
+      <Search onSearch={onSearch} />
+      <Table rows={data} loading={isLoading}  />
     </Page>
   )
 }

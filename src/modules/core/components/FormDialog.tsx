@@ -1,5 +1,6 @@
 'use client'
 
+import React from "react";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { DefaultValues, FieldValues, FormProvider, useForm } from 'react-hook-form'
 import { Button } from './button'
@@ -9,7 +10,6 @@ type FormProps<T> = {
   title?: string
   children: React.ReactNode
   open: boolean
-
   defaultValues?: Partial<T>
   onFinish(values: T): void
   onClose(): void
@@ -37,13 +37,15 @@ export const FormDialog = <T extends FieldValues>({
   const { handleSubmit, reset } = methods
 
   const onSubmit = async (data: T) => {
-    onFinish(data)
+    onFinish && onFinish(data)
     reset()
     onClose()
   }
 
   return (
     <Dialog
+      fullWidth={true}
+      maxWidth={'md'}
       open={open}
       onClose={onClose}
       PaperProps={{
@@ -64,37 +66,46 @@ export const FormDialog = <T extends FieldValues>({
 }
 
 export const FormDialogContent = ({ children }: React.PropsWithChildren) => (
-  <DialogContent>
+  <DialogContent sx={{ bgcolor: "#fafafa", my: 3 }}>
     {children}
   </DialogContent>
 )
 
 export const FormHeading = ({ children }: React.PropsWithChildren) => {
   return (
-    <DialogTitle sx={{ fontWeight: '700', pb: 0, fontSize: 20 }}>
+    <DialogTitle sx={{ fontWeight: '700', pb: 0, fontSize: 28 }}>
       {children}
     </DialogTitle>
   )
 }
-
 export const FormActions = ({
-  onClose = () => {},
-  buttonText = '',
-  deleteButton = false,
+  onClose = () => { },
+  loading = false,
   isDisabled = false,
-  loading = false
+  deleteButton = false,
+  buttonText = '',
+  bgcolor = '',
+  openModal = () => { },
+  disabled = false,
 }) => {
   return (
-    <DialogActions sx={{ paddingBottom: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
+    <DialogActions sx={{ paddingY: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
       <Button onClick={onClose} sx={{ boxShadow: 1, px: 2, color: 'currentColor' }}>
         Cancel
       </Button>
       <LoadingButton
         loading={loading}
-        sx={{ textTransform: 'capitalize' }}
-        disabled={isDisabled}
+        onClick={() => openModal && openModal()}
+        variant='contained'
+        type='submit'
+        sx={{
+          bgcolor: disabled ? 'gray' : bgcolor,
+          color: 'white',
+          cursor: disabled ? 'not-allowed' : 'pointer',
+        }}
         {...deleteButton && { color: 'error' }}
-      variant='contained' type='submit'>
+        disabled={disabled}  // Disable the button based on the prop
+      >
         {buttonText}
       </LoadingButton>
     </DialogActions>

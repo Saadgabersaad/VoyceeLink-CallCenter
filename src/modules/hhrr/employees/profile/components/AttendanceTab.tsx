@@ -10,10 +10,11 @@ import TableRow from '@mui/material/TableRow';
 import {attendanceRows, attendanceHeadCells} from 'modules/core/consts/tableHead';
 import { HeadCell,  } from 'modules/core/consts/tableHead';
 import TableHead from "@mui/material/TableHead";
-import DatePickerViews from "modules/hhrr/employee-profile/components/DatePicker";
+import DatePickerViews from "modules/hhrr/employees/profile/components/DatePicker";
 import Button from '@mui/material/Button';
 import { Flex } from 'modules/core/components/flex';
 import {Download} from "@mui/icons-material";
+import {useTimeEntries} from "modules/hhrr/employees/profile/hooks/use-timeEntries";
 
 
 interface EnhancedTableProps {
@@ -26,7 +27,7 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
 
         <TableHead>
             <TableRow   sx={{height:'56px',bgcolor:"#F7F7F7"}}>
-                {headCells.map((headCell) => (
+                {headCells.map((headCell:HeadCell) => (
                     <TableCell
                         sx={{fontWeight: 'bold', fontSize: '16px', pl: 2,width: ''}}
                         key={headCell.id}
@@ -42,8 +43,11 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
 };
 
 export default function AttendanceTab() {
+    const {data } = useTimeEntries();
+
+
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(7);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
     };
@@ -53,6 +57,15 @@ export default function AttendanceTab() {
         setPage(0);
     };
 
+
+    console.log('22222222222222222222222')
+    console.log('22222222222222222222222')
+    console.log(data)
+    console.log('22222222222222222222222')
+    console.log('22222222222222222222222')
+
+
+
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - attendanceRows.length) : 0;
 
     const visibleRows = useMemo(
@@ -60,10 +73,10 @@ export default function AttendanceTab() {
             [...attendanceRows].slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
         [ page, rowsPerPage],
     );
-    const getStatusStyles = (status: string) => {
+    const getStatusStyles = (type: string) => {
         return {
-            bgcolor: status === 'On Time' ? '#ecf9f3' : '#fce4e4',
-            color: status === 'Late' ? '#f44336' : '#3FC28A',
+            bgcolor: type === 'Clock_in' ? '#ecf9f3' : '#fce4e4',
+            color: type === 'Clock_Out' ? '#f44336' : '#3FC28A',
             width: 'fit-content',
             py: 0.5,
             px: 2.2,
@@ -104,17 +117,17 @@ export default function AttendanceTab() {
                                         role="checkbox"
                                         tabIndex={-1}
                                         key={row.id}>
-                                        <TableCell padding="checkbox" sx={{pl:2}}>{row.date}</TableCell>
+                                        <TableCell padding="checkbox" sx={{pl:2}}>{row.time}</TableCell>
 
                                         <TableCell padding={"none"} sx={{pl:2 ,borderRight:'solid 1px lightgray',borderLeft:'solid 1px lightgray'}}>
                                             <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center',width:'fit-content'}}>
-                                                <Box sx={getCheckStyles(row.checkIn[0],true)}>{row.checkIn[0]}</Box> -
-                                                <Box sx={getCheckStyles(row.checkIn[1],false)}>{row.checkIn[1]}</Box>
+                                                <Box sx={getCheckStyles(row.time,true)}>{row.time}</Box> -
+                                                <Box sx={getCheckStyles(row.employeeId,false)}>{row.employeeId}</Box>
                                             </Box>
                                         </TableCell>
-                                        <TableCell padding={"none"}  sx={{pl:2}}><Box sx={getStatusStyles(row.status)}>{row.status}</Box></TableCell>
-                                        <TableCell padding={"none"} sx={{pl:2}}>{row.Break}</TableCell>
-                                        <TableCell padding={"none"} sx={{pl:2}}>{row.hours}</TableCell>
+                                        <TableCell padding={"none"}  sx={{pl:2}}><Box sx={getStatusStyles(row.type)}>{row.type}</Box></TableCell>
+                                        <TableCell padding={"none"} sx={{pl:2}}>{row.updatedAt}</TableCell>
+                                        <TableCell padding={"none"} sx={{pl:2}}>{row.createdAt}</TableCell>
                                     </TableRow>
                                 );
                             })}
@@ -129,7 +142,7 @@ export default function AttendanceTab() {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25]}
                     component="div"
-                    count={attendanceRows.length}
+                    count={data.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

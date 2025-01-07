@@ -28,17 +28,20 @@ export const HeadingActions: React.FC<Props> = ({
           Download
         </Button>
       )}
+
       {!disableImport && (
         <Button startIcon={<CloudUpload />} variant='contained' sx={buttonStyle}>
           Import
         </Button>
       )}
+
       {buttonText && (
         <Button startIcon={<Add />} variant='contained' onClick={onOpen}>
           {buttonText}
         </Button>
       )}
-      {open && mainModal && React.cloneElement(mainModal as React.ReactElement, { open, onClose })}
+
+        {open && mainModal && React.cloneElement(mainModal as React.ReactElement, { open, onClose })}
     </Flex>
   )
 }

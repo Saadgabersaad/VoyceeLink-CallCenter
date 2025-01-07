@@ -1,5 +1,4 @@
 import * as React from 'react'
-
 import { Dropzone } from 'modules/hhrr/employees/components/Dropzone'
 import { CreateEmployee } from 'modules/hhrr/employees/shared/Employee'
 import { FormDialog, FormActions, FormDialogContent } from 'modules/core/components/FormDialog'

@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import TableCell from '@mui/material/TableCell';
-import { headCells } from 'modules/core/consts/tableHead';
+import { headCells } from 'modules/hhrr/employees/consts/headCell';
 import StatusMenu from "modules/hhrr/employees/components/StatusMenu";
 import EnhancedTableToolbar from "modules/hhrr/employees/components/TableSelection";
 import DottedMenu from "modules/hhrr/employees/components/DottedMenu";

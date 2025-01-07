@@ -3,8 +3,8 @@ import { CreateDepartment, Department } from '../shared/Department'
 import { Employee } from 'modules/hhrr/employees/shared/Employee'
 import { Position } from '../shared/Position'
 
-export const getDepartments = (query: string) => {
-  return api<Department[]>(HttpMethod.GET, `/departments${query.length ? query + '&': '?'}sortByOrder=asc&sortByField=created_at`)
+export const getDepartments = (query?: string) => {
+  return api<Department[]>(HttpMethod.GET, `/departments${query?.length ? query + '&': '?'}sortByOrder=asc&sortByField=created_at`)
 }
 
 export const createDepartment = (department: CreateDepartment) => {

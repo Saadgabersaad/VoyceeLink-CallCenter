@@ -44,7 +44,7 @@ export const FormSelect = ({ name, label, options, placeholder, disabled, handle
             handleChange && handleChange!(e.target.value)
           }}
         >
-          {options.map((option) => (
+          {options?.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>

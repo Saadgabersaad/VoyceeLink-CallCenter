@@ -13,6 +13,9 @@ export default function Departments() {
     onCreateDepartment
   } = useDepartments()
 
+  console.log(isLoading)
+    console.log(data)
+
   return (
     <Page>
       <Heading title='Departments' description={`View your Company’s Departments`}>
