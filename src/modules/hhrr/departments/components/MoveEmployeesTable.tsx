@@ -83,7 +83,7 @@ export default function MoveEmployeesTable({
       deleteButton
       onClose={onClose}
       loading={submitting}
-      isDisabled={isDisabled}
+      disabled={isDisabled}
       buttonText='Delete'
     />
   </>

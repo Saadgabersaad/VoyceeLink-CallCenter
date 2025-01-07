@@ -29,7 +29,7 @@ export default function DeleteConfirmation({ onClose, loading }: Props) {
       deleteButton
       loading={loading}
       onClose={onClose}
-      isDisabled={!countdownEnd}
+      disabled={!countdownEnd}
       buttonText='Delete'
     />
   </>

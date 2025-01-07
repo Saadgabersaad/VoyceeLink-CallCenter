@@ -60,7 +60,7 @@ export default function DeleteEmployeeModal({
       <FormActions
         buttonText='Delete'
         onClose={onClose}
-        isDisabled={disabled}
+        disabled={disabled}
         deleteButton
       />
     </Dialog>
