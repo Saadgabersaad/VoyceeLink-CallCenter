@@ -12,6 +12,7 @@ import { DeletePosition } from '../epmloyees/layout/DeletePosition';
 import {usePositionContext} from "modules/hhrr/positions/epmloyees/context/PositionSelectedId";
 import { ChangePositionName } from '../epmloyees/layout/ChangePositionName';
 import {useChangePositionName} from "modules/hhrr/positions/hooks/use-changePositionName";
+import PositionDottedMenu from './PositionDottedMenu';
 
 export const Table = ({
                           rows,
@@ -20,7 +21,7 @@ export const Table = ({
     const {setId,setDepartmentId }=usePositionContext()
 
     const {onChangePositionName}=useChangePositionName()
-
+ 
 
 
     const handleClick = (id: string , departmentId: string ) => {
@@ -56,7 +57,7 @@ export const Table = ({
                         {row.employeeCount}
                     </TableCell>
                     <TableCell  onClick={()=>handleClick(row.id,row.departmentId)}  >
-                        <DottedMenu
+                        <PositionDottedMenu
                             name={row.name}
                             options={positionOptions}
                             mainModal={<DeletePosition  positions={rows} positionName={row.name}  count={row.employeeCount}  />}

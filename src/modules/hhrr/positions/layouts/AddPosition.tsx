@@ -23,7 +23,7 @@ export function AddPosition({
                                 onClose,
                             }: AddPositionModalProps) {
 
-    const {data} = useDepartments()
+    const {data: departments } = useDepartments()
 
 
     const [positions, setPositions] = useState([{ id: Date.now(), name: '' }]);
@@ -71,7 +71,7 @@ export function AddPosition({
                             name="departmentId"
                             label="Department"
                             placeholder="Select a department first"
-                            options={data.map((department) => (
+                            options={departments?.data?.map((department) => (
                                 {label: department.name, value: department.id}
                             )) }
                         />
@@ -136,7 +136,7 @@ export function AddPosition({
                 ))}
             </FormDialogContent>
 
-            <FormActions buttonText="Add Position" onClose={onClose} bgcolor={undefined} openModal={undefined} />
+            <FormActions buttonText="Add Position" onClose={onClose} />
         </FormDialog>
     );
 }

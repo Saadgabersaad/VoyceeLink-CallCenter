@@ -32,7 +32,6 @@ export const rows: Data[] = [
 export const headCells :readonly HeadCell[] = [
     { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
     { id: 'position', numeric: false, disablePadding: false, label: 'Position' },
-    { id: 'phoneNumber', numeric: false, disablePadding: false, label: 'Phone Number' },
     { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
     { id: 'department', numeric: false, disablePadding: false, label: 'Department' },
     { id: 'status', numeric: false, disablePadding: false, label: 'Status' },

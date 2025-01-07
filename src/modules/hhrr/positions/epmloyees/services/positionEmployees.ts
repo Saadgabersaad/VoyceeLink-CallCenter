@@ -3,8 +3,8 @@ import { SearchParams } from 'modules/core/utils/types';
 import { PositionEmployees } from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
 import {AssignPosition, ChangePositionName} from "modules/hhrr/positions/shared/Position";
 
-export const getPositionsEmployees = (search?: SearchParams | undefined, id?: string | null) => {
-    const  positionQueryParam= search?.query ? `&search=${encodeURIComponent(search.query)}` : '';
+export const getPositionsEmployees = (search?: string, id?: string | null) => {
+    const  positionQueryParam= search?.length ? `&search=${encodeURIComponent(search)}` : '';
     const queryParam = id ? `?position=${id}${positionQueryParam}` : '';
     return api<any[]>(HttpMethod.GET, `/employees${queryParam}`);
 };
@@ -17,8 +17,8 @@ export const deletePosition =  (id: string) => {
     return api<PositionEmployees[]>(HttpMethod.DELETE, `/positions/${id}`);
 };
 
-export const getPositionById = (search?: SearchParams | undefined, id?: string | null) => {
-    const  positionQueryParam= search?.query ? `&search=${encodeURIComponent(search.query)}` : '';
+export const getPositionById = (search?: string, id?: string | null) => {
+    const  positionQueryParam= search?.length ? `&search=${encodeURIComponent(search)}` : '';
     const queryParam = id ? `${id}${positionQueryParam}` : '';
     return api<any[]>(HttpMethod.GET, `/positions/${queryParam}`);
 };

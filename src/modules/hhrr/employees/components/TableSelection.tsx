@@ -9,17 +9,22 @@ import {Button} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SettingsIcon from "@mui/icons-material/Settings";
 import FilterBtn from "modules/core/components/FilterBtn";
+import { useDepartments } from 'modules/hhrr/departments/hooks/use-departments';
 
 
 interface EnhancedTableToolbarProps {
     numSelected: number;
     tableSearch:boolean;
+    onSearch(search: string): void
+    filterByDepartment(value: string): void
     setPositionFilter: (value: string) => void;
     setStatusFilter: (value: string) => void;
 }
     const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 
-        const { tableSearch, setPositionFilter, setStatusFilter } = props;
+        const { tableSearch, setPositionFilter, setStatusFilter, onSearch, filterByDepartment } = props;
+
+        const { data } = useDepartments()
 
         return (
                 <Toolbar
@@ -32,13 +37,14 @@ interface EnhancedTableToolbarProps {
                     ]}
                 >
                     <Flex gap={2}>
-                        <SearchInput tableSearch={tableSearch} />
+                        <SearchInput tableSearch={tableSearch} onSearch={onSearch} />
                         <Tooltip title="Filter list">
                                 <FilterBtn
-                                    onFilterChange={{
-                                        setPositionFilter,
-                                        setStatusFilter,
-                                    }}
+                                    optionGroups={[{
+                                        options: data.data ?? [],
+                                        title: 'Department',
+                                        onSelect: filterByDepartment
+                                    }]}
                                 />
                         </Tooltip>
                     </Flex>

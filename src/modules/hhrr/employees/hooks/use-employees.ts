@@ -1,26 +1,22 @@
 import { useTable } from 'modules/core/hooks/use-table'
-import {CreateEmployee} from "modules/hhrr/employees/shared/Employee";
-import {EMPLOYEES_KEY} from "modules/hhrr/employees/consts/queryKeys";
-import {createEmployee, getEmployees } from '../services/employees';
+import { getEmployees } from '../services/employees'
+import { EMPLOYEES } from '../consts/queryKeys';
+import { CreateEmployee, Employee } from '../shared/Employee';
 
 export const useEmployees = () => {
-  const { data, isLoading, isError, mutate, isFetching, onSearch } = useTable({
-    key: EMPLOYEES_KEY,
+  const { data, onSearch, isLoading, setQuery } = useTable<Employee[], CreateEmployee>({
     fetcher: getEmployees,
-    mutationFn:createEmployee,
+    key: EMPLOYEES,
+    mutationFn: async (data: CreateEmployee) => {
+      return new Promise<void>((resolve) => {
+        resolve();
+      });
+    }
   })
 
-  //EXECUTED IN A ONSUBMIT FORM DIALOG EVENT
-  const onCreateEmployee = async (createEmployee: CreateEmployee) => {
-    mutate(createEmployee)
+  const filterByDepartment = (departmentId: string) => {
+    setQuery({ department: [departmentId] })
   }
 
-  return {
-    data,
-    isError,
-    isLoading,
-    isFetching,
-    onSearch,
-    onCreateEmployee,
-  }
+  return { data, isLoading, onSearch, filterByDepartment }
 }

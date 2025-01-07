@@ -23,11 +23,11 @@ export function DeletePosition({open, onClose, count, positionName, positions}: 
     const {data, isLoading, onDeletePosition} = useEmployeesPosition();
 
 
-    const hasEmployees = data && data.length > 0;
+    const hasEmployees = data?.data && data.data.length > 0;
 
 
     useEffect(() => {
-        if (data && data.length === 0) {
+        if (data && data?.data?.length === 0) {
             setIsPositionEmpty(true);
         } else {
             setIsPositionEmpty(false);
@@ -68,7 +68,7 @@ export function DeletePosition({open, onClose, count, positionName, positions}: 
                     <Typography fontSize={20} fontWeight={700} mb={2}>
                         Please assign employees to a new position before proceeding.
                     </Typography>
-                    <DeletePositionTable rows={data} loading={isLoading} positions={positions} />
+                    <DeletePositionTable rows={data.data} loading={isLoading} positions={positions} />
 
 
                     {!isPositionEmpty && (
@@ -80,7 +80,7 @@ export function DeletePosition({open, onClose, count, positionName, positions}: 
                     <FormActions
                         onClose={onClose}
                         buttonText="Delete Position"
-                        bgcolor="red"
+                        deleteButton
                         openModal={handleDeleteClick}
                         disabled={!isPositionEmpty}
                     />

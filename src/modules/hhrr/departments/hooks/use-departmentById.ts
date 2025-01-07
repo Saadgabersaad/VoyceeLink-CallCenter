@@ -11,7 +11,9 @@ export const useDepartmentById = () => {
     const {departmentId} = usePositionContext()
     const { data, isLoading, isError, mutate, isFetching, onSearch } = useTable({
         key: DEPARTMENT_KEY,
-        fetcher:(searchParams)=> getDepartmentById(searchParams,departmentId),
+        fetcher:(searchParams)=> {
+            return getDepartmentById(searchParams,departmentId)
+        },
         mutationFn: createDepartment
     })
 

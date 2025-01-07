@@ -1,9 +1,9 @@
 export const enum HttpMethod {
   GET = 'GET',
   POST = 'POST',
-  DELETE = 'DELETE',
   PUT = 'PUT',
-  PATCH='PATCH',
+  PATCH = 'PARTCH',
+  DELETE = 'DELETE'
 }
 
 export type ApiStatus = {
@@ -12,9 +12,7 @@ export type ApiStatus = {
 }
 
 export type ApiResponse<T> = ApiStatus & {
-  data: {
-    data: T[]
-  }
+  data: T
 }
 
 type ApiBody = any | null
@@ -36,16 +34,12 @@ export async function api<T>(method: HttpMethod, path: string, body?: ApiBody, h
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}`, options)
     const data: ApiResponse<T> = await response?.json()
-
+    
     if (data.status !== 'success') {
       throw new Error(data?.message)
     }
 
-    if (data.data.data !== undefined) {
-      return data.data.data as T
-    }
-
-    return data.data as T
+    return data//return only the data
   } catch (error) {
     console.error(error)
     throw error

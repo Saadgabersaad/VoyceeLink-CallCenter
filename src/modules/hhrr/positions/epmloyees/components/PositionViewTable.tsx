@@ -14,10 +14,9 @@ type TableProps = Partial<EnhancedTableProps<PositionEmployee>> & {
 export const Table =({ department }: TableProps) => {
 
     const { data, isLoading } = useEmployeesPosition();
-
-    const rows=data
+    const rows=data.data
     const loading=isLoading
-    console.log(rows)
+
     return (
         <EnhancedTable
             rows={rows!}
@@ -27,13 +26,13 @@ export const Table =({ department }: TableProps) => {
             render={(row) => {
                 return <>
                     <TableCell >
-                        {row.name}
+                        {row?.name} {row?.lastName}
                     </TableCell>
                     <TableCell>
-                        {row.email}
+                        {row?.email}
                     </TableCell>
                     <TableCell>
-                        {department.name}
+                        {department?.name}
                     </TableCell>
 
                     <TableCell width={300}>

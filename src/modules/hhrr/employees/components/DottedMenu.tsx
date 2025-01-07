@@ -4,6 +4,18 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import PersonIcon from '@mui/icons-material/Person';
+import WorkIcon from '@mui/icons-material/Work';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useBoolean } from 'modules/core/hooks/use-boolean';
+import ChangeEmployeePosModal from 'modules/hhrr/departments/components/ChangeEmployeePosModal';
+import { Employee } from '../shared/Employee';
+import useDepartment from 'modules/hhrr/departments/hooks/use-department';
+import { DialogProps } from 'modules/core/components/FormDialog';
+import { EMPLOYEES } from '../consts/queryKeys';
+import DeleteEmployeeModal from './DeleteEmployeeModal';
 
 type OptionItem = {
     label: string;
@@ -11,82 +23,43 @@ type OptionItem = {
     action?: () => void;
     disabled?: boolean;
     hidden?: boolean;
-};
-type DottedMenuProps = {
-    mainModal?: React.ReactNode;
-    NameModal?: React.ReactNode;
-    options: OptionItem[];
-    name?: string;
-};
+}
+
 enum ModalType {
     Main = 'mainModalOpen',
     Name = 'nameModalOpen',
 }
 const ITEM_HEIGHT = 48;
-const DottedMenu: React.FC<DottedMenuProps> = ({
-                                                   mainModal,
-                                                   NameModal,
-                                                   options,
-                                                   name = '',
-                                               }) => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [modalState, setModalState] = useState<Record<ModalType, boolean>>({
-        [ModalType.Main]: false,
-        [ModalType.Name]: false,
-    });
+
+
+type Props = {
+    employee: Employee
+}
+
+export default function DottedMenu({ employee }: Props) {
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
     const router = useRouter();
 
-    const handleNavigate = useCallback(() => {
-        const query = new URLSearchParams({name}).toString();
-        router.push(`/hhrr/positions/employee?${query}`);
-    }, [name, router]);
+    const [moveEmployeePosModal, openMoveEmployeePos, closeMoveEmployeePos] = useBoolean()
+    const [deleteEmployeeModal, openDeleteModal, closeDeleteModal] = useBoolean()
 
-    const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    const options = [
+        { label: 'View Profile Info', icon: <PersonIcon color="primary" />, },
+        { label: 'Change User Position', icon: <WorkIcon color="primary" />, onClick: openMoveEmployeePos },
+        { label: 'Change User Dept', icon: <ApartmentIcon color="primary" />, onClick: openMoveEmployeePos },
+        { label: 'Edit User', icon: <EditIcon color="primary" /> },
+        { label: 'Delete User', icon: <DeleteIcon sx={{ color: 'red' }} />, onClick: openDeleteModal },
+    ];
+
+
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
-    }, []);
+    };
 
     const handleClose = useCallback(() => {
         setAnchorEl(null);
     }, []);
-
-    const handleOptionClick = useCallback(
-        (option: OptionItem) => {
-            if (option.disabled) return;
-            switch (option.label) {
-                case 'Delete User':
-                    setModalState((prev) => ({ ...prev, [ModalType.Main]: true }));
-                    break;
-                case 'View Position':
-                    handleNavigate();
-                    break;
-                case 'Change Position Name':
-                    setModalState((prev) => ({ ...prev, [ModalType.Name]: true }));
-                    break;
-                default:
-                    option.action?.();
-                    handleClose();
-            }
-        },
-        [handleNavigate]
-    );
-
-    const renderedOptions = useMemo(
-        () =>
-            options
-                .filter((option) => !option.hidden)
-                .map((option) => (
-                    <MenuItem
-                        key={option.label}
-                        onClick={() => handleOptionClick(option)}
-                        disabled={option.disabled}
-                        sx={{ paddingX: '16px', paddingY: '12px' }}
-                    >
-                        {option.icon}
-                        <span style={{ marginLeft: '10px' }}>{option.label}</span>
-                    </MenuItem>
-                )),
-        [options, handleOptionClick]
-    );
 
     return (
         <div>
@@ -117,25 +90,42 @@ const DottedMenu: React.FC<DottedMenuProps> = ({
                     },
                 }}
             >
-                {renderedOptions}
+                {options.map((option) => (
+                    <MenuItem
+                        key={option.label}
+                        onClick={option.onClick}
+                        sx={{ paddingX: '16px', paddingY: '12px' }}
+                    >
+                        {option.icon}
+                        <span style={{ marginLeft: '10px' }}>{option.label}</span>
+                    </MenuItem>
+                ))}
             </Menu>
-
-            {modalState[ModalType.Main] &&
-                mainModal &&
-                React.cloneElement(mainModal as React.ReactElement, {
-                    open: modalState[ModalType.Main],
-                    onClose: () =>
-                        setModalState((prev) => ({ ...prev, [ModalType.Main]: false })),
-                })}
-            {modalState[ModalType.Name] &&
-                NameModal &&
-                React.cloneElement(NameModal as React.ReactElement, {
-                    open: modalState[ModalType.Name],
-                    onClose: () =>
-                        setModalState((prev) => ({ ...prev, [ModalType.Name]: false })),
-                })}
+            {moveEmployeePosModal && <PositionModal
+                employee={employee}
+                onClose={closeMoveEmployeePos}
+            />}
+            {deleteEmployeeModal && <DeleteEmployeeModal
+                employeeId={employee.id}
+                onClose={closeDeleteModal}
+                invalidateQueryKey={EMPLOYEES}
+                
+            />}
         </div>
     );
-};
+}
 
-export default DottedMenu;
+
+const PositionModal = ({ employee, onClose }: Props & DialogProps) => {
+    const { data } = useDepartment(employee?.position?.departmentId)
+    if (!data) return
+
+    return (
+        <ChangeEmployeePosModal
+            employee={employee}
+            onClose={onClose}
+            department={data?.data}
+            invalidateKey={EMPLOYEES}
+        />
+    )
+}

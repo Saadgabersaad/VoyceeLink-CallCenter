@@ -1,3 +1,5 @@
-export type   SearchParams = {
-  query: string
+export type SearchParams = {
+  search?: string
+  department?: string[]
+  status?: string
 }

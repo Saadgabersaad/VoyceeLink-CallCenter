@@ -8,7 +8,7 @@ export const useChangePositionName = () => {
     const { id } = usePositionContext();
     const {data, isLoading, isError, mutate, isFetching, onSearch,} = useTable({
         key: POSITION_NAME_KEY,
-        fetcher: (searchParams: SearchParams) => getPositionById(searchParams, id),
+        fetcher: (search?: string) => getPositionById(search, id),
         mutationFn: (payload: ChangePositionName) => changePositionName(id!, payload),
     });
 
@@ -23,7 +23,7 @@ export const useChangePositionName = () => {
 
 
     return {
-        data,
+        data: data?.data ?? [],
         isError,
         isLoading,
         isFetching,

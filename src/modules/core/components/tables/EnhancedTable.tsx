@@ -9,8 +9,8 @@ export type EnhancedTableProps<T> = {
   loading: boolean
   rowsPerPageCount?: number
   onPageChange(newPage: number): void
-  render?: (row: T) => React.ReactNode
   mainModal?: React.ReactNode
+  render?: (row: T, index: number) => React.ReactNode
 }
 
 export function EnhancedTable<T>({
@@ -47,9 +47,11 @@ export function EnhancedTable<T>({
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n?.id)
-      setSelected(newSelected);
-      return
+      if (rows) {
+        const newSelected = rows?.map((n) => n?.id)
+        setSelected(newSelected);
+        return
+      }
     }
     setSelected([])
   }
@@ -62,8 +64,23 @@ export function EnhancedTable<T>({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const visibleRows = [...rows]
+  /*
+const visibleRows = React.useMemo(
+  () => loading ? [] :
+    [...rows]
+      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+  [page, rowsPerPage, loading],
+)*/
+
+  const getRows = () => {
+    if (!rows?.length) {
+      return []
+    }
+    return [...rows]
     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+  }
+
+  const visibleRows = getRows()
 
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -108,17 +125,7 @@ export function EnhancedTable<T>({
                           }}
                         />
                       </TableCell>
-
-                      {render && render(row)}
-                      {/*{options&& <TableCell>*/}
-                      {/*  <DottedMenu*/}
-                      {/*      // employees={rows}*/}
-                      {/*      options={options}*/}
-                      {/*      userId={row.id}*/}
-                      {/*      mainModal={<DeletePosition positions={rows}/>}*/}
-                      {/*      NameModal={<ChangePositionName positions={rows}/>}*/}
-                      {/*  />*/}
-                      {/*</TableCell>}*/}
+                      {render && render(row, index)}
                     </TableRow>
                   );
                 })}

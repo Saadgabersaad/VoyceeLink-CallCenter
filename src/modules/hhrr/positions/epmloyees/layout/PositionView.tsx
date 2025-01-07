@@ -14,7 +14,7 @@ export default function PositionView() {
     const {data} = useDepartmentById()
     const [positionName, setPositionName] = React.useState(name);
     // @ts-ignore
-    const departmentName = data?.name  || ''
+    const departmentName = data.name  || ''
 
     return (
         <Page>
@@ -48,7 +48,7 @@ export default function PositionView() {
                 <span style={{color: PRIMARY}}> {departmentName || ''}</span>
             </Typography>
 
-            <Table department={data}/>
+            <Table department={data.data}/>
         </Page>
     );
 }

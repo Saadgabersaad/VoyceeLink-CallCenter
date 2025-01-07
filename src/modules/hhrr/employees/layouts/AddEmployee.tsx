@@ -2,13 +2,14 @@ import * as React from 'react'
 import { Dropzone } from 'modules/hhrr/employees/components/Dropzone'
 import { CreateEmployee } from 'modules/hhrr/employees/shared/Employee'
 import { FormDialog, FormActions, FormDialogContent } from 'modules/core/components/FormDialog'
-import { FormMultipleSelect } from 'modules/core/components/FormMultipleSelect'
 import { FormSelect } from 'modules/core/components/FormSelect'
 import { FormInput } from 'modules/core/components/FormInput'
-import DialogContent from '@mui/material/DialogContent'
 import Grid from '@mui/material/Grid2'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
+import { usePositions } from 'modules/positions/hooks/use-positions'
+import { useDepartments } from 'modules/hhrr/departments/hooks/use-departments'
+import { selectAdapter } from 'modules/core/components/Select'
 
 type Props = {
   open: boolean
@@ -30,9 +31,6 @@ export default function AddEmployeeFormDialog({
         open={open!}
         onClose={onClose!}
         onFinish={onSubmit}
-        defaultValues={{
-          positions: []
-        }}
         title='Add Employee'
       >
         <FormDialogContent>
@@ -47,31 +45,58 @@ export default function AddEmployeeFormDialog({
             <Grid size={6}>
               <FormInput id="email" type='email' name="email" label='Email address' />
             </Grid>
-            <Grid size={6}>
+            {/*
+                        <Grid size={6}>
               <FormInput id='phone' type='phone' name='phone' label='Phone' />
             </Grid>
-            <Grid size={6} mt={1}>
-              <FormSelect
-                name='department'
-                label='Department'
-                placeholder='Select a department first'
-                options={[{ label: 'Department 1', value: 1 }]}
-              />
-            </Grid>
-            <Grid size={6} mt={1}>
-              <FormMultipleSelect
-                  //options={[1, 2, 3]}
-                  placeholder='Positions'
-                  name='positions' options={[]}              />
-            </Grid>
+            */}
+            <Selectors />
           </Grid>
           <Typography fontWeight={600} pt={4}>
             Add a profile picture
           </Typography>
           <Dropzone />
         </FormDialogContent>
-        <FormActions buttonText='Add Employee' onClose={onClose} bgcolor={undefined} openModal={undefined} />
+        <FormActions buttonText='Add Employee' onClose={onClose} />
       </FormDialog>
     </React.Fragment>
   )
+}
+
+
+const Selectors = () => {
+
+  const { data: positions } = usePositions()
+  const { data: departments } = useDepartments()
+
+  const [department, setDepartment] = React.useState<string>('')
+
+  const handleChange = (value: string) => {
+    setDepartment(value)
+  }
+
+  return <>
+    <Grid size={6} mt={1}>
+      <FormSelect
+        name='department'
+        label='Department'
+        placeholder='Select a department'
+        handleChange={handleChange}
+        options={departments
+          ?.data
+          ?.map((d) => selectAdapter(d.name, d.id)) || []}
+      />
+    </Grid>
+    <Grid size={6} mt={1}>
+      <FormSelect
+        name='position'
+        label='Position'
+        disabled={!Boolean(department.length)}
+        placeholder='Select a department first'
+        options={positions
+          ?.data
+          ?.map((p) => selectAdapter(p.name, p.id)) || []}
+      />
+    </Grid>
+  </>
 }

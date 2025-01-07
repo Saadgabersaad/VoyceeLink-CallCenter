@@ -4,6 +4,7 @@ import React from "react";
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { DefaultValues, FieldValues, FormProvider, useForm } from 'react-hook-form'
 import { Button } from './button'
+import { LoadingButton } from '@mui/lab';
 
 type FormProps<T> = {
   title?: string
@@ -20,10 +21,6 @@ export type DialogProps = Partial<{
   onClose(): void
 }>
 
-type FormStateContextType = {
-  isSubmitting: boolean
-}
-
 // FORM DIALOG WITH REACT HOOK FORM
 export const FormDialog = <T extends FieldValues>({
   open,
@@ -33,22 +30,22 @@ export const FormDialog = <T extends FieldValues>({
   onFinish,
   defaultValues,
 }: FormProps<T>) => {
-  const methods = useForm<T>({
+  const methods = useForm<T>(defaultValues ? {
     defaultValues: defaultValues as DefaultValues<T>
-  })
+  } : {})
 
   const { handleSubmit, reset } = methods
 
   const onSubmit = async (data: T) => {
-    onFinish(data)
+    onFinish && onFinish(data)
     reset()
     onClose()
   }
 
   return (
     <Dialog
-        fullWidth={true}
-        maxWidth={'md'}
+      fullWidth={true}
+      maxWidth={'md'}
       open={open}
       onClose={onClose}
       PaperProps={{
@@ -69,7 +66,7 @@ export const FormDialog = <T extends FieldValues>({
 }
 
 export const FormDialogContent = ({ children }: React.PropsWithChildren) => (
-  <DialogContent sx={{bgcolor:"#fafafa",my:3 }}>
+  <DialogContent sx={{ bgcolor: "#fafafa", my: 3 }}>
     {children}
   </DialogContent>
 )
@@ -82,31 +79,35 @@ export const FormHeading = ({ children }: React.PropsWithChildren) => {
   )
 }
 export const FormActions = ({
-                              onClose = () => {},
-                              buttonText = '',
-                              bgcolor='',
-                              openModal= () => {},
-                              disabled = false,
-                            }) => {
+  onClose = () => { },
+  loading = false,
+  deleteButton = false,
+  buttonText = '',
+  bgcolor = '',
+  openModal = () => { },
+  disabled = false,
+}) => {
   return (
-      <DialogActions sx={{ paddingY: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
-        <Button onClick={onClose} sx={{ boxShadow: 1, px: 2, color: 'currentColor' }}>
-          Cancel
-        </Button>
-        <Button
-            onClick={openModal}
-            variant='contained'
-            type='submit'
-            sx={{
-              bgcolor: disabled ? 'gray' : bgcolor,
-              color: 'white',
-              cursor: disabled ? 'not-allowed' : 'pointer',
-            }}
-            disabled={disabled}  // Disable the button based on the prop
-        >
-          {buttonText}
-        </Button>
-      </DialogActions>
-  );
-};
+    <DialogActions sx={{ paddingY: '1.5rem', paddingInline: '1.5rem', gap: 1 }}>
+      <Button onClick={onClose} sx={{ boxShadow: 1, px: 2, color: 'currentColor' }}>
+        Cancel
+      </Button>
+      <LoadingButton
+        loading={loading}
+        onClick={() => openModal && openModal()}
+        variant='contained'
+        type='submit'
+        sx={{
+          bgcolor: disabled ? 'gray' : bgcolor,
+          color: 'white',
+          cursor: disabled ? 'not-allowed' : 'pointer',
+        }}
+        {...deleteButton && { color: 'error' }}
+        disabled={disabled}  // Disable the button based on the prop
+      >
+        {buttonText}
+      </LoadingButton>
+    </DialogActions>
+  )
+}
 

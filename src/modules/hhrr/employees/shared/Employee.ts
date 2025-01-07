@@ -1,29 +1,21 @@
+import { Position } from 'modules/hhrr/departments/shared/Position'
+
 export type CreateEmployee = {
-    name: string
-    lastname: string
-    email: string
-    phone: string
-    department: number
-    picture: string
-    positions: number[]
+  name: string
+  lastname: string
+  email: string
+  department: number
+  picture?: string
+  positionId: string
 }
-export type Employees = {
-    id: string;
-    name: string;
-    lastname: string;
-    email: string;
-    phone: string;
-    department: number;
-    status: string;
-    positionId: string;
-    createdAt: string;
-    position: {
-        id: string;
-        name: string;
-        description: string;
-        department_id: string;
-        created_at: string;
-        updated_at: string;
-        tenant_id: string;
-    };
-};
+
+export interface Employee {
+  id: string; // Employee unique identifier
+  name: string; // First name
+  lastName: string; // Last name
+  email: string; // Email address
+  status: "Active" | "Inactive"; // Enum-like string literal for status
+  position: Position; // Associated position identifier
+  createdAt: string; // ISO date-time string for creation time
+  updatedAt: string; // ISO date-time string for last update
+}

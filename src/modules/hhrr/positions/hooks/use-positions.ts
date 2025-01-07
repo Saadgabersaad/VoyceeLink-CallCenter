@@ -17,7 +17,7 @@ export const usePositions = () => {
     }
 
     return {
-        data,
+        data: data?.data ?? [],
         isLoading,
         isError,
         onSearch,
