@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import {TableCell, SelectChangeEvent, Box, Select, InputLabel, MenuItem, FormControl} from '@mui/material';
 import { selectAdapter } from 'modules/core/components/Select';
-import { Position } from 'modules/hhrr/departments/shared/Position';
 import { usePositionContext } from '../shared/PositionSelectedId';
 import { useEmployeesPosition } from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
+import {PositionEmployees} from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
 
 type Props = {
-    positions: Position[];
+    positions: PositionEmployees[]|any;
     employeeId: string;
 };
 export function PositionsSelectRow({ positions, employeeId }: Props) {
     const { positionId, setPositionId } = usePositionContext();
     const { onAssignPositionToEmployee } = useEmployeesPosition();
 
-    const options = positions.map(({ name, id }) => {
+    const options = positions.map(({ name, id }:PositionEmployees) => {
         return selectAdapter(name, id);
     }).concat({
         label: 'UI GG',
@@ -41,7 +41,7 @@ export function PositionsSelectRow({ positions, employeeId }: Props) {
                         label="Position"
                         onChange={handleChange}
                     >
-                        {options.map((option) => (
+                        {options.map((option:any) => (
                             <MenuItem onSelect={() => setPositionId(option.value)} key={option.value} value={option.value}>
                                 {option.label}
                             </MenuItem>

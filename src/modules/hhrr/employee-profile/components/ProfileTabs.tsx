@@ -35,7 +35,7 @@ function a11yProps(index: number) {
     };
 }
 
-export default function ProfileTabs() {
+export default function ProfileTabs({data}:{data:any}) {
     const [value, setValue] = React.useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -52,7 +52,7 @@ export default function ProfileTabs() {
                 </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-                <InfoTab/>
+                <InfoTab data={data}/>
             </CustomTabPanel>
             <CustomTabPanel  value={value} index={1}>
                <AttendanceTab/>

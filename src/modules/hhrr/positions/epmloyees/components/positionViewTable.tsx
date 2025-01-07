@@ -8,7 +8,7 @@ type Department = {
 };
 
 type TableProps = Partial<EnhancedTableProps<PositionEmployee>> & {
-    department: Department|any[];
+    department: Department|any;
 };
 
 export const Table =({ department }: TableProps) => {

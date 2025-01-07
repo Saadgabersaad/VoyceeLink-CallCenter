@@ -1,18 +1,21 @@
 import { useTable } from 'modules/core/hooks/use-table'
 import {CreateEmployee} from "modules/hhrr/employees/shared/Employee";
 import {EMPLOYEE_KEY} from "modules/hhrr/employees/consts/queryKeys";
-import {createEmployee, getEmployee} from "modules/hhrr/employee-profile/services/employee";
+import { getTimeEntries } from '../services/timeEntries';
+import {createEmployee} from "modules/hhrr/employee-profile/services/employee";
 
-export const useEmployee = () => {
+export const useTimeEntries = () => {
     const { data, isLoading, isError, mutate, isFetching, onSearch } = useTable({
+
         key: EMPLOYEE_KEY,
-        fetcher: getEmployee,
+        fetcher: getTimeEntries,
         mutationFn:createEmployee,
     })
 
     const onCreateEmployee = async (createEmployee: CreateEmployee) => {
         mutate(createEmployee)
     }
+
 
     return {
         data,

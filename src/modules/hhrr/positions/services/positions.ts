@@ -1,8 +1,7 @@
 import { api, HttpMethod } from 'modules/core/utils/api'
 import { SearchParams } from 'modules/core/utils/types'
-import {CreatePosition} from "modules/hhrr/positions/shared/Position";
-import {Position} from "modules/hhrr/departments/shared/Position";
-import {PositionEmployees} from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
+import { CreatePosition } from "modules/hhrr/positions/shared/Position";
+import { Position } from "modules/hhrr/departments/shared/Position";
 
 export const getPositions = (search?: SearchParams) => {
     const queryParam = search?.query ? `&search=${search.query}` : ''

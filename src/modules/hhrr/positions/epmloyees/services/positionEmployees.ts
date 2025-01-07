@@ -1,33 +1,30 @@
 import { api, HttpMethod } from 'modules/core/utils/api';
 import { SearchParams } from 'modules/core/utils/types';
 import { PositionEmployees } from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
+import {AssignPosition, ChangePositionName} from "modules/hhrr/positions/shared/Position";
 
-// Get positions for employees by position ID and optional search params
 export const getPositionsEmployees = (search?: SearchParams | undefined, positionId?: string | null) => {
-    // Dynamically build the query string based on search params
-
     const  positionQueryParam= search?.query ? `&search=${encodeURIComponent(search.query)}` : '';
     const queryParam = positionId ? `?position=${positionId}${positionQueryParam}` : '';
     return api<any[]>(HttpMethod.GET, `/employees${queryParam}`);
 };
 
-export const getPositionsEmployees = (search?: SearchParams | undefined, positionId?: string | null) => {
-    // Dynamically build the query string based on search params
-
-    const  positionQueryParam= search?.query ? `&search=${encodeURIComponent(search.query)}` : '';
-    const queryParam = positionId ? `?positions=${positionId}${positionQueryParam}` : '';
-    return api<any[]>(HttpMethod.GET, `/employees${queryParam}`);
-};
-
-// Log employeeId and positionId to verify values
 export const assignPositionToEmployee = ({ employeeId, payload }: { employeeId: string, payload: { positionId: string } }) => {
-
-    // Ensure the correct URL format with employeeId, and send only the positionId in the payload
-    return api<PositionEmployees[]>(HttpMethod.PUT, `/employees/${employeeId}/position`, payload);
+    return api<AssignPosition[]>(HttpMethod.PUT, `/employees/${employeeId}/position`, payload);
 };
-
 
 export const deletePosition =  (positionId: string) => {
     return api<PositionEmployees[]>(HttpMethod.DELETE, `/positions/${positionId}`);
 };
 
+export const getPositionById = (search?: SearchParams | undefined, positionId?: string | null) => {
+    const  positionQueryParam= search?.query ? `&search=${encodeURIComponent(search.query)}` : '';
+    const queryParam = positionId ? `${positionId}${positionQueryParam}` : '';
+    return api<any[]>(HttpMethod.GET, `/positions/${queryParam}`);
+};
+
+export const changePositionName = (positionId: string, payload: ChangePositionName) => {
+    return api<PositionEmployees[]>(
+        HttpMethod.PATCH, `/positions/${positionId}`, payload
+    );
+};

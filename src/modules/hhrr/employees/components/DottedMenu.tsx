@@ -13,7 +13,6 @@ type OptionItem = {
     hidden?: boolean;
 };
 type DottedMenuProps = {
-    userId: string;
     mainModal?: React.ReactNode;
     NameModal?: React.ReactNode;
     options: OptionItem[];

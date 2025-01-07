@@ -6,46 +6,46 @@ import { CountdownModal } from "./countDown";
 import { useEmployeesPosition } from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 import { PRIMARY } from "modules/core/consts/theme";
 import { usePositionContext } from "../shared/PositionSelectedId";
-import { FieldValues } from "react-hook-form";
-import {Position} from "modules/hhrr/departments/shared/Position";
-import { EnhancedTableProps } from "modules/core/components/tables/EnhancedTable";
+import {PositionEmployees} from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
 
-type DeletePositionModalProps = DialogProps & {
+
+export type DeletePositionModalProps = DialogProps & {
     count: number;
     positionName: string;
+    positions:PositionEmployees[]|any;
 };
 
 export function DeletePosition({open, onClose, count, positionName, positions}: DeletePositionModalProps) {
 
     const [isCountdownModalOpen, setCountdownModalOpen] = useState(false);
-    const [isPositionEmpty, setIsPositionEmpty] = useState(true); // Track if position has employees
+    const [isPositionEmpty, setIsPositionEmpty] = useState(true);
     const {positionId} = usePositionContext();
     const {data, isLoading, onDeletePosition} = useEmployeesPosition();
 
-    // Check if position has any employees assigned
+
     const hasEmployees = data && data.length > 0;
 
-    // Effect to update isPositionEmpty when the data changes (e.g., when employees are reassigned)
+
     useEffect(() => {
         if (data && data.length === 0) {
-            setIsPositionEmpty(true); // Enable delete button if no employees are assigned
+            setIsPositionEmpty(true);
         } else {
-            setIsPositionEmpty(false); // Disable delete button if employees are still assigned
+            setIsPositionEmpty(false);
         }
-    }, [data]); // Dependency on data to trigger whenever employees are reassigned
+    }, [data]);
 
     const handleDeleteClick = () => {
         if (hasEmployees) {
-            setIsPositionEmpty(false); // Set to false if employees are assigned
+            setIsPositionEmpty(false);
         } else {
-            setCountdownModalOpen(true); // Open countdown modal if position is empty
+            setCountdownModalOpen(true);
         }
     };
 
     const handleCountdownFinish = async () => {
         if (positionId && isPositionEmpty) {
             try {
-                await onDeletePosition(positionId); // Call the delete position API
+                await onDeletePosition(positionId);
             } catch (error) {
                 console.error("Error deleting position:", error);
             }
@@ -70,7 +70,7 @@ export function DeletePosition({open, onClose, count, positionName, positions}: 
                     </Typography>
                     <DeletePositionTable rows={data} loading={isLoading} positions={positions} />
 
-                    {/* Show message if there are employees assigned */}
+
                     {!isPositionEmpty && (
                         <Typography fontSize={16} fontWeight={500} color="error" mt={2}>
                             You cannot delete this position because there are still employees assigned to it.
@@ -81,8 +81,8 @@ export function DeletePosition({open, onClose, count, positionName, positions}: 
                         onClose={onClose}
                         buttonText="Delete Position"
                         bgcolor="red"
-                        openModal={handleDeleteClick} // Open countdown modal when the button is clicked
-                        disabled={!isPositionEmpty} // Disable the button if there are employees assigned
+                        openModal={handleDeleteClick}
+                        disabled={!isPositionEmpty}
                     />
                 </FormDialogContent>
             <CountdownModal

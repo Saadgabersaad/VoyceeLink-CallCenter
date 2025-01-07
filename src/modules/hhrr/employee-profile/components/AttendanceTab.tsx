@@ -14,6 +14,7 @@ import DatePickerViews from "modules/hhrr/employee-profile/components/DatePicker
 import Button from '@mui/material/Button';
 import { Flex } from 'modules/core/components/flex';
 import {Download} from "@mui/icons-material";
+import {useTimeEntries} from "modules/hhrr/employee-profile/hooks/use-timeEntries";
 
 
 interface EnhancedTableProps {
@@ -42,6 +43,9 @@ const EnhancedTableHead: React.FC<EnhancedTableProps> = (props) => {
 };
 
 export default function AttendanceTab() {
+const {data}=    useTimeEntries()
+    console.log(data)
+
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(7);
     const handleChangePage = (event: unknown, newPage: number) => {

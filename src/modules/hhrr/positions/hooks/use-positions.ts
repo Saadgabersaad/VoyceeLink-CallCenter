@@ -18,9 +18,8 @@ export const usePositions = () => {
 
     return {
         data,
-        isError,
         isLoading,
-        isFetching,
+        isError,
         onSearch,
         onCreatePosition,
     }

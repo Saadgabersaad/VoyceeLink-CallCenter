@@ -8,20 +8,13 @@ import {Flex} from "modules/core/components/flex";
 import {useSearchParams} from 'next/navigation';
 import {useDepartmentById} from "modules/hhrr/departments/hooks/use-departmentById";
 
-interface PositionViewProps {
-    isLoading?: boolean
-    data: any[]
-}
-
-export default function PositionView({isLoading}: PositionViewProps) {
-    // TODO position name and department name and TS
+export default function PositionView() {
     const searchParams = useSearchParams();
     const name = searchParams.get('name');
-
-
     const {data} = useDepartmentById()
     const [positionName, setPositionName] = React.useState(name);
-    const departmentName = data.name || ''
+    // @ts-ignore
+    const departmentName = data?.name  || ''
 
     return (
         <Page>
@@ -34,7 +27,7 @@ export default function PositionView({isLoading}: PositionViewProps) {
                         fullWidth
                         id="outlined-controlled"
                         label="Position Name"
-                        value={name}
+                        value={positionName}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                             setPositionName(event.target.value);
                         }}

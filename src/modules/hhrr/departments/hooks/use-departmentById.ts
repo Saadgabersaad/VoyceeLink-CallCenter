@@ -5,14 +5,10 @@ import {DEPARTMENT_KEY } from '../consts/queryKeys'
 import { getDepartmentById } from '../services/departmentById'
 import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
 
-type DepartmentData = {
-    id: string; // Unique identifier
-    name: string; // Department name
-};
+
 
 export const useDepartmentById = () => {
     const {departmentId} = usePositionContext()
-    console.log('useDepartmentById', departmentId)
     const { data, isLoading, isError, mutate, isFetching, onSearch } = useTable({
         key: DEPARTMENT_KEY,
         fetcher:(searchParams)=> getDepartmentById(searchParams,departmentId),
@@ -25,7 +21,7 @@ export const useDepartmentById = () => {
     }
 
     return {
-        data:data || null,
+        data,
         isError,
         isLoading,
         isFetching,

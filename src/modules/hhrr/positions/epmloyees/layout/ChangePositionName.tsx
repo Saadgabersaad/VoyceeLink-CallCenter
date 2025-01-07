@@ -1,54 +1,61 @@
 import React, { useState } from "react";
 import { DialogProps, FormActions, FormDialog, FormDialogContent } from "modules/core/components/FormDialog";
 import { Box, TextField } from "@mui/material";
-import { FieldValues } from "react-hook-form";
+import { PositionEmployees } from "../shared/positionEmployees";
 
-type DeletePositionModalProps = DialogProps & {
-    count: number;
-    positionName: string;
-    create(): Promise<void>;
+type ChangePositionNameProps = DialogProps & {
+    create(values: { name: string; departmentId: string }): void;
     positionId: string | null;
+    positions: PositionEmployees[] | any;
+    departmentId: string ;
 };
 
-export function ChangePositionName({ open, create, onClose }: DeletePositionModalProps) {
-    const [isCountdownModalOpen, setCountdownModalOpen] = useState(false);
+export function ChangePositionName({ open, create, onClose, departmentId }: ChangePositionNameProps) {
+    const [newName, setNewName] = useState("");
 
-    const handleChangeName = () => {
-        setCountdownModalOpen(true);
+    // Handle name input change
+    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setNewName(event.target.value);
     };
 
-    const handleCountdownFinish = async () => {
-        await create();
-        setCountdownModalOpen(false);
+    // Submit the payload
+    const handleSubmit = () => {
+        if (newName.trim() && departmentId) {
+            create({
+                name: newName.trim(),
+                departmentId: departmentId,
+            });
+        } else {
+            console.error("Invalid input or missing departmentId.");
+        }
     };
 
     return (
-        <>
-            <FormDialog
-                title="Change Position Name"
-                open={open!}
-                onClose={onClose!}
-                onFinish={function (values: FieldValues): void {
-                    throw new Error("Function not implemented.");
-                }}
-            >
-                <FormDialogContent>
-                    <Box
-                        component="data"
-                        sx={{ '& > :not(style)': { m: 1, width: '35ch' } }}
-                        noValidate
-                        autoComplete="off"
-                    >
-                        <TextField id="outlined-basic" label="New Name" variant="outlined" />
-                    </Box>
-                    <FormActions
-                        onClose={onClose}
-                        buttonText="Change Name"
-                        openModal={handleChangeName}
-                        bgcolor={undefined}
+        <FormDialog
+            title="Change Position Name"
+            open={open!}
+            onClose={onClose!}
+            onFinish={handleSubmit}
+        >
+            <FormDialogContent>
+                <Box sx={{ m: 1, width: "35ch" }}>
+                    <TextField
+                        id="position-name-input"
+                        label="New Position Name"
+                        variant="outlined"
+                        value={newName}
+                        onChange={handleNameChange}
+                        fullWidth
+                        margin="normal"
                     />
-                </FormDialogContent>
-            </FormDialog>
-        </>
+                </Box>
+                <FormActions
+                    onClose={onClose}
+                    buttonText="Change Name"
+                    openModal={handleSubmit}
+                    bgcolor={undefined}
+                />
+            </FormDialogContent>
+        </FormDialog>
     );
 }

@@ -3,6 +3,7 @@ export const enum HttpMethod {
   POST = 'POST',
   DELETE = 'DELETE',
   PUT = 'PUT',
+  PATCH='PATCH',
 }
 
 export type ApiStatus = {
