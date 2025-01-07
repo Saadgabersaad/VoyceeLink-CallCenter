@@ -6,9 +6,9 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import DeviceHubIcon from '@mui/icons-material/DeviceHub';
 import {PRIMARY} from "modules/core/consts/theme";
-import EditButton from "modules/hhrr/employee-profile/components/EditButton";
+import EditButton from "modules/hhrr/employees/profile/components/EditButton";
 import Avatar from "@mui/material/Avatar";
-import {useEmployee} from "modules/hhrr/employee-profile/hooks/use-employee";
+import {useEmployee} from "modules/hhrr/employees/profile/hooks/use-employee";
 
 const ProfileInfo = ({data}:{data:any}) => {
 

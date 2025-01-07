@@ -29,7 +29,7 @@ export default function Employees({rows}:{rows:any[]}) {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const positionId = rows.map(row => row.positionId);
+    const id = rows.map(row => row.id);
 
     const { data: positions} = usePositions();
 
@@ -138,7 +138,7 @@ export default function Employees({rows}:{rows:any[]}) {
                         />
                         <TableBody>
                             {visibleRows.map((row, index) => {
-                                const positionData = positions?.find(position => position.id === row.positionId);
+                                const positionData = positions?.find(position => position.id === row.id);
                                 const isItemSelected = selected.indexOf(row.id) !== -1;
                                 const labelId = `enhanced-table-checkbox-${index}`;
                                 const isInactive = row.status === 'Inactive';
@@ -169,7 +169,7 @@ export default function Employees({rows}:{rows:any[]}) {
                                         </TableCell>
                                         <TableCell  sx={textColorStyle} component="th" id={labelId} scope="row" padding="none">{row.name}{ row.lastName}</TableCell>
                                         <TableCell  sx={textColorStyle} padding="none">{positionData?.name}</TableCell>
-                                        {/*<TableCell  sx={textColorStyle} padding="none">{row.positionId}</TableCell>*/}
+                                        {/*<TableCell  sx={textColorStyle} padding="none">{row.id}</TableCell>*/}
                                         <TableCell  sx={textColorStyle} padding="none">{row.phone}</TableCell>
                                         <TableCell  sx={textColorStyle} padding="none">{row.email}</TableCell>
                                         <TableCell  sx={textColorStyle} padding="none">{row.department}</TableCell>

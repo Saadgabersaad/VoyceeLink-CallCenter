@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { DialogProps, FormActions, FormDialog, FormDialogContent } from "modules/core/components/FormDialog";
 import { Typography } from "@mui/material";
-import { DeletePositionTable } from "modules/hhrr/positions/epmloyees/components/deleteEmployee";
-import { CountdownModal } from "./countDown";
+import { DeletePositionTable } from "modules/hhrr/positions/epmloyees/components/DeleteEmployee";
+import { CountdownModal } from "./CountDown";
 import { useEmployeesPosition } from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 import { PRIMARY } from "modules/core/consts/theme";
-import { usePositionContext } from "../shared/PositionSelectedId";
+import { usePositionContext } from "../context/PositionSelectedId";
 import {PositionEmployees} from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
 
 
@@ -19,7 +19,7 @@ export function DeletePosition({open, onClose, count, positionName, positions}: 
 
     const [isCountdownModalOpen, setCountdownModalOpen] = useState(false);
     const [isPositionEmpty, setIsPositionEmpty] = useState(true);
-    const {positionId} = usePositionContext();
+    const {id} = usePositionContext();
     const {data, isLoading, onDeletePosition} = useEmployeesPosition();
 
 
@@ -43,9 +43,9 @@ export function DeletePosition({open, onClose, count, positionName, positions}: 
     };
 
     const handleCountdownFinish = async () => {
-        if (positionId && isPositionEmpty) {
+        if (id && isPositionEmpty) {
             try {
-                await onDeletePosition(positionId);
+                await onDeletePosition(id);
             } catch (error) {
                 console.error("Error deleting position:", error);
             }

@@ -5,7 +5,7 @@ import theme from 'modules/core/consts/theme'
 import './globals.css'
 import React from 'react'
 import ReactQueryProvider from 'modules/core/providers/ReactQuery'
-import { PositionContextProvider } from 'modules/hhrr/positions/epmloyees/shared/PositionSelectedId'
+import { PositionContextProvider } from 'modules/hhrr/positions/epmloyees/context/PositionSelectedId'
 
 export const metadata: Metadata = {
   title: 'Voycelink',

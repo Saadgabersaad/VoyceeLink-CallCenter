@@ -7,7 +7,7 @@ export interface ChangePositionName {
     name:string,
     description: string,
     departmentId: string,
-    positionId: string
+    id: string
 
 }
 

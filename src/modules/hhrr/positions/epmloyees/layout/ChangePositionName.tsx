@@ -5,7 +5,7 @@ import { PositionEmployees } from "../shared/positionEmployees";
 
 type ChangePositionNameProps = DialogProps & {
     create(values: { name: string; departmentId: string }): void;
-    positionId: string | null;
+    id: string | null;
     positions: PositionEmployees[] | any;
     departmentId: string ;
 };
@@ -13,7 +13,6 @@ type ChangePositionNameProps = DialogProps & {
 export function ChangePositionName({ open, create, onClose, departmentId }: ChangePositionNameProps) {
     const [newName, setNewName] = useState("");
 
-    // Handle name input change
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setNewName(event.target.value);
     };

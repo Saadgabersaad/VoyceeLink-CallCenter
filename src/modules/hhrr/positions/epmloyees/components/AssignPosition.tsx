@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {TableCell, SelectChangeEvent, Box, Select, InputLabel, MenuItem, FormControl} from '@mui/material';
 import { selectAdapter } from 'modules/core/components/Select';
-import { usePositionContext } from '../shared/PositionSelectedId';
+import { usePositionContext } from '../context/PositionSelectedId';
 import { useEmployeesPosition } from "modules/hhrr/positions/epmloyees/hooks/use-employeesPosition";
 import {PositionEmployees} from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
 
@@ -10,7 +10,7 @@ type Props = {
     employeeId: string;
 };
 export function PositionsSelectRow({ positions, employeeId }: Props) {
-    const { positionId, setPositionId } = usePositionContext();
+    const { id, setId } = usePositionContext();
     const { onAssignPositionToEmployee } = useEmployeesPosition();
 
     const options = positions.map(({ name, id }:PositionEmployees) => {
@@ -25,7 +25,7 @@ export function PositionsSelectRow({ positions, employeeId }: Props) {
     const handleChange = (event: SelectChangeEvent) => {
         const selectedId = event.target.value as string;
         setSelectedPosition(selectedId);
-        setPositionId(selectedId);
+        setId(selectedId);
         onAssignPositionToEmployee(employeeId, selectedId);
     };
 
@@ -42,7 +42,7 @@ export function PositionsSelectRow({ positions, employeeId }: Props) {
                         onChange={handleChange}
                     >
                         {options.map((option:any) => (
-                            <MenuItem onSelect={() => setPositionId(option.value)} key={option.value} value={option.value}>
+                            <MenuItem onSelect={() => setId(option.value)} key={option.value} value={option.value}>
                                 {option.label}
                             </MenuItem>
                         ))}

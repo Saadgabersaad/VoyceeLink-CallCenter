@@ -3,7 +3,7 @@ import { CreateDepartment } from '../shared/Department'
 import {  createDepartment } from '../services/departments'
 import {DEPARTMENT_KEY } from '../consts/queryKeys'
 import { getDepartmentById } from '../services/departmentById'
-import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
+import {usePositionContext} from "modules/hhrr/positions/epmloyees/context/PositionSelectedId";
 
 
 

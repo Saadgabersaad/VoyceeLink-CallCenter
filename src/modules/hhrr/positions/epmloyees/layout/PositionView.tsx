@@ -2,7 +2,7 @@ import React from "react";
 import {Page, Heading} from 'modules/core/components/page'
 import {Box, Typography} from "@mui/material";
 import {PRIMARY} from "modules/core/consts/theme";
-import {Table} from "modules/hhrr/positions/epmloyees/components/positionViewTable";
+import {Table} from "modules/hhrr/positions/epmloyees/components/PositionViewTable";
 import TextField from "@mui/material/TextField";
 import {Flex} from "modules/core/components/flex";
 import {useSearchParams} from 'next/navigation';

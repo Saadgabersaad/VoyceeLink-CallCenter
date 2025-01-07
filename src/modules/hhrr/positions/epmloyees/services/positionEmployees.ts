@@ -3,28 +3,28 @@ import { SearchParams } from 'modules/core/utils/types';
 import { PositionEmployees } from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
 import {AssignPosition, ChangePositionName} from "modules/hhrr/positions/shared/Position";
 
-export const getPositionsEmployees = (search?: SearchParams | undefined, positionId?: string | null) => {
+export const getPositionsEmployees = (search?: SearchParams | undefined, id?: string | null) => {
     const  positionQueryParam= search?.query ? `&search=${encodeURIComponent(search.query)}` : '';
-    const queryParam = positionId ? `?position=${positionId}${positionQueryParam}` : '';
+    const queryParam = id ? `?position=${id}${positionQueryParam}` : '';
     return api<any[]>(HttpMethod.GET, `/employees${queryParam}`);
 };
 
-export const assignPositionToEmployee = ({ employeeId, payload }: { employeeId: string, payload: { positionId: string } }) => {
+export const assignPositionToEmployee = ({ employeeId, payload }: { employeeId: string, payload: { id: string } }) => {
     return api<AssignPosition[]>(HttpMethod.PUT, `/employees/${employeeId}/position`, payload);
 };
 
-export const deletePosition =  (positionId: string) => {
-    return api<PositionEmployees[]>(HttpMethod.DELETE, `/positions/${positionId}`);
+export const deletePosition =  (id: string) => {
+    return api<PositionEmployees[]>(HttpMethod.DELETE, `/positions/${id}`);
 };
 
-export const getPositionById = (search?: SearchParams | undefined, positionId?: string | null) => {
+export const getPositionById = (search?: SearchParams | undefined, id?: string | null) => {
     const  positionQueryParam= search?.query ? `&search=${encodeURIComponent(search.query)}` : '';
-    const queryParam = positionId ? `${positionId}${positionQueryParam}` : '';
+    const queryParam = id ? `${id}${positionQueryParam}` : '';
     return api<any[]>(HttpMethod.GET, `/positions/${queryParam}`);
 };
 
-export const changePositionName = (positionId: string, payload: ChangePositionName) => {
+export const changePositionName = (id: string, payload: ChangePositionName) => {
     return api<PositionEmployees[]>(
-        HttpMethod.PATCH, `/positions/${positionId}`, payload
+        HttpMethod.PATCH, `/positions/${id}`, payload
     );
 };

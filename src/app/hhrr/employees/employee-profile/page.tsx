@@ -1,5 +1,5 @@
 'use client'
-import EmployeeProfile from "modules/hhrr/employee-profile/layouts/Employee-profile";
+import EmployeeProfile from "modules/hhrr/employees/profile/layouts/EmployeeProfile";
 
 export default function EmployeesPage() {
     return <>

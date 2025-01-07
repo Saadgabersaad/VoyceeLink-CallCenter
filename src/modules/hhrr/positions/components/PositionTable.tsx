@@ -8,8 +8,8 @@ import WorkIcon from "@mui/icons-material/Work";
 import DeleteIcon from "@mui/icons-material/Delete";
 import * as React from "react";
 import DottedMenu from 'modules/hhrr/employees/components/DottedMenu';
-import { DeletePosition } from '../epmloyees/layout/deletePosition';
-import {usePositionContext} from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
+import { DeletePosition } from '../epmloyees/layout/DeletePosition';
+import {usePositionContext} from "modules/hhrr/positions/epmloyees/context/PositionSelectedId";
 import { ChangePositionName } from '../epmloyees/layout/ChangePositionName';
 import {useChangePositionName} from "modules/hhrr/positions/hooks/use-changePositionName";
 
@@ -17,14 +17,14 @@ export const Table = ({
                           rows,
                           loading
                       }: Partial<EnhancedTableProps<Position>>) => {
-    const {setPositionId,setDepartmentId }=usePositionContext()
+    const {setId,setDepartmentId }=usePositionContext()
 
     const {onChangePositionName}=useChangePositionName()
 
 
 
     const handleClick = (id: string , departmentId: string ) => {
-        setPositionId(id);
+        setId(id);
         setDepartmentId(departmentId);
 
     }
@@ -60,7 +60,7 @@ export const Table = ({
                             name={row.name}
                             options={positionOptions}
                             mainModal={<DeletePosition  positions={rows} positionName={row.name}  count={row.employeeCount}  />}
-                            NameModal={<ChangePositionName departmentId={row.departmentId} positions={rows}  positionId={null} create={onChangePositionName}/>}
+                            NameModal={<ChangePositionName departmentId={row.departmentId} positions={rows}  id={null} create={onChangePositionName}/>}
                             />
                     </TableCell>
 

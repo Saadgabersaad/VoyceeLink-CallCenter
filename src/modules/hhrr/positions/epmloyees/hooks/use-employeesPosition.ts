@@ -1,7 +1,7 @@
 import { useTable } from 'modules/core/hooks/use-table';
 import { assignPositionToEmployee, deletePosition, getPositionsEmployees } from "modules/hhrr/positions/epmloyees/services/positionEmployees";
 import { Employees_KEY } from "modules/hhrr/positions/consts/queryKeys";
-import { usePositionContext } from "modules/hhrr/positions/epmloyees/shared/PositionSelectedId";
+import { usePositionContext } from "modules/hhrr/positions/epmloyees/context/PositionSelectedId";
 import {SearchParams} from "modules/core/utils/types";
 
 interface AssignPositionPayload {
@@ -12,12 +12,12 @@ interface AssignPositionPayload {
 }
 
 export const useEmployeesPosition = () => {
-    const { positionId } = usePositionContext();
+    const { id } = usePositionContext();
 
     const { data, isLoading, isError, mutate, isFetching, onSearch } = useTable({
         key: Employees_KEY,
-        fetcher: (searchParams:SearchParams) => getPositionsEmployees(searchParams, positionId),
-        mutationFn: (positionData:AssignPositionPayload) => assignPositionToEmployee(positionData),
+        fetcher: (searchParams:SearchParams) => getPositionsEmployees(searchParams, id),
+        mutationFn: (positionData:any) => assignPositionToEmployee(positionData),
     });
 
     const onAssignPositionToEmployee = async (employeeId: string, selectedId: string) => {
@@ -28,12 +28,12 @@ export const useEmployeesPosition = () => {
             console.error("Failed to assign position:", error);
         }
     };
-    const onDeletePosition =  (positionId: string) => {
+    const onDeletePosition =  (id: string) => {
         try {
-             deletePosition(positionId);
-            console.log(`Position ${positionId} deleted successfully`);
+             deletePosition(id);
+            console.log(`Position ${id} deleted successfully`);
         } catch (error) {
-            console.error(`Failed to delete position ${positionId}:`, error);
+            console.error(`Failed to delete position ${id}:`, error);
         }
     };
 

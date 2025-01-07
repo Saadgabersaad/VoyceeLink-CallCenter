@@ -7,10 +7,10 @@ type Position = {
 };
 
 type PositionContextType = {
-    positionId: string | null;
+    id: string | null;
     departmentId: string | null;
     setDepartmentId: (id: string | null) => void;
-    setPositionId: (id: string | null) => void;
+    setId: (id: string | null) => void;
     positionData: Position | null; // Update this to store the position data properly
     setPositionData: (data: Position | null) => void; // Function to set positionData
 };
@@ -18,12 +18,12 @@ type PositionContextType = {
 const PositionContext = createContext<PositionContextType | undefined>(undefined);
 
 export const PositionContextProvider = ({ children }: { children: ReactNode }) => {
-    const [positionId, setPositionId] = useState<string | null>(null);
+    const [id, setId] = useState<string | null>(null);
     const [departmentId, setDepartmentId] = useState<string | null>(null);
     const [positionData, setPositionData] = useState<Position | null>(null);
 
     return (
-        <PositionContext.Provider value={{ positionId, setPositionId, positionData, setPositionData,setDepartmentId,departmentId  }}>
+        <PositionContext.Provider value={{ id, setId, positionData, setPositionData,setDepartmentId,departmentId  }}>
             {children}
         </PositionContext.Provider>
     );

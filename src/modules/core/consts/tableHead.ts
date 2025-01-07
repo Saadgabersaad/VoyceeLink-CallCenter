@@ -42,11 +42,11 @@ export const headCells :readonly HeadCell[] = [
 
 export interface AttendanceData {
     id: number;
-    date: string;
-    checkIn: [string,string];
-    Break: string;
-    hours: string;
-    status: string;
+    employeeId: string;
+    time: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export const attendanceHeadCells :readonly HeadCell[] = [
@@ -60,13 +60,13 @@ export const attendanceHeadCells :readonly HeadCell[] = [
 
 
 export const attendanceRows: AttendanceData[] = [
-    { id: 1, date: 'July 01, 2023', checkIn: ['09:30 AM','09:28 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
-    { id: 2, date: 'July 01, 2023', checkIn: ['09:28 AM','09:00 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'Late' },
-    { id: 3, date: 'July 01, 2023', checkIn: ['09:28 AM','09:28 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
-    { id: 4, date: 'July 01, 2023', checkIn: ['09:39 AM','09:28 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'Late' },
-    { id: 5, date: 'July 01, 2023', checkIn: ['09:28 AM','09:20 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
-    { id: 6, date: 'July 01, 2023', checkIn: ['09:40 AM','09:28 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
-    { id: 7, date: 'July 01, 2023', checkIn: ['09:28 AM','09:28 PM'], Break: '00:30 Min', hours: '09:02 Hrs', status: 'On Time' },
+    { id: 1, type: 'July 01, 2023', time: '09:30 AM', createdAt:  "2024-12-24T20:09:03.697Z", updatedAt: '09:02 Hrs', employeeId: 'On Time' },
+    { id: 2, type: 'July 01, 2023', time: '09:30 AM', createdAt:  "2024-12-24T20:09:03.697Z", updatedAt: '09:02 Hrs', employeeId: 'Late' },
+    { id: 3, type: 'July 01, 2023', time: '09:28 AM', createdAt:  "2024-12-24T20:09:03.697Z", updatedAt: '09:02 Hrs', employeeId: 'On Time' },
+    { id: 4, type: 'July 01, 2023', time: '09:39 AM', createdAt:  "2024-12-24T20:09:03.697Z", updatedAt: '09:02 Hrs', employeeId: 'Late' },
+    { id: 5, type: 'July 01, 2023', time: '09:28 AM', createdAt:  "2024-12-24T20:09:03.697Z", updatedAt: '09:02 Hrs', employeeId: 'On Time' },
+    { id: 6, type: 'July 01, 2023', time: '09:40 AM', createdAt:  "2024-12-24T20:09:03.697Z", updatedAt: '09:02 Hrs', employeeId: 'On Time' },
+    { id: 7, type: 'July 01, 2023', time: '09:28 AM', createdAt:  "2024-12-24T20:09:03.697Z", updatedAt: '09:02 Hrs', employeeId: 'On Time' },
 
 ];
 

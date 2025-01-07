@@ -1,7 +1,7 @@
 import { useTable } from 'modules/core/hooks/use-table'
 import {CreateEmployee} from "modules/hhrr/employees/shared/Employee";
-import {EMPLOYEE_KEY} from "modules/hhrr/employees/consts/queryKeys";
-import {createEmployee, getEmployee} from "modules/hhrr/employee-profile/services/employee";
+import {createEmployee, getEmployee} from "modules/hhrr/employees/profile/services/employee";
+import {EMPLOYEE_KEY} from "modules/hhrr/employees/profile/consts/queryKeys";
 
 export const useEmployee = () => {
     const { data, isLoading, isError, mutate, isFetching, onSearch } = useTable({
