@@ -7,9 +7,14 @@ export const Main = ({
   children: React.ReactNode
 }) => {
   return (
-    <Flex flexGrow={1}>
+    <Flex flexGrow={1} bgcolor={'grey.100'}>
       <Navigation />
-      <Flex flexDirection='column' p={1.5} flexGrow={1}>
+      <Flex
+        flexGrow={1}
+        height={'95vh'}
+        flexDirection='column'
+        overflow={'scroll'}
+      >
         {children}
       </Flex>
     </Flex>

@@ -1,3 +1,8 @@
+'use client'
+
+import DashboardPage from "./dashboard/page"
+
+
 export default function Home() {
-  return null
+  return <DashboardPage/>
 }

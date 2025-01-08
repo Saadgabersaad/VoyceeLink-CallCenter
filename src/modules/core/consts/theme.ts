@@ -10,6 +10,7 @@ const inter = Inter({
 
 //export const PRIMARY = '#3EB281'
 export const PRIMARY = '#36976E'
+export const DARK = '#2A7959'
 
 const theme = createTheme({
   cssVariables: true,
@@ -18,7 +19,7 @@ const theme = createTheme({
     primary: {
       light: '#5AC599',
       main: PRIMARY,
-      dark: '#36976E',
+      dark: PRIMARY,
       contrastText: '#fff'
     },
   },

@@ -11,9 +11,11 @@ import Logout from '@mui/icons-material/Logout'
 import { ExpandMore } from '@mui/icons-material'
 import Link from 'next/link'
 import { PRIMARY } from 'modules/core/consts/theme'
+import UserNavSection from 'modules/dashboard/components/UserNavSection'
 
 //TODO: CREATE A MENU COMPONENT
-export function AccountMenu() {
+export function AccountMenu(userData:any) {
+  userData=userData.userData;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -33,12 +35,12 @@ export function AccountMenu() {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
+        // onClick={handleClose}
         slotProps={{
           paper: {
             elevation: 0,
             sx: {
-              width: 200,
+              width: 250,
               maxWidth: '100%',
               overflow: 'visible',
               filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
@@ -71,6 +73,7 @@ export function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        <UserNavSection userData={userData}/>
         <Link href='/profile'>
           <MenuItem onClick={handleClose}>
             <Avatar /> Profile

@@ -12,15 +12,8 @@ export const AppHeader = () => {
           justifyContent: 'space-between'
         }}>
           <Logo />
-          <SearchInput />
+          <SearchInput tableSearch={false} />
           <Flex gap={2} alignItems='center'>
-            <Button
-              variant='contained'
-              size='small'
-              sx={{ textTransform: 'capitalize', py: .9 }}
-            >
-              Attendance
-            </Button>
             <User />
           </Flex>
         </Toolbar>
