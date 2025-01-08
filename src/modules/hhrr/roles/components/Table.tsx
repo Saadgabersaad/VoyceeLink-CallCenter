@@ -25,6 +25,8 @@ export const RolesTable = () => {
           disablePadding: false,
           numeric: false
         },
+
+
         {
           id: 'department', label: 'Related Department',
           disablePadding: false,
