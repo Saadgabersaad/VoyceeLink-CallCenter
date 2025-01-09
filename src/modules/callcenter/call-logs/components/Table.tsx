@@ -7,9 +7,12 @@ import IconButton from "@mui/material/IconButton";
 import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
 import { PRIMARY } from "modules/core/consts/theme";
-import {Logs, styles} from "modules/callcenter/call-logs/shared/Logs";
+import {Logs, } from "modules/callcenter/call-logs/shared/Logs";
+import AnchorTemporaryDrawer from "modules/callcenter/call-logs/components/CallDetailsDrower";
+import {styles} from "modules/callcenter/call-logs/consts/Styles";
 
 export const Table = ({
+                          //rows,
                           loading,
                       }: Partial<EnhancedTableProps<Logs>>) => {
     // Utility functions for dynamic styles
@@ -65,8 +68,8 @@ export const Table = ({
                     <TableCell padding={"none"} >{renderTimeStamp(row.timeStamp)}</TableCell>
                     <TableCell padding={"none"}>
                         <IconButton>
-                            <VisibilityIcon />
-                        </IconButton>
+                            <AnchorTemporaryDrawer/>
+                            </IconButton>
                     </TableCell>
                 </>
             )}

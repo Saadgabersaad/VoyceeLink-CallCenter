@@ -4,7 +4,9 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { Search } from 'modules/core/components/Search';
 import Table from "modules/callcenter/call-logs/components/Table";
-
+import {useCallLogs} from "modules/callcenter/call-logs/hooks/use-call-logs";
+import { Flex } from 'modules/core/components/flex';
+import FilterButton from "modules/callcenter/call-logs/components/FilterButton";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -14,7 +16,6 @@ interface TabPanelProps {
 
 function CustomTabPanel(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
-
     return (
         <div
             role="tabpanel"
@@ -36,26 +37,25 @@ function a11yProps(index: number) {
 }
 
 export default function ProfileTabs() {
+    const {onSearch}=useCallLogs()
     const [value, setValue] = React.useState(0);
-
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider',margin:'auto',mb:2 }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider',margin:'auto',mb:2    }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="My Team Calls" {...a11yProps(0)} />
                     <Tab label="Missed Calls" {...a11yProps(1)} />
                     <Tab label="Live Calls" {...a11yProps(2)} />
                 </Tabs>
             </Box>
-
-                <Search onSearch={function(value: string): void {
-                throw new Error('Function not implemented.');
-            } } />
-
+               <Flex justifyContent='space-between'>
+                   <Search onSearch={onSearch}/>
+                 <FilterButton/>
+               </Flex>
             <CustomTabPanel value={value} index={0}>
             <Table/>
             </CustomTabPanel>
