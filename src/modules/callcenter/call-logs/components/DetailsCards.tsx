@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { Typography, Chip } from '@mui/material';
 import { Flex } from 'modules/core/components/flex';
-import { styles } from '../consts/Styles';
+import { styles } from '../consts/styles';
 
 export type DetailBoxProps = {
     labelValues: { label: string; value:React.ReactNode; icon?: React.ReactNode}[];

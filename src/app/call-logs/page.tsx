@@ -4,7 +4,6 @@ import CallLogs from "modules/callcenter/call-logs/layouts/CallLogs";
 
 const CallLogsPage = () => {
     return (
-
         <CallLogs/>
     )
 }

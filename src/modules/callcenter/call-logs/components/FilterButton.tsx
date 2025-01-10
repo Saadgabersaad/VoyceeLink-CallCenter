@@ -1,24 +1,15 @@
 import * as React from 'react';
+import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
 import IconButton from "@mui/material/IconButton";
-import {Flex} from "modules/core/components/flex";
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+import { Flex } from "modules/core/components/flex";
+import { PRIMARY } from 'modules/core/consts/theme';
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
-import {Box} from "@mui/material";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import CloseIcon from '@mui/icons-material/Close';
-
-type FilterPopoverProps = {
-    id?: string;
-    open: boolean;
-    anchorEl: HTMLElement | null;
-    handleClose: () => void;
-};
+import { BasicSelect } from "modules/callcenter/call-logs/components/FilterSelector";
 
 export default function FilterButton() {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -44,16 +35,24 @@ export default function FilterButton() {
     return (
         <div>
             <Flex gap={2.5}>
-                <Button ria-describedby={id} onClick={handleClick} color={'inherit'} sx={{px:1.5,py:1.25,border:"solid 1px #D6D6D6 ",borderRadius:'5px',fontSize:'14px'}}>
-                    Filter <FilterAltIcon/>
+                <Button
+                    sx={{ px: 1.5, py: 1.25, border: "solid 1px #D6D6D6", borderRadius: '5px', fontSize: '14px' }}
+                    onClick={handleClick}
+                    aria-describedby={id}
+                    color={'inherit'}
+                >
+                    Filter <FilterAltIcon />
                 </Button>
-                <IconButton size={'large'} color={'inherit'} sx={{px:1,py:1,border:"solid 1px #D6D6D6 ",borderRadius:'5px',fontSize:'14px'}}>
-                    < MoreVertIcon/>
+                <IconButton
+                    sx={{ px: 1, py: 1, border: "solid 1px #D6D6D6", borderRadius: '5px', fontSize: '14px' }}
+                    color={'inherit'}
+                    size={'large'}>
+                    <MoreVertIcon />
                 </IconButton>
             </Flex>
 
             <Popover
-                sx={{ minWidth: "400px" }}
+                sx={{ minWidth: "400px", borderRadius: '50px' }}
                 id={id}
                 open={open}
                 anchorEl={anchorEl}
@@ -67,123 +66,51 @@ export default function FilterButton() {
                     horizontal: "center",
                 }}
             >
-                {/* Header */}
-                <Flex fontWeight="bold" p={2} bgcolor="#D6D6D6" justifyContent="space-between">
-                    <Typography>Filter</Typography>
-                    <CloseIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
-                </Flex>
+                <Box sx={{ border: '1px solid #36976E', borderRadius: '5px' }}>
+                    <Flex fontWeight="bold" p={2} bgcolor="#D6D6D6" justifyContent="space-between">
+                        <Typography>Filter</Typography>
+                        <CloseIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
+                    </Flex>
 
-                {/* Content */}
-                <Flex flexDirection="column" gap={2} p={2}>
-                    {filterOptions.map((option, index) => (
-                        <FilterSection key={index} label={option.label} />
-                    ))}
-                </Flex>
+                    <Flex flexDirection="column" gap={2} p={2}>
+                        {filterOptions.map((option, index) => (
+                            <FilterSection key={index} label={option.label} />
+                        ))}
+                    </Flex>
+
+                    <Flex justifyContent="space-between" p={2}>
+                        <Button variant="outlined" sx={{ p: 1, color: 'black', border: '1px solid #D6D6D6' }}>
+                            Reset
+                        </Button>
+                        <Button variant="contained" sx={{ bgcolor: PRIMARY, color: "white" }}>
+                            Apply Filters
+                        </Button>
+                    </Flex>
+                </Box>
             </Popover>
         </div>
     );
 }
 
-const FilterSection: React.FC<{ label: string }> = ({ label }) => (
-    <Flex flexDirection="column" gap={1.25}>
-        <Flex justifyContent="space-between">
-            <Typography>{label}</Typography>
-            <Typography sx={{ cursor: "pointer", color: "#1976d2" }}>Clear</Typography>
-        </Flex>
-        <BasicSelect />
-    </Flex>
-);
+const FilterSection: React.FC<{ label: string }> = ({ label }) => {
+    const [value, setValue] = React.useState<string>("");
 
-function BasicSelect() {
-    const [age, setAge] = React.useState('');
-
-    const handleChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value as string);
+    const handleClear = () => {
+        setValue("");
     };
 
     return (
-        <Box sx={{ minWidth: 400 }}>
-            <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Age"
-                    onChange={handleChange}
+        <Flex flexDirection="column" gap={1.25}>
+            <Flex justifyContent="space-between">
+                <Typography fontWeight={'600'} color={'#666666'}>{label}</Typography>
+                <Button
+                    onClick={handleClear}
+                    sx={{ cursor: "pointer", color: PRIMARY, textDecoration: 'underline', fontSize: '12px', fontWeight: 'bold' }}
                 >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                </Select>
-            </FormControl>
-        </Box>
+                    Clear
+                </Button>
+            </Flex>
+            <BasicSelect value={value} onChange={(e) => setValue(e.target.value)} />
+        </Flex>
     );
-}
-//
-// import React from "react";
-// import Popover from "@mui/material/Popover";
-// import Typography from "@mui/material/Typography";
-// import CloseIcon from "@mui/icons-material/Close";
-// import { Flex } from "modules/core/components/flex";
-// import BasicSelect from "modules/core/components/BasicSelect";
-//
-// type FilterPopoverProps = {
-//     id?: string;
-//     open: boolean;
-//     anchorEl: HTMLElement | null;
-//     handleClose: () => void;
-// };
-//
-// const filterOptions = [
-//     { label: "Select Languages" },
-//     { label: "Select Client" },
-//     { label: "Select Speciality" },
-//     { label: "Select Status" },
-// ];
-//
-// const FilterPopover: React.FC<FilterPopoverProps> = ({ id, open, anchorEl, handleClose }) => {
-//     return (
-//         <Popover
-//             sx={{ minWidth: "400px" }}
-//             id={id}
-//             open={open}
-//             anchorEl={anchorEl}
-//             onClose={handleClose}
-//             anchorOrigin={{
-//                 vertical: "bottom",
-//                 horizontal: "left",
-//             }}
-//             transformOrigin={{
-//                 vertical: "top",
-//                 horizontal: "center",
-//             }}
-//         >
-//             {/* Header */}
-//             <Flex fontWeight="bold" p={2} bgcolor="#D6D6D6" justifyContent="space-between">
-//                 <Typography>Filter</Typography>
-//                 <CloseIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
-//             </Flex>
-//
-//             {/* Content */}
-//             <Flex flexDirection="column" gap={2} p={2}>
-//                 {filterOptions.map((option, index) => (
-//                     <FilterSection key={index} label={option.label} />
-//                 ))}
-//             </Flex>
-//         </Popover>
-//     );
-// };
-//
-// // Reusable Section Component
-// const FilterSection: React.FC<{ label: string }> = ({ label }) => (
-//     <Flex flexDirection="column" gap={1.25}>
-//         <Flex justifyContent="space-between">
-//             <Typography>{label}</Typography>
-//             <Typography sx={{ cursor: "pointer", color: "#1976d2" }}>Clear</Typography>
-//         </Flex>
-//         <BasicSelect />
-//     </Flex>
-// );
-//
-// export default FilterPopover;
+};

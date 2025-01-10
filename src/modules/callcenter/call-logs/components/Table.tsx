@@ -9,20 +9,19 @@ import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined
 import { PRIMARY } from "modules/core/consts/theme";
 import {Logs, } from "modules/callcenter/call-logs/shared/Logs";
 import AnchorTemporaryDrawer from "modules/callcenter/call-logs/components/CallDetailsDrawer";
-import {styles} from "modules/callcenter/call-logs/consts/Styles";
+import {styles} from "modules/callcenter/call-logs/consts/styles";
 
 export const Table = ({
                           //rows,
                           loading,
                       }: Partial<EnhancedTableProps<Logs>>) => {
-    // Utility functions for dynamic styles
     const getLanguageStyle = (language: string): React.CSSProperties =>
         styles.language[language] || { color: "#6C757D" }; // Default gray for unsupported languages
     const getStatusStyle = (status: string): React.CSSProperties =>
         styles.status[status] || { backgroundColor: "#F8F9FA", color: "#6C757D" }; // Default gray for unsupported statuses
     // Render helper components
     const renderLanguage = (language: string) => {
-        const [lang1, lang2] = language.split(" - "); // Split languages into two parts
+        const [lang1, lang2] = language.split(" - ");
         return (
             <>
                 <span style={getLanguageStyle(lang1)}>{lang1}</span> -{" "}
