@@ -52,17 +52,18 @@ export default function ProfileTabs() {
                     <Tab label="Live Calls" {...a11yProps(2)} />
                 </Tabs>
             </Box>
-               <Flex justifyContent='space-between'>
-                   <Search onSearch={onSearch}/>
-                 <FilterButton/>
-               </Flex>
+
+            <Flex justifyContent='space-between'>
+                <Search onSearch={onSearch}/>
+                <FilterButton/>
+            </Flex>
+
             <CustomTabPanel value={value} index={0}>
-            <Table/>
+                <Table/>
             </CustomTabPanel>
-            <CustomTabPanel  value={value} index={1}>
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-            </CustomTabPanel>
+
+            <CustomTabPanel  value={value} index={1}></CustomTabPanel>
+            <CustomTabPanel value={value} index={2}></CustomTabPanel>
         </Box>
     );
 }

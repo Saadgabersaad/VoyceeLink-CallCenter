@@ -8,6 +8,7 @@ import Divider from "@mui/material/Divider";
 import DetailBox from './DetailsCards';
 import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import {PRIMARY} from "modules/core/consts/theme";
+import Status from "modules/callcenter/call-logs/components/Status";
 
 type Anchor = 'right';
 const AnchorValue = 'right';
@@ -28,7 +29,6 @@ export default function AnchorTemporaryDrawer() {
             ) {
                 return;
             }
-
             setState({ ...state, [anchor]: open });
         };
 
@@ -51,21 +51,21 @@ export default function AnchorTemporaryDrawer() {
     const labelValues3 = [
         { label: 'ID', value: '#7852'},
         { label: 'Name', value: 'Orlando Diggs' },
-        { label: 'Status', value: '--' },
+        { label: 'Status', value:<Status/>},
 
     ];
 
     const list = (anchor: Anchor) => (
         <Box
-            sx={{ width: 600, p: 2,display:'flex',flexDirection: 'column',gap:2  }}
+            sx={{ width: 600, p: 2.5,display:'flex',flexDirection: 'column',gap:2  }}
             role="presentation"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <Flex flexDirection={'column'} gap={2}>
                 <Flex direction="row" justifyContent="space-between">
-                    <Typography variant="h6" component="div">Call Details</Typography>
-                    <Typography variant="h6" component="div">Missed</Typography>
+                    <Typography fontWeight={'bold'} variant="h6" component="h5">Call Details</Typography>
+                    <Typography sx={{px:1,py:.5,borderRadius:'5px',bgcolor:"#3FC28A1A",color:'#3FC28A'}}>Completed</Typography>
                 </Flex>
 
                 <Flex direction="row" justifyContent="space-between">
@@ -76,8 +76,12 @@ export default function AnchorTemporaryDrawer() {
             </Flex>
 
             <Flex flexDirection="column"  gap={2}>
-                <Typography>Agent Details</Typography>
+                <Typography fontWeight={'bold'} variant={"h6"}>Agent Details</Typography>
                 <DetailBox labelValues={labelValues3} />
+            </Flex>
+
+            <Flex>
+                <Typography fontWeight={'bold'} variant={"h6"}>Related Calls</Typography>
 
             </Flex>
 

@@ -5,16 +5,17 @@ import { Typography, Chip } from '@mui/material';
 import { Flex } from 'modules/core/components/flex';
 import { styles } from '../consts/Styles';
 
-type DetailBoxProps = {
-    labelValues: { label: string; value: string; icon?: React.ReactNode }[];
+export type DetailBoxProps = {
+    labelValues: { label: string; value:React.ReactNode; icon?: React.ReactNode}[];
 };
 
 const DetailBox: React.FC<DetailBoxProps> = ({ labelValues }) => {
 
     const getLanguageStyle = (language: string): React.CSSProperties =>
-        styles.language[language] || { color: "#6C757D" }; // Default gray for unsupported languages
+        styles.language[language] || { color: "#6C757D" }; // default gray for unsupported languages
+
     const renderLanguage = (language: string) => {
-        const [lang1, lang2] = language.split(" - "); // Split languages into two parts
+        const [lang1, lang2] = language.split(" - ");
         return (
             <>
                 <span style={getLanguageStyle(lang1)}>{lang1}</span> -{" "}
@@ -41,7 +42,6 @@ const DetailBox: React.FC<DetailBoxProps> = ({ labelValues }) => {
                 p={1.5}
                 justifyContent="center"
                 gap={2}
-                // width="83px"
             >
                 {labelValues.map((item, index) => (
                     <Typography key={index} fontSize={12}>
@@ -49,7 +49,9 @@ const DetailBox: React.FC<DetailBoxProps> = ({ labelValues }) => {
                     </Typography>
                 ))}
             </Flex>
+
             <Divider orientation="vertical" flexItem />
+
             <Flex
                 fontSize={12}
                 flexDirection="column"
@@ -65,14 +67,11 @@ const DetailBox: React.FC<DetailBoxProps> = ({ labelValues }) => {
                         fontSize={12}
                         sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}
                     >
-                        {item.label === 'Language' ? (
-                            <>{renderLanguage(item.value)}</>
-                        ) : (
-                            <>
-                                {item.value}
-                                {item.icon}
-                            </>
-                        )}
+                        {
+                            item.label === 'Language'&& typeof item.value === 'string'
+                                ?  <> {renderLanguage(item.value)} </>
+                                : <> {item.value} {item.icon} </>
+                        }
                     </Box>
                 ))}
             </Flex>

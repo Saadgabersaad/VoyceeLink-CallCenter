@@ -41,7 +41,7 @@ export const styles = {
 // ];
 //
 // export const labelValues2 = [
-//     { label: 'Type', value: 'Video Call',icon:<VideoCallOutlinedIcon sx={{color:PRIMARY}} aria-label="Video Call"  />},
+//     { label: 'Type', value: 'Video Call', icon: VideoCallOutlinedIcon, iconColor: PRIMARY },
 //     { label: 'Date', value: 'Fri Dec 16, 2022' },
 //     { label: 'Start Time', value: '--' },
 //     { label: 'End Time', value: '--' },
