@@ -10,24 +10,27 @@ import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import {PRIMARY} from "modules/core/consts/theme";
 
 type Anchor = 'right';
+const AnchorValue = 'right';
 
 export default function AnchorTemporaryDrawer() {
     const [state, setState] = React.useState({
         right: false,
     });
 
-    const toggleDrawer =
-        (anchor: Anchor, open: boolean) =>
-            (event: React.KeyboardEvent | React.MouseEvent) => {
-                if (
-                    event.type === 'keydown' &&
-                    ((event as React.KeyboardEvent).key === 'Tab' ||
-                        (event as React.KeyboardEvent).key === 'Shift')
-                ) {
-                    return;
-                }
-                setState({ ...state, [anchor]: open });
-            };
+    const toggleDrawer = (anchor: Anchor, open: boolean) =>
+        (event: React.KeyboardEvent | React.MouseEvent) => {
+            if (
+                event.type === 'keydown'
+                && (
+                    (event as React.KeyboardEvent).key === 'Tab'
+                    || (event as React.KeyboardEvent).key === 'Shift'
+                )
+            ) {
+                return;
+            }
+
+            setState({ ...state, [anchor]: open });
+        };
 
     const labelValues1 = [
         { label: 'ID', value: '#CM9804888RA890' },
@@ -83,7 +86,7 @@ export default function AnchorTemporaryDrawer() {
 
     return (
         <div>
-            {(['right'] as const).map((anchor) => (
+            {([AnchorValue] as const).map((anchor) => (
                 <React.Fragment key={anchor}>
                     <Box onClick={toggleDrawer(anchor, true)} sx={{ display: 'inline-block', cursor: 'pointer' }}>
                         <VisibilityIcon />
