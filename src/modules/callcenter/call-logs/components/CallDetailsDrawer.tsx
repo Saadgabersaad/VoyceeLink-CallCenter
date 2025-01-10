@@ -2,16 +2,19 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import DetailBox from './DetailsCards';
 import Drawer from '@mui/material/Drawer';
-import { Typography } from '@mui/material';
+import {Button, Typography } from '@mui/material';
 import Divider from "@mui/material/Divider";
 import { Flex } from "modules/core/components/flex";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {labelValues1, labelValues2, labelValues3} from "modules/callcenter/call-logs/consts/labels";
+import {RelatedCallsTable} from "modules/callcenter/call-logs/components/RelatedCallsTable";
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import {PRIMARY} from "modules/core/consts/theme";
 
 type Anchor = 'right';
 const AnchorValue = 'right';
-
 export default function AnchorTemporaryDrawer() {
+    const [completed] = React.useState(Boolean);
     const [state, setState] = React.useState({
         right: false,
     });
@@ -37,10 +40,20 @@ export default function AnchorTemporaryDrawer() {
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
+            <Flex direction="row" alignItems={'center'} gap={1.5} color={PRIMARY} cursor={'pointer'}>
+                <ArrowBackIosNewIcon sx={{fontSize:'12px'}}/>
+                <Typography fontWeight={'bold'} variant="subtitle2" component="h5">Back</Typography>
+            </Flex>
+
             <Flex flexDirection={'column'} gap={2}>
                 <Flex direction="row" justifyContent="space-between">
                     <Typography fontWeight={'bold'} variant="h6" component="h5">Call Details</Typography>
-                    <Typography sx={{px:1,py:.5,borderRadius:'5px',bgcolor:"#3FC28A1A",color:'#3FC28A'}}>Completed</Typography>
+                    {
+                        completed ?
+                        <Typography sx={{px: 1, py: .5, borderRadius: '5px', bgcolor: "#3FC28A1A", color: '#3FC28A'}}>Completed</Typography>
+                        :
+                        <Typography sx={{px: 1, py: .5, borderRadius: '5px', bgcolor: "#F45B691A", color: '#F45B69'}}>Missed</Typography>
+                    }
                 </Flex>
 
                 <Flex direction="row" justifyContent="space-between">
@@ -55,9 +68,10 @@ export default function AnchorTemporaryDrawer() {
                 <DetailBox labelValues={labelValues3} />
             </Flex>
 
-            <Flex>
+            {completed && <Flex flexDirection={'column'} gap={2}>
                 <Typography fontWeight={'bold'} variant={"h6"}>Related Calls</Typography>
-            </Flex>
+                <RelatedCallsTable/>
+            </Flex>}
         </Box>
     );
 

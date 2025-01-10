@@ -11,6 +11,7 @@ export type EnhancedTableProps<T> = {
   onPageChange(newPage: number): void
   mainModal?: React.ReactNode
   render?: (row: T, index: number) => React.ReactNode
+  showCheckBox?: boolean
 }
 
 export function EnhancedTable<T>({
@@ -18,6 +19,7 @@ export function EnhancedTable<T>({
   render,
   headCells,
   loading,
+  showCheckBox,
   rowsPerPageCount = 10,
   onPageChange,
 }: EnhancedTableProps<T>) {
@@ -95,6 +97,7 @@ const visibleRows = React.useMemo(
             headCells={headCells}
             numSelected={selected.length}
             rowCount={rows?.length || 0}
+            showCheckBox={showCheckBox}
             onSelectAllClick={handleSelectAllClick}
           />
           <TableBody>
@@ -115,16 +118,16 @@ const visibleRows = React.useMemo(
                       selected={isItemSelected}
                       sx={{ cursor: 'pointer', height: '65px',width: 'fit-content' }}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          onClick={(event) => handleClick(event, key)}
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            'aria-labelledby': labelId,
-                          }}
+                      {showCheckBox &&  <TableCell padding="checkbox">
+                      <Checkbox
+                            onClick={(event) => handleClick(event, key)}
+                            color="primary"
+                            checked={isItemSelected}
+                            inputProps={{
+                              'aria-labelledby': labelId,
+                            }}
                         />
-                      </TableCell>
+                      </TableCell>}
                       {render && render(row, index)}
                     </TableRow>
                   );

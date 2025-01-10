@@ -47,6 +47,7 @@ export const Table = ({
             rows={rows!}
             headCells={headCells}
             loading={loading!}
+            showCheckBox={true}
             onPageChange={() => {}}
             render={(row: Logs) => (
                 <>

@@ -5,6 +5,7 @@ type EnhacedTableHeadProps = {
   rowCount: number
   numSelected: number
   headCells: HeadCell[]
+  showCheckBox?: boolean
   onSelectAllClick: (e:React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -13,21 +14,22 @@ export function EnhancedTableHead({
   headCells,
   rowCount,
   numSelected,
-  onSelectAllClick
+  onSelectAllClick,
+    showCheckBox=true,
 }: EnhacedTableHeadProps) {
   return (
     <TableHead>
       <TableRow sx={{bgcolor:'#f7f7f7'}} >
-        <TableCell  padding="checkbox" >
+        {showCheckBox && <TableCell padding="checkbox">
           <Checkbox
-            color='primary'
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all ',
-            }}
+              color='primary'
+              checked={rowCount > 0 && numSelected === rowCount}
+              onChange={onSelectAllClick}
+              inputProps={{
+                'aria-label': 'select all ',
+              }}
           />
-        </TableCell>
+        </TableCell>}
         {headCells.map((headCell) => (
           <TableCell
               width={'fit-content'}

@@ -35,6 +35,7 @@ export default function Employees({
             />
             <EnhancedTable
                 rows={rows}
+                showCheckBox={true}
                 rowsPerPageCount={4}
                 render={(row, index) => {
                     const labelId = `enhanced-table-checkbox-${index}`;
