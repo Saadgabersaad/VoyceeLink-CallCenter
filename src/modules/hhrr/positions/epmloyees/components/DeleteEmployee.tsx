@@ -18,6 +18,7 @@ export const DeletePositionTable: React.FC<DeletePositionTableProps> = ({ rows, 
         <EnhancedTable
             rows={rows!}
             loading={loading!}
+            showCheckBox={true}
             headCells={DeleteHeadCells}
             onPageChange={() => {
             }}

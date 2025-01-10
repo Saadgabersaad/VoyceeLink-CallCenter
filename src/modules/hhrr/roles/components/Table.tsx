@@ -43,6 +43,7 @@ export const RolesTable = () => {
           numeric: false
         }
       ]}
+      showCheckBox={true}
       rowsPerPageCount={10}
       onPageChange={() => {}}
       render={(row) => (

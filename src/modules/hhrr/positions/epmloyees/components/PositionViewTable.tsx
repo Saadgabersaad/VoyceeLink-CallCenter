@@ -22,6 +22,7 @@ export const Table =({ department }: TableProps) => {
             rows={rows!}
             loading={loading!}
             headCells={headCells}
+            showCheckBox={true}
             onPageChange={() => { }}
             render={(row) => {
                 return <>

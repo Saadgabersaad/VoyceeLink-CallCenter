@@ -42,7 +42,8 @@ export default function Employees({ departmentId, department }: Props) {
 
   return <>
     <EnhancedTable
-      loading={isLoading}
+        showCheckBox={true}
+        loading={isLoading}
       rows={data?.data ?? []}
       render={(row) => {
         return <>

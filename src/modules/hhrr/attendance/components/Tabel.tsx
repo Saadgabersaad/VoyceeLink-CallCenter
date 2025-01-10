@@ -144,6 +144,7 @@ export const AttendanceTable = () => {
 
       <EnhancedTable
         loading={false}
+        showCheckBox={true}
         rows={filteredRows as any[]}
         headCells={[
           { id: 'name', label: 'Name', disablePadding: false, numeric: false },

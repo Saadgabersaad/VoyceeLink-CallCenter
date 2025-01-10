@@ -10,6 +10,7 @@ import { PRIMARY } from 'modules/core/consts/theme';
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { BasicSelect } from "modules/callcenter/call-logs/components/FilterSelector";
+import {filterOptions} from "modules/callcenter/call-logs/consts/filterOptions";
 
 export default function FilterButton() {
     const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -24,13 +25,6 @@ export default function FilterButton() {
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
-
-    const filterOptions = [
-        { label: "Select Languages" },
-        { label: "Select Client" },
-        { label: "Select Speciality" },
-        { label: "Select Status" },
-    ];
 
     return (
         <div>

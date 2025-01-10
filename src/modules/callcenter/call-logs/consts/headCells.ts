@@ -13,6 +13,13 @@ export const headCells: HeadCell[] = [
     { id: 'eye', numeric: false, disablePadding: true, label: '' },
 ]
 
+export const callsHeadCells: HeadCell[] = [
+    {id: 'id', numeric: false, disablePadding: false, label: 'ID',},
+    { id: 'agent', numeric: false, disablePadding: true , label: 'Agent' },
+    { id: 'status', numeric: false, disablePadding: true, label: 'Status' },
+    { id: 'time', numeric: false, disablePadding: true, label: 'Time ' },
+]
+
 export const rows = [
     { type: 'video', id: '#CM9804888RA891', interpreter: 'Natali Craig', client:'client Name',  language: 'English - Spanish' ,speciality:'UI/UX' ,status:'In Progress',duration:'--',timeStamp:'Fri Dec 16, 2022 - 18:59:44' },
     { type: 'video', id: '#CM9804888RA892', interpreter: 'Natali Craig', client:'client Name',  language: 'English - Spanish' ,speciality:'UI/UX' ,status:'Missed',duration:'-- ',timeStamp:'Fri Dec 16, 2022 - 18:59:44' },

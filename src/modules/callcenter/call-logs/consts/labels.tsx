@@ -1,5 +1,6 @@
 import {PRIMARY} from "modules/core/consts/theme";
 import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
+import Status from "modules/callcenter/call-logs/components/Status";
 
 
 export const labelValues1 = [
@@ -11,7 +12,7 @@ export const labelValues1 = [
 ];
 
 export const labelValues2 = [
-    { label: 'Type', value: 'Video Call', icon: <VideoCallOutlinedIcon/>, iconColor: PRIMARY },
+    { label: 'Type', value: 'Video Call', icon: <VideoCallOutlinedIcon sx={{color:PRIMARY}}/> },
     { label: 'Date', value: 'Fri Dec 16, 2022' },
     { label: 'Start Time', value: '--' },
     { label: 'End Time', value: '--' },
@@ -21,6 +22,6 @@ export const labelValues2 = [
 export const labelValues3 = [
     { label: 'ID', value: '#7852'},
     { label: 'Name', value: 'Orlando Diggs' },
-    { label: 'Status', value: '--' },
+    { label: 'Status', value:<Status/> },
 
 ];

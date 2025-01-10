@@ -40,6 +40,7 @@ export const Table = ({
         <EnhancedTable
             rows={rows!}
             loading={loading!}
+            showCheckBox={true}
             headCells={headCells}
             onPageChange={() => { }}
             render={(row) => {

@@ -25,6 +25,7 @@ export const PositionsTable = () => {
     <EnhancedTable
       rowsPerPageCount={10}
       rows={rows as any[]}
+      showCheckBox={true}
       headCells={[
         { id: 'id', numeric: false, disablePadding: true, label: 'ID' },
         { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
