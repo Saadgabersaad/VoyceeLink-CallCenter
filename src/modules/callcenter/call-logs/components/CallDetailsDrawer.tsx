@@ -1,14 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import { Typography } from '@mui/material';
-import { Flex } from "modules/core/components/flex";
-import Divider from "@mui/material/Divider";
 import DetailBox from './DetailsCards';
-import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
-import {PRIMARY} from "modules/core/consts/theme";
-import Status from "modules/callcenter/call-logs/components/Status";
+import Drawer from '@mui/material/Drawer';
+import { Typography } from '@mui/material';
+import Divider from "@mui/material/Divider";
+import { Flex } from "modules/core/components/flex";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import {labelValues1, labelValues2, labelValues3} from "modules/callcenter/call-logs/consts/labels";
 
 type Anchor = 'right';
 const AnchorValue = 'right';
@@ -31,29 +29,6 @@ export default function AnchorTemporaryDrawer() {
             }
             setState({ ...state, [anchor]: open });
         };
-
-    const labelValues1 = [
-        { label: 'ID', value: '#CM9804888RA890' },
-        { label: 'Language', value: 'Spanish - English' },
-        { label: 'Campaign', value: 'Campaign Name' },
-        { label: 'Client', value: 'Client Name' },
-        { label: 'Speciality', value: 'Medical' },
-    ];
-
-    const labelValues2 = [
-        { label: 'Type', value: 'Video Call',icon:<VideoCallOutlinedIcon sx={{color:PRIMARY}} aria-label="Video Call"  />},
-        { label: 'Date', value: 'Fri Dec 16, 2022' },
-        { label: 'Start Time', value: '--' },
-        { label: 'End Time', value: '--' },
-        { label: 'Duration', value: '--' },
-    ];
-
-    const labelValues3 = [
-        { label: 'ID', value: '#7852'},
-        { label: 'Name', value: 'Orlando Diggs' },
-        { label: 'Status', value:<Status/>},
-
-    ];
 
     const list = (anchor: Anchor) => (
         <Box
@@ -82,9 +57,7 @@ export default function AnchorTemporaryDrawer() {
 
             <Flex>
                 <Typography fontWeight={'bold'} variant={"h6"}>Related Calls</Typography>
-
             </Flex>
-
         </Box>
     );
 
