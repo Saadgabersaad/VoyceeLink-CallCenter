@@ -1,7 +1,36 @@
-
 export const filterOptions = [
-    { label: "Select Languages" },
-    { label: "Select Client" },
-    { label: "Select Speciality" },
-    { label: "Select Status" },
+    {
+        label: "Language",
+        field: "language",
+        menuItems: [
+            { label: "English", value: "English" },
+            { label: "Spanish", value: "Spanish" },
+            { label: "French", value: "French" },
+        ],
+    },
+    {
+        label: "Client",
+        field: "client",
+        menuItems: [
+            { label: "Client A", value: "Client A" },
+            { label: "Client B", value: "Client B" },
+        ],
+    },
+    {
+        label: "Speciality",
+        field: "speciality",
+        menuItems: [
+            { label: "UI/UX", value: "UI/UX" },
+            { label: "FrontEnd", value: "FrontEnd" },
+        ],
+    },
+    {
+        label: "Status",
+        field: "status",
+        menuItems: [
+            { label: "Completed", value: "Completed" },
+            { label: "in Progress", value: "In Progress" },
+            { label: "missed", value: "Missed" },
+        ],
+    },
 ];
