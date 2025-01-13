@@ -1,6 +1,7 @@
 import React from "react";
 
 export interface Logs {
+    [key: string]: any;
     type: string;
     id: string;
     interpreter: string;

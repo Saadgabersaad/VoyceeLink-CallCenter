@@ -1,6 +1,6 @@
 import React from 'react'
-import {Heading, Page} from 'modules/core/components/page'
 import CallLogsTabs from '../components/LogsTabs'
+import {Heading, Page} from 'modules/core/components/page'
 
 const CallLogs = () => {
 

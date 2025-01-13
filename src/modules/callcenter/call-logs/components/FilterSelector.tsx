@@ -5,21 +5,33 @@ import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
-export function BasicSelect({ value, onChange }: { value: string, onChange: (event: SelectChangeEvent) => void }) {
+
+interface BasicSelectProps {
+    value: string;
+    onChange: (event: SelectChangeEvent) => void;
+    menuItems: { label: string; value: string | number }[];
+}
+
+export function BasicSelect({
+                                value,
+                                onChange,
+                                menuItems,
+                            }:BasicSelectProps) {
     return (
         <Box sx={{ minWidth: 400 }}>
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Select Filter</InputLabel>
+                <InputLabel id="filter-select-label">Select Filter</InputLabel>
                 <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="filter-select-label"
                     value={value}
-                    label="Select Filter"
                     onChange={onChange}
+                    label={'Select Filter'}
                 >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {menuItems.map((item) => (
+                        <MenuItem key={item.value} value={item.value}>
+                            {item.label}
+                        </MenuItem>
+                    ))}
                 </Select>
             </FormControl>
         </Box>

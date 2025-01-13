@@ -1,12 +1,10 @@
 import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import { Search } from 'modules/core/components/Search';
+import Tabs from '@mui/material/Tabs';
 import Table from "modules/callcenter/call-logs/components/Table";
 import {useCallLogs} from "modules/callcenter/call-logs/hooks/use-call-logs";
-import { Flex } from 'modules/core/components/flex';
-import FilterButton from "modules/callcenter/call-logs/components/FilterButton";
+
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -45,7 +43,7 @@ export default function ProfileTabs() {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider',margin:'auto',mb:2    }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider',margin:'auto',    }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab label="My Team Calls" {...a11yProps(0)} />
                     <Tab label="Missed Calls" {...a11yProps(1)} />
@@ -53,10 +51,10 @@ export default function ProfileTabs() {
                 </Tabs>
             </Box>
 
-            <Flex justifyContent='space-between'>
-                <Search onSearch={onSearch}/>
-                <FilterButton/>
-            </Flex>
+            {/*<Flex justifyContent='space-between'>*/}
+            {/*    <Search onSearch={onSearch}/>*/}
+            {/*    <FilterButton/>*/}
+            {/*</Flex>*/}
 
             <CustomTabPanel value={value} index={0}>
                 <Table/>
