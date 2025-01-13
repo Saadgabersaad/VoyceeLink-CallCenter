@@ -46,7 +46,6 @@ export default function FilterButton({ onApplyFilters, rows }: { onApplyFilters:
         handleClose();
     };
 
-
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
 

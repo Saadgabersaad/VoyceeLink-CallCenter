@@ -35,7 +35,6 @@ function a11yProps(index: number) {
 }
 
 export default function ProfileTabs() {
-    const {onSearch}=useCallLogs()
     const [value, setValue] = React.useState(0);
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -51,10 +50,6 @@ export default function ProfileTabs() {
                 </Tabs>
             </Box>
 
-            {/*<Flex justifyContent='space-between'>*/}
-            {/*    <Search onSearch={onSearch}/>*/}
-            {/*    <FilterButton/>*/}
-            {/*</Flex>*/}
 
             <CustomTabPanel value={value} index={0}>
                 <Table/>

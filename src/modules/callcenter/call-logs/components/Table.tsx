@@ -17,12 +17,12 @@ export const Table = ({ loading }: Partial<EnhancedTableProps<Logs>>) => {
     const [filteredRows, setFilteredRows] = useState(rows);
 
     const applyFilters = (filters: { [key: string]: string }) => {
-        let newRows = [...rows]; // Copy rows to avoid mutation
+        let newRows = [...rows];
 
         Object.entries(filters).forEach(([key, value]) => {
             if (value) {
                 newRows = newRows.filter((row) => {
-                    // Ensure row has the key and it's a string
+
                     if (key in row) {
                         return String(row[key as keyof typeof row])
                             ?.toLowerCase()
@@ -36,12 +36,11 @@ export const Table = ({ loading }: Partial<EnhancedTableProps<Logs>>) => {
         setFilteredRows(newRows);
     };
 
-
     const getLanguageStyle = (language: string): React.CSSProperties =>
-        styles.language[language] || { color: "#6C757D" }; // Default gray for unsupported languages
+        styles.language[language] || { color: "#6C757D" };
 
     const getStatusStyle = (status: string): React.CSSProperties =>
-        styles.status[status] || { backgroundColor: "#F8F9FA", color: "#6C757D" }; // Default gray for unsupported statuses
+        styles.status[status] || { backgroundColor: "#F8F9FA", color: "#6C757D" };
 
     const renderLanguage = (language: string) => {
         const [lang1, lang2] = language.split(" - ");
