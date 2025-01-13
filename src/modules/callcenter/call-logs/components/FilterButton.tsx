@@ -49,13 +49,6 @@ export default function FilterButton({ onApplyFilters, rows }: { onApplyFilters:
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
 
-    const renderLastRow = () => {
-        if (filteredRows.length > 0) {
-            const lastRow = filteredRows[filteredRows.length - 1];
-
-        }
-        return null;
-    };
 
     return (
         <div>
@@ -120,7 +113,6 @@ export default function FilterButton({ onApplyFilters, rows }: { onApplyFilters:
                     </Flex>
                 </Box>
             </Popover>
-            {renderLastRow()}
         </div>
     );
 }
