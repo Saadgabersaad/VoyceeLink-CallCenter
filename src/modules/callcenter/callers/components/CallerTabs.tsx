@@ -2,9 +2,7 @@ import * as React from 'react';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
-import Table from "modules/callcenter/call-logs/components/Table";
-import {useCallLogs} from "modules/callcenter/call-logs/hooks/use-call-logs";
-
+import Table from './Table';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -42,17 +40,16 @@ export default function ProfileTabs() {
 
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider',margin:'auto',    }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider',margin:'auto'  }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="My Team Calls" {...a11yProps(0)} />
-                    <Tab label="Missed Calls" {...a11yProps(1)} />
-                    <Tab label="Live Calls" {...a11yProps(2)} />
+                    <Tab sx={{fontWeight:'bold'}} label="All" {...a11yProps(0)} />
+                    <Tab sx={{fontWeight:'bold'}} label="Active" {...a11yProps(1)} />
+                    <Tab sx={{fontWeight:'bold'}} label="InActive" {...a11yProps(2)} />
                 </Tabs>
             </Box>
 
-
             <CustomTabPanel value={value} index={0}>
-                <Table/>
+            <Table/>
             </CustomTabPanel>
 
             <CustomTabPanel  value={value} index={1}></CustomTabPanel>

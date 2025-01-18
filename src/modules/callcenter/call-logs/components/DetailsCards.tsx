@@ -12,7 +12,7 @@ export type DetailBoxProps = {
 const DetailBox: React.FC<DetailBoxProps> = ({ labelValues }) => {
 
     const getLanguageStyle = (language: string): React.CSSProperties =>
-        styles.language[language] || { color: "#6C757D" }; // default gray for unsupported languages
+        styles.language[language] || { color: "#6C757D" };
 
     const renderLanguage = (language: string) => {
         const [lang1, lang2] = language.split(" - ");
