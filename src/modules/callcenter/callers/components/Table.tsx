@@ -9,11 +9,15 @@ import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
 import { EnhancedTable, EnhancedTableProps } from "modules/core/components/tables/EnhancedTable";
 import StatusMenu from "./StatusMenu";
+import DottedMenu from "./DottedMenu";
+import CallsType from "modules/callcenter/callers/components/CallsType";
 
 export const Table = ({ loading }: Partial<EnhancedTableProps<Caller>>) => {
     const handleStatusChange = (rowId: string, newStatus: string) => {
         console.log(`Row ${rowId} status updated to ${newStatus}`);
-        // Add additional logic for updating the status here, e.g., API calls
+    };
+    const handleTypeChange = (rowId: string, newType: string) => {
+        console.log(`Row ${rowId} status updated to ${newType}`);
     };
 
     return (
@@ -31,7 +35,11 @@ export const Table = ({ loading }: Partial<EnhancedTableProps<Caller>>) => {
                     <>
                         <TableCell padding="none">{row.callerName}</TableCell>
                         <TableCell padding="none">{row.email}</TableCell>
-                        <TableCell padding="none">{row.type}</TableCell>
+                        <TableCell padding="none">
+                            <CallsType
+                                type={row.type}
+                                onTypeChange={(newType) => handleTypeChange(row.id , newType)}/>
+                            </TableCell>
                         <TableCell padding="none">
                             <StatusMenu
                                 status={row.status}
@@ -51,6 +59,7 @@ export const Table = ({ loading }: Partial<EnhancedTableProps<Caller>>) => {
                             </Flex>
                         </TableCell>
                         <TableCell padding="none">
+                            <DottedMenu/>
                         </TableCell>
                     </>
                 )}
