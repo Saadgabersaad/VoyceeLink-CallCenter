@@ -8,3 +8,8 @@ export interface Caller {
     voice: string;
 
 }
+export interface CreateCaller{
+    name:string;
+    email:string;
+    type:string;
+}
