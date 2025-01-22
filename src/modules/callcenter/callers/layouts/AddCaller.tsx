@@ -1,11 +1,11 @@
-import * as React from "react";
-import { Box, Divider, Grid2, Checkbox, TextField, Autocomplete, Button } from "@mui/material";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import { typeOptions } from "modules/callcenter/callers/consts/typeOptions";
-import { FormActions, FormDialog, FormDialogContent } from "modules/core/components/FormDialog";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid2";
-import { useState } from "react";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import { typeOptions } from "modules/callcenter/callers/consts/typeOptions";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import { Box, Divider, Grid2, Checkbox, TextField, Autocomplete } from "@mui/material";
+import { ConfirmationModal } from "modules/callcenter/callers/layouts/ConfirmationModal";
+import { FormActions, FormDialog, FormDialogContent } from "modules/core/components/FormDialog";
 
 type Props = {
     open: boolean;
@@ -16,9 +16,8 @@ export function AddCaller({ open, onClose }: Props) {
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [callType, setCallType] = useState<string[]>([]);
-    const [loading, setLoading] = useState<boolean>(false); // Loading state for submit button
+    const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState<boolean>(false);
 
-    // Check if the form is valid
     const isFormValid = name.trim() !== "" && email.trim() !== "" && callType.length > 0;
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,23 +32,13 @@ export function AddCaller({ open, onClose }: Props) {
         setCallType(selectedOptions);
     };
 
-    const onSubmit = async () => {
-        setLoading(true);
-        try {
-            // Simulate API call
-            console.log({ name, email, callType });
-            // Add your actual API call here
-            setLoading(false);
-            onClose(); // Close the dialog on successful submission
-        } catch (error) {
-            console.error("Error submitting form:", error);
-            setLoading(false);
-        }
+    const onSubmit =  () => {
+            setIsConfirmationModalOpen(true);
     };
 
     return (
         <>
-            <FormDialog open={open} onClose={onClose} onFinish={onSubmit} title="Add New Caller">
+            <FormDialog open={open} onClose={() => { }} onFinish={onSubmit} title="Add New Caller">
                 <FormDialogContent>
                     <Divider sx={{ mt: 1.5 }} />
                     <Grid2 container columnSpacing={2} rowSpacing={0.5} sx={{ mt: 1.5 }}>
@@ -74,19 +63,22 @@ export function AddCaller({ open, onClose }: Props) {
                                 value={email}
                                 error={!email.trim() && email !== ""}
                                 helperText={!email.trim() && email !== "" ? "Email is required" : ""}
-                                aria-label="Email"
                             />
                         </Grid2>
                         <Grid marginTop={5} size={6}>
                             <CheckboxesTags onChange={handleCallTypeChange} />
                         </Grid>
                     </Grid2>
+                    <FormActions
+                        buttonText={"Send Invite Email"}
+                        disabled={!isFormValid}
+                        onClose={onClose}
+                    />
+
                 </FormDialogContent>
-                <FormActions
-                    buttonText={loading ? "Sending..." : "Send invite Email"}
-                    onClose={onClose}
-                    disabled={!isFormValid || loading}
-                />
+                <ConfirmationModal
+                    open={isConfirmationModalOpen}
+                    onClose={onClose}   />
             </FormDialog>
         </>
     );
@@ -110,7 +102,6 @@ export default function CheckboxesTags({ onChange }: CheckboxesTagsProps) {
     return (
         <Autocomplete
             multiple
-            id="checkboxes-tags-demo"
             options={typeOptions}
             disableCloseOnSelect
             getOptionLabel={(option) => option.label}
