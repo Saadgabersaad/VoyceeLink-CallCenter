@@ -13,11 +13,11 @@ export const headCells: HeadCell[] = [
 
 
 export const rows = [
-    { id: '1',  callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'video',status:'Active', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
-    { id: '2', callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'video',status:'Active', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
-    { id: '3', callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'video',status:'Inactive', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
-    { id: '4', callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'video',status:'Active', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
-    { id: '5', callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'video',status:'Inactive', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
-    { id: '6',callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'video',status:'Active', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
+    { id: '1',  callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'Video',status:'Active', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
+    { id: '2', callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'Video&Audio',status:'Active', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
+    { id: '3', callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'Audio',status:'Inactive', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
+    { id: '5', callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'Video',status:'Inactive', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
+    { id: '4', callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'Audio',status:'Active', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
+    { id: '6',callerName: 'Natali Craig',email:"saad.gabe@languagebridge", type: 'Video&Audio',status:'Active', video:'15 -  (33m)',  voice: '15 -  (33m)'  },
 
 ];
