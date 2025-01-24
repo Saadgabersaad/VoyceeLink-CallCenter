@@ -13,6 +13,8 @@ type FormProps<T> = {
   defaultValues?: Partial<T>
   onFinish(values: T): void
   onClose(): void
+  fullWidth?:boolean,
+  maxWidth?: "xs" | "sm" | "md" | "lg" | "xl" | false;
 }
 
 export type DialogProps = Partial<{
@@ -29,6 +31,8 @@ export const FormDialog = <T extends FieldValues>({
   children,
   onFinish,
   defaultValues,
+    maxWidth='sm',
+    fullWidth=false
 }: FormProps<T>) => {
   const methods = useForm<T>(defaultValues ? {
     defaultValues: defaultValues as DefaultValues<T>
@@ -44,8 +48,8 @@ export const FormDialog = <T extends FieldValues>({
 
   return (
     <Dialog
-      fullWidth={true}
-      maxWidth={'md'}
+      fullWidth={fullWidth}
+      maxWidth={maxWidth}
       open={open}
       onClose={onClose}
       PaperProps={{
