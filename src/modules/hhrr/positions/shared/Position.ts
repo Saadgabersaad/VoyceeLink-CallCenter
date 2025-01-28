@@ -2,6 +2,7 @@
 export interface CreatePosition {
     position: string
     departmentId: string
+    name: string
 }
 export interface ChangePositionName {
     name:string,

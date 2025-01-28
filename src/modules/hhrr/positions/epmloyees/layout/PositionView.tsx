@@ -14,7 +14,7 @@ export default function PositionView() {
     const {data} = useDepartmentById()
     const [positionName, setPositionName] = React.useState(name);
     // @ts-ignore
-    const departmentName = data.name  || ''
+    const departmentName:string = data.name  || ''
 
     return (
         <Page>
@@ -25,6 +25,7 @@ export default function PositionView() {
                 <Flex gap={2}>
                     <TextField
                         fullWidth
+                        disabled
                         id="outlined-controlled"
                         label="Position Name"
                         value={positionName}
@@ -34,6 +35,7 @@ export default function PositionView() {
                     />
                     <TextField
                         fullWidth
+                        disabled
                         id="outlined-controlled"
                         label="Department Related"
                         value={departmentName}

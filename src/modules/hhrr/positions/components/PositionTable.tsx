@@ -51,9 +51,9 @@ export const Table = ({
                     <TableCell>
                         {row.name}
                     </TableCell>
-                    <TableCell>
-                        {row.departmentId}
-                    </TableCell>
+                    {/*<TableCell>*/}
+                    {/*    {row.departmentId}*/}
+                    {/*</TableCell>*/}
                     <TableCell>
                         {row.employeeCount}
                     </TableCell>

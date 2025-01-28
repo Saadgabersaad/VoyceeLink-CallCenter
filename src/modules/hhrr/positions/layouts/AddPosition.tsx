@@ -34,7 +34,7 @@ export function AddPosition({
 
         if (lastPosition.name.trim() === '') {
             setIsAddClicked(true);
-            return;
+            // return;
         }
         setPositions([...positions, { id: Date.now(), name: '' }]);
         setIsAddClicked(false); // Reset flag after adding a new position
@@ -56,6 +56,8 @@ export function AddPosition({
 
     return (
         <FormDialog
+            fullWidth={true}
+            maxWidth={'sm'}
             title="Add New Position"
             open={open!}
             onClose={onClose!}
