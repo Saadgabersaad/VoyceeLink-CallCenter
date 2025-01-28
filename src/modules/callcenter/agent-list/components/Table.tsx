@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import { TableCell } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import { PRIMARY } from "modules/core/consts/theme";
 import { Flex } from "modules/core/components/flex";
 import { headCells, rows } from "../consts/headCells";
 import { Search } from "modules/core/components/Search";
-import { Logs } from "modules/callcenter/call-logs/shared/Logs";
 import { styles } from "modules/callcenter/call-logs/consts/styles";
-import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
-import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
 import CallDetailsDrawer from "modules/callcenter/call-logs/components/CallDetailsDrawer";
 import { EnhancedTable, EnhancedTableProps } from "modules/core/components/tables/EnhancedTable";
+import StatusMenu from "modules/core/components/StatusMenu";
+import {Agents} from "modules/callcenter/agent-list/shared/Agents";
 import CallCenterFilter from "modules/core/components/CallCenterFilter";
 
-export const Table = ({ loading }: Partial<EnhancedTableProps<Logs>>) => {
+export const Table = ({ loading }: Partial<EnhancedTableProps<Agents>>) => {
     const [filteredRows, setFilteredRows] = useState(rows);
-
+    const handleStatusChange = (rowId: string, newStatus: string) => {
+        console.log(`Row ${rowId} status updated to ${newStatus}`);
+    };
     const applyFilters = (filters: { [key: string]: string }) => {
         let newRows = [...rows];
 
@@ -78,23 +78,19 @@ export const Table = ({ loading }: Partial<EnhancedTableProps<Logs>>) => {
                 loading={loading!}
                 showCheckBox={true}
                 onPageChange={() => {}}
-                render={(row: Logs) => (
+                render={(row: Agents) => (
                     <>
-                        <TableCell padding="none" sx={{ color: PRIMARY }}>
-                            {row.type === "video" ? (
-                                <VideoCallOutlinedIcon aria-label="Video Call" />
-                            ) : row.type === "voice" ? (
-                                <KeyboardVoiceOutlinedIcon aria-label="Voice Call" />
-                            ) : null}
-                        </TableCell>
                         <TableCell padding="none">{row.id}</TableCell>
-                        <TableCell padding="none">{row.interpreter}</TableCell>
-                        <TableCell padding="none">{row.client}</TableCell>
+                        <TableCell padding="none">
+                            <StatusMenu
+                                status={row.status}
+                                onStatusChange={(newStatus) => handleStatusChange(row.id, newStatus)}/>
+                        </TableCell>
                         <TableCell padding="none">{renderLanguage(row.language)}</TableCell>
+                        <TableCell padding="none">{row.campaign}</TableCell>
                         <TableCell padding="none">{row.speciality}</TableCell>
-                        <TableCell padding="none">{renderStatus(row.status)}</TableCell>
-                        <TableCell padding="none">{row.duration}</TableCell>
-                        <TableCell padding="none">{renderTimeStamp(row.timeStamp)}</TableCell>
+                        <TableCell padding="none">{row.client}</TableCell>
+                        <TableCell padding="none">{row.liveStatus}</TableCell>
                         <TableCell padding="none">
                             <IconButton>
                                 <CallDetailsDrawer status={row.status} />

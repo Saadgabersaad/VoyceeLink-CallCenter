@@ -8,9 +8,9 @@ import { Caller } from "modules/callcenter/callers/shared/Caller";
 import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined";
 import { EnhancedTable, EnhancedTableProps } from "modules/core/components/tables/EnhancedTable";
-import StatusMenu from "./StatusMenu";
 import DottedMenu from "./DottedMenu";
 import CallsType from "modules/callcenter/callers/components/CallsType";
+import StatusMenu from "modules/core/components/StatusMenu";
 
 export const Table = ({ loading }: Partial<EnhancedTableProps<Caller>>) => {
     const handleStatusChange = (rowId: string, newStatus: string) => {

@@ -7,7 +7,7 @@ import { Box, Button, Popover, Typography, IconButton } from "@mui/material";
 import {filterOptions} from "modules/callcenter/call-logs/consts/filterOptions";
 import {FilterDropDown} from "modules/callcenter/call-logs/components/FilterDropDown";
 
-export default function FilterButton({ onApplyFilters, rows }: { onApplyFilters: (filters: { [key: string]: string }) => void, rows: any[] }) {
+export default function CallCenterFilter({ onApplyFilters, rows }: { onApplyFilters: (filters: { [key: string]: string }) => void, rows: any[] }) {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [filterValues, setFilterValues] = useState<{ [key: string]: string }>({});
     const [filteredRows, setFilteredRows] = useState(rows);
