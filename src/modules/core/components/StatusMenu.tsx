@@ -48,7 +48,7 @@ export default function SimpleListMenu({ status, onStatusChange }: SimpleListMen
                 sx={{
                     p: 0.5,
                     pr: 2.5,
-                    border: 'solid 1px lightgray',
+                    border: 'solid 1px #F0F0F0',
                 }}
             >
                 <Box
