@@ -22,30 +22,46 @@ const Lists: React.FC<LanguageSelectorProps> = ({ language, campaign, speciality
     const [open, setOpen] = useState(false);
     const anchorRef = useRef<HTMLDivElement>(null);
 
-    // Ensure values are properly formatted with single dashes
-    const formatValue = (value: string) => value.trim().replace(/\s*-\s*/g, " - ");
+    // Parse all languages from the string
+    const languages = language.split(" - ");
+    const campaigns = campaign.split(" - ");
+    const specialities = speciality.split(" - ");
 
-    const languages = formatValue(language).split(" - ");
-    const campaigns = formatValue(campaign).split(" - ");
-    const specialties = formatValue(speciality).split(" - ");
+    // Style individual languages
+    const getLanguageStyle = (language: string): React.CSSProperties =>
+        styles.language[language] || { color: "black",fontWeight: "bold" };
 
-    // Function to get styles (only for languages)
-    const getStyle = (item: string, isLanguage: boolean): React.CSSProperties =>
-        isLanguage ? styles.language[item]  : { color: "black", fontWeight: "bold" };
 
-    // Render at most 2 items from each category
-    const renderFirstTwo = () => {
-        const displayItems = [
-            ...languages.slice(0, 2),
-            ...campaigns.slice(0, 2),
-            ...specialties.slice(0, 2)
-        ];
-        return displayItems.map((attr, index) => (
-            <span key={index} style={getStyle(attr, index < languages.length)}>
-                {attr}
-            </span>
-        )).reduce((prev, curr) => [prev, " - ", curr]);
+
+    // Render the first two languages with styles
+    const renderFirstTwoLanguages = () => {
+        const [lang1, lang2] = languages.slice(0, 2);
+        return (
+            <>
+                <span style={getLanguageStyle(lang1)}>{lang1}</span> -{" "}
+                <span style={getLanguageStyle(lang2)}>{lang2}</span>
+            </>
+        );
     };
+    const renderFirstTwoCampaign = () => {
+        const [camp1, camp2] = campaigns.slice(0, 2);
+        return (
+            <>
+                <span> {camp1}</span> -{" "}
+                <span>{camp2}</span>
+            </>
+        );
+    };
+    const renderFirstTwoSpecialises = () => {
+        const [spec1, spec2] = specialities.slice(0, 2);
+        return (
+            <>
+                <span style={getLanguageStyle(spec1)}>{spec1}</span> -{" "}
+                <span style={getLanguageStyle(spec2)}>{spec2}</span>
+            </>
+        );
+    };
+
 
     const handleToggle = () => setOpen((prev) => !prev);
 
@@ -71,7 +87,9 @@ const Lists: React.FC<LanguageSelectorProps> = ({ language, campaign, speciality
                     gap: 0.5,
                 }}
             >
-                {renderFirstTwo()}
+                {renderFirstTwoLanguages()}
+                {renderFirstTwoCampaign()}
+                {renderFirstTwoSpecialises()}
                 <KeyboardArrowDownIcon />
             </Button>
 
@@ -106,7 +124,7 @@ const Lists: React.FC<LanguageSelectorProps> = ({ language, campaign, speciality
                                         "&:hover": { opacity: 0.8 },
                                     }}
                                 >
-                                    <span style={getStyle(lang, true)}>{lang}</span>
+                                    <span style={getLanguageStyle(lang)}>{lang}</span>
                                 </MenuItem>
                             ))}
                             {/* Display campaigns */}
@@ -120,11 +138,12 @@ const Lists: React.FC<LanguageSelectorProps> = ({ language, campaign, speciality
                                         "&:hover": { opacity: 0.8 },
                                     }}
                                 >
-                                    <span>{camp}</span>
+
+                                    <span style={getLanguageStyle(camp)} >{camp}</span>
                                 </MenuItem>
                             ))}
-                            {/* Display specialties */}
-                            {specialties.map((spec, index) => (
+
+                            {specialities.map((spec, index) => (
                                 <MenuItem
                                     key={`spec-${index}`}
                                     sx={{
@@ -134,7 +153,8 @@ const Lists: React.FC<LanguageSelectorProps> = ({ language, campaign, speciality
                                         "&:hover": { opacity: 0.8 },
                                     }}
                                 >
-                                    <span>{spec}</span>
+
+                                    <span style={getLanguageStyle(spec)} >{spec}</span>
                                 </MenuItem>
                             ))}
                         </Box>
