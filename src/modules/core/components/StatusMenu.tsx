@@ -5,7 +5,7 @@ import { PRIMARY } from "modules/core/consts/theme";
 
 interface SimpleListMenuProps {
     status?: string;
-    onStatusChange: (status: string) => void;
+    onStatusChange?: (status: string) => void;
 }
 
 const statusOptions = [

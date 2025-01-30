@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, {useState, useRef} from "react";
 import {
     Button,
     Popover,
@@ -7,64 +7,52 @@ import {
     Box, Typography,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { styles } from "modules/callcenter/agent-list/consts/styles";
-import { PRIMARY } from "modules/core/consts/theme";
-import { KeyboardArrowUp } from "@mui/icons-material";
-import { Flex } from "modules/core/components/flex";
+import {styles} from "modules/callcenter/agent-list/consts/styles";
+import {PRIMARY} from "modules/core/consts/theme";
+import {KeyboardArrowUp} from "@mui/icons-material";
+import {Flex} from "modules/core/components/flex";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 interface LanguageSelectorProps {
-    language: string;
-    campaign: string;
-    speciality: string;
+    language?: string;
+    campaign?: string;
+    speciality?: string;
+    liveStatus?: string;
 }
 
-const Lists: React.FC<LanguageSelectorProps> = ({ language, campaign, speciality }) => {
+// Helper function to split strings into arrays
+const parseInput = (input?: string): string[] => input?.split(" - ") ?? [];
+
+// Helper function to apply styling
+const applyStyle = (key: string | undefined): React.CSSProperties =>
+    styles.language[key ?? ""] || {color: "black", fontWeight: "bold"};
+
+// Helper function to render dropdown items
+const renderItems = (items: string[], applyStyleFn: (key: string) => React.CSSProperties) =>
+    items.map((item, index) => (
+        <MenuItem
+            key={`${item}-${index}`}
+            sx={{
+                fontSize: "12px",
+                px: 0,
+                py: 0.5,
+                "&:hover": {opacity: 0.8},
+            }}
+        >
+            <span style={applyStyleFn(item)}>{item}</span>
+        </MenuItem>
+    ));
+
+const Lists: React.FC<LanguageSelectorProps> = ({language, campaign, speciality}) => {
     const [open, setOpen] = useState(false);
     const anchorRef = useRef<HTMLDivElement>(null);
 
-    // Parse all languages from the string
-    const languages = language.split(" - ");
-    const campaigns = campaign.split(" - ");
-    const specialities = speciality.split(" - ");
-
-    // Style individual languages
-    const getLanguageStyle = (language: string): React.CSSProperties =>
-        styles.language[language] || { color: "black",fontWeight: "bold" };
-
-
-
-    // Render the first two languages with styles
-    const renderFirstTwoLanguages = () => {
-        const [lang1, lang2] = languages.slice(0, 2);
-        return (
-            <>
-                <span style={getLanguageStyle(lang1)}>{lang1}</span> -{" "}
-                <span style={getLanguageStyle(lang2)}>{lang2}</span>
-            </>
-        );
-    };
-    const renderFirstTwoCampaign = () => {
-        const [camp1, camp2] = campaigns.slice(0, 2);
-        return (
-            <>
-                <span> {camp1}</span> -{" "}
-                <span>{camp2}</span>
-            </>
-        );
-    };
-    const renderFirstTwoSpecialises = () => {
-        const [spec1, spec2] = specialities.slice(0, 2);
-        return (
-            <>
-                <span style={getLanguageStyle(spec1)}>{spec1}</span> -{" "}
-                <span style={getLanguageStyle(spec2)}>{spec2}</span>
-            </>
-        );
-    };
+    const languages = parseInput(language);
+    const campaigns = parseInput(campaign);
+    const specialities = parseInput(speciality);
 
 
     const handleToggle = () => setOpen((prev) => !prev);
-
     const handleClose = (event: Event) => {
         if (anchorRef.current?.contains(event.target as HTMLElement)) return;
         setOpen(false);
@@ -72,11 +60,11 @@ const Lists: React.FC<LanguageSelectorProps> = ({ language, campaign, speciality
 
     return (
         <Box ref={anchorRef}>
-            {/* Display the first two attributes */}
+            {/* Main button displaying the first two elements */}
             <Button
                 onClick={handleToggle}
                 sx={{
-                    border: 'solid 1px #F0F0F0',
+                    border: "solid 1px #F0F0F0",
                     textTransform: "none",
                     fontSize: "12px",
                     px: 1.5,
@@ -87,80 +75,57 @@ const Lists: React.FC<LanguageSelectorProps> = ({ language, campaign, speciality
                     gap: 0.5,
                 }}
             >
-                {renderFirstTwoLanguages()}
-                {renderFirstTwoCampaign()}
-                {renderFirstTwoSpecialises()}
-                <KeyboardArrowDownIcon />
+                {/* Render first two languages */}
+                {languages[0] &&
+                    <span style={applyStyle(languages[0])}>{languages[0]}</span>}
+                {languages[1] &&
+                    <>  <span style={applyStyle(languages[1])}> {languages[1]}</span></>}
+                {/* Render first two campaigns */}
+                {campaigns[0] &&
+                    <> <span style={applyStyle(campaigns[0])}>{campaigns[0]}</span></>}
+                {campaigns[1] &&
+                    <>  <span style={applyStyle(campaigns[1])}>- {campaigns[1]}</span></>}
+
+                {/* Render first two specialties */}
+                {specialities[0] &&
+                    <> <span style={applyStyle(specialities[0])}>{specialities[0]}</span></>}
+                {specialities[1] &&
+                    <>  <span style={applyStyle(specialities[1])}>- {specialities[1]}</span></>}
+
+                <KeyboardArrowDownIcon/>
             </Button>
 
-            {/* Popover to display the full list */}
+            {/* Popover for full dropdown */}
             <Popover
                 open={open}
                 anchorEl={anchorRef.current}
                 onClose={handleClose}
-                anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-                transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                anchorOrigin={{vertical: "top", horizontal: "left"}}
+                transformOrigin={{vertical: "top", horizontal: "left"}}
             >
-                <MenuList sx={{
-                    minWidth: '185px',
-                    border: '1px solid ',
-                    borderColor: PRIMARY,
-                    borderRadius: '5px',
-                    px: 1,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                }}>
+                <MenuList
+                    sx={{
+                        minWidth: "185px",
+                        border: "1px solid",
+                        borderColor: PRIMARY,
+                        borderRadius: "5px",
+                        px: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                    }}
+                >
                     <Flex justifyContent="space-between">
                         <Box>
-                            {/* Display languages with styles */}
-                            {languages.map((lang, index) => (
-                                <MenuItem
-                                    key={`lang-${index}`}
-                                    sx={{
-                                        fontSize: "12px",
-                                        px: 0,
-                                        py: 0.5,
-                                        "&:hover": { opacity: 0.8 },
-                                    }}
-                                >
-                                    <span style={getLanguageStyle(lang)}>{lang}</span>
-                                </MenuItem>
-                            ))}
-                            {/* Display campaigns */}
-                            {campaigns.map((camp, index) => (
-                                <MenuItem
-                                    key={`camp-${index}`}
-                                    sx={{
-                                        fontSize: "12px",
-                                        px: 0,
-                                        py: 0.5,
-                                        "&:hover": { opacity: 0.8 },
-                                    }}
-                                >
-
-                                    <span style={getLanguageStyle(camp)} >{camp}</span>
-                                </MenuItem>
-                            ))}
-
-                            {specialities.map((spec, index) => (
-                                <MenuItem
-                                    key={`spec-${index}`}
-                                    sx={{
-                                        fontSize: "12px",
-                                        px: 0,
-                                        py: 0.5,
-                                        "&:hover": { opacity: 0.8 },
-                                    }}
-                                >
-
-                                    <span style={getLanguageStyle(spec)} >{spec}</span>
-                                </MenuItem>
-                            ))}
+                            {renderItems(languages, applyStyle)}
+                            {renderItems(campaigns, applyStyle)}
+                            {renderItems(specialities, applyStyle)}
                         </Box>
-                        <KeyboardArrowUp sx={{ color: PRIMARY }} />
+                        <KeyboardArrowUp sx={{color: PRIMARY}}/>
                     </Flex>
-                    <Typography sx={{ alignSelf: 'end' }} color={PRIMARY}>Edit</Typography>
+                    <Typography sx={{alignSelf: "end"}} color={PRIMARY}>
+                        Edit
+                    </Typography>
                 </MenuList>
             </Popover>
         </Box>

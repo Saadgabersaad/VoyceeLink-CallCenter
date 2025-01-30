@@ -12,11 +12,10 @@ interface AssignPositionPayload {
 }
 
 export const useEmployeesPosition = () => {
-    const { id } = usePositionContext();
 
     const { data, isLoading, isError, mutate, isFetching, onSearch } = useTable({
         key: Employees_KEY,
-        fetcher: (searchParams:SearchParams) => getPositionsEmployees(searchParams, id),
+        fetcher: getPositionsEmployees,
         mutationFn: (positionData:any) => assignPositionToEmployee(positionData),
     });
 
