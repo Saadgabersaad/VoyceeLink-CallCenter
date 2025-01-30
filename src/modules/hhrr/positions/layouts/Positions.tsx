@@ -14,7 +14,6 @@ export default function Positions() {
         onCreatePosition
     } = usePositions()
 
-    console.log(isLoading)
 
 
   return (

@@ -2,8 +2,10 @@ import { api, HttpMethod } from 'modules/core/utils/api';
 import { SearchParams } from 'modules/core/utils/types';
 import { PositionEmployees } from "modules/hhrr/positions/epmloyees/shared/positionEmployees";
 import {AssignPosition, ChangePositionName} from "modules/hhrr/positions/shared/Position";
+import {usePositionContext} from "modules/hhrr/positions/epmloyees/context/PositionSelectedId";
 
-export const getPositionsEmployees = (search?: string, id?: string | null) => {
+export const getPositionsEmployees = (search?: string) => {
+    const { id } = usePositionContext();
     const  positionQueryParam= search?.length ? `&search=${encodeURIComponent(search)}` : '';
     const queryParam = id ? `?position=${id}${positionQueryParam}` : '';
     return api<any[]>(HttpMethod.GET, `/employees${queryParam}`);
