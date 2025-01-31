@@ -12,6 +12,7 @@ import KeyboardVoiceOutlinedIcon from "@mui/icons-material/KeyboardVoiceOutlined
 import CallDetailsDrawer from "modules/callcenter/call-logs/components/CallDetailsDrawer";
 import { EnhancedTable, EnhancedTableProps } from "modules/core/components/tables/EnhancedTable";
 import CallCenterFilter from "modules/core/components/CallCenterFilter";
+import {filterOptions} from "modules/callcenter/call-logs/consts/filterOptions";
 
 export const Table = ({ loading }: Partial<EnhancedTableProps<Logs>>) => {
     const [filteredRows, setFilteredRows] = useState(rows);
@@ -70,7 +71,7 @@ export const Table = ({ loading }: Partial<EnhancedTableProps<Logs>>) => {
         <>
             <Flex justifyContent="space-between" pb={2}>
                 <Search onSearch={() => Promise.resolve()} />
-                <CallCenterFilter rows={filteredRows} onApplyFilters={applyFilters} />
+                <CallCenterFilter rows={filteredRows} onApplyFilters={applyFilters} filterOptions={filterOptions} />
             </Flex>
             <EnhancedTable
                 rows={filteredRows}

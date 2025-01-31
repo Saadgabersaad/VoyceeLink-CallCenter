@@ -2,7 +2,7 @@ import React from 'react'
 import {Flex} from "modules/core/components/flex";
 import {Box, Typography} from "@mui/material";
 import { PRIMARY } from 'modules/core/consts/theme';
-import Status from "modules/callcenter/agent-list/components/Status";
+import Status from "modules/callcenter/manager-agents/components/Status";
 import Avatar from "@mui/material/Avatar";
 
 const AgentInfo = () => {

@@ -4,10 +4,21 @@ import { Flex } from "modules/core/components/flex";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import { Box, Button, Popover, Typography, IconButton } from "@mui/material";
-import {filterOptions} from "modules/callcenter/call-logs/consts/filterOptions";
 import {FilterDropDown} from "modules/callcenter/call-logs/components/FilterDropDown";
 
-export default function CallCenterFilter({ onApplyFilters, rows }: { onApplyFilters: (filters: { [key: string]: string }) => void, rows: any[] }) {
+interface FilterOption {
+    onApplyFilters: (filters: { [key: string]: string }) => void, rows: any[]
+    filterOptions: {
+        label: string,
+        field: string,
+        menuItems: {
+            label: string,
+            value: string
+        }[]
+    }[]
+}
+
+export default function CallCenterFilter({ onApplyFilters, rows, filterOptions}: FilterOption) {
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
     const [filterValues, setFilterValues] = useState<{ [key: string]: string }>({});
     const [filteredRows, setFilteredRows] = useState(rows);

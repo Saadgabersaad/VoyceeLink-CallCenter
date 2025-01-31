@@ -1,16 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import ProfileInfoTabs from './ProfileInfoTabs';
 import {Button, Typography } from '@mui/material';
-import Divider from "@mui/material/Divider";
 import { PRIMARY } from "modules/core/consts/theme";
 import { Flex } from "modules/core/components/flex";
+import LaunchIcon from '@mui/icons-material/Launch';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import LaunchIcon from '@mui/icons-material/Launch';
-import AgentTabs from './AgentTabs';
-import AgentInfo from "modules/callcenter/agent-list/components/AgentInfo";
-import ProfileInfoTabs from './ProfileInfoTabs';
+import AgentInfo from "modules/callcenter/manager-agents/components/AgentInfo";
 type Anchor = 'right';
 const AnchorValue = 'right';
 
@@ -54,7 +52,6 @@ export default function AgentDrawer({status}:{status:string}) {
                 </Button>
             </Flex>
                  <AgentInfo/>
-
             <ProfileInfoTabs status={status}/>
 
 

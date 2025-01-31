@@ -2,7 +2,8 @@ import * as React from 'react';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
-import PersonalInfo from "modules/callcenter/agent-list/components/PersonalInfo";
+import Table from "modules/callcenter/manager-agents/components/Table";
+
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -10,7 +11,7 @@ interface TabPanelProps {
     value: number;
 }
 
-function ProfileInfoTabs(props: TabPanelProps) {
+function AgentTabs(props: TabPanelProps) {
     const { children, value, index, ...other } = props;
     return (
         <div
@@ -32,7 +33,7 @@ function a11yProps(index: number) {
     };
 }
 
-export default function ProfileTabs({status}: { status: string }) {
+export default function ProfileTabs() {
     const [value, setValue] = React.useState(0);
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
@@ -42,19 +43,19 @@ export default function ProfileTabs({status}: { status: string }) {
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider',margin:'auto',    }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab label="personal Info " {...a11yProps(0)} />
-                    <Tab label="call logs" {...a11yProps(1)} />
-                    <Tab label="History" {...a11yProps(2)} />
+                    <Tab label="My Team " {...a11yProps(0)} />
+                    <Tab label="Active Agents" {...a11yProps(1)} />
+                    <Tab label="Inactive Agents" {...a11yProps(2)} />
                 </Tabs>
             </Box>
 
 
-            <ProfileInfoTabs value={value} index={0}>
-            <PersonalInfo status={status}/>
-            </ProfileInfoTabs>
+            <AgentTabs value={value} index={0}>
+                <Table/>
+            </AgentTabs>
 
-            <ProfileInfoTabs  value={value} index={1}></ProfileInfoTabs>
-            <ProfileInfoTabs value={value} index={2}></ProfileInfoTabs>
+            <AgentTabs  value={value} index={1}></AgentTabs>
+            <AgentTabs value={value} index={2}></AgentTabs>
         </Box>
     );
 }

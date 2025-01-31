@@ -1,5 +1,5 @@
 import React from 'react'
-import AgentTabs from '../components/AgentTabs'
+import AgentTabs from 'modules/callcenter/manager-agents/components/AgentTabs'
 import {Heading, Page} from 'modules/core/components/page'
 
 const AgentList = () => {
