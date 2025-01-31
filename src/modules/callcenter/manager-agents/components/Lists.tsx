@@ -7,7 +7,7 @@ import {
     Box, Typography,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import {styles} from "modules/callcenter/agent-list/consts/styles";
+import {styles} from "modules/callcenter/manager-agents/consts/styles";
 import {PRIMARY} from "modules/core/consts/theme";
 import {KeyboardArrowUp} from "@mui/icons-material";
 import {Flex} from "modules/core/components/flex";

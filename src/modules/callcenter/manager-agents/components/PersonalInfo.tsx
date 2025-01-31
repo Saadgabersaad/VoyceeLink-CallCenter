@@ -1,14 +1,15 @@
 import React from 'react'
-import {Box, Divider, Typography} from "@mui/material";
-import StatusMenu from 'modules/core/components/StatusMenu';
 import {Flex} from "modules/core/components/flex";
 import {PRIMARY} from "modules/core/consts/theme";
+import {Box, Divider, Typography} from "@mui/material";
+import StatusMenu from 'modules/core/components/StatusMenu';
+import SelectActionCard from "modules/callcenter/manager-agents/components/CallsCard";
 
 const PersonalInfo = ({status}:{status:string}) => {
     return (
         <Flex flexDirection={'column'} gap={2}>
             <Box><Typography variant={'h6'} fontWeight={'bold'} >Personal Info</Typography></Box>
-            <Box><StatusMenu status={status}/></Box>
+            <Box><StatusMenu  status={status}/></Box>
             <Flex  alignItems={'start'} justifyContent={'start'} gap={10}  >
                 <Flex flexDirection={'column'}  width={'35%'} gap={2} >
                     <Flex flexDirection={'column'} >
@@ -43,6 +44,7 @@ const PersonalInfo = ({status}:{status:string}) => {
             </Flex>
             <Divider/>
             <Box><Typography variant={'h6'} fontWeight={'bold'} >This Month Overview</Typography></Box>
+            <SelectActionCard/>
 
         </Flex>
     )

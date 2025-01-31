@@ -11,6 +11,7 @@ import { EnhancedTable, EnhancedTableProps } from "modules/core/components/table
 import DottedMenu from "./DottedMenu";
 import CallsType from "modules/callcenter/callers/components/CallsType";
 import StatusMenu from "modules/core/components/StatusMenu";
+import { statusOptions } from "../consts/statusOptions";
 
 export const Table = ({ loading }: Partial<EnhancedTableProps<Caller>>) => {
     const handleStatusChange = (rowId: string, newStatus: string) => {
@@ -41,7 +42,7 @@ export const Table = ({ loading }: Partial<EnhancedTableProps<Caller>>) => {
                                 onTypeChange={(newType) => handleTypeChange(row.id , newType)}/>
                             </TableCell>
                         <TableCell padding="none">
-                            <StatusMenu
+                            <StatusMenu filterOptions={statusOptions}
                                 status={row.status}
                                 onStatusChange={(newStatus) => handleStatusChange(row.id, newStatus)}
                             />
